@@ -4,6 +4,7 @@ using RestEase.HttpClientFactory;
 using SFA.DAS.ApprenticeFeedback.Web.Configuration;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticeFeedback.Web.Services.OuterApi;
+using SFA.DAS.ApprenticePortal.SharedUi.Services;
 using SFA.DAS.Http.Configuration;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
@@ -13,6 +14,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
         public static IServiceCollection RegisterServices(this IServiceCollection services, IWebHostEnvironment environment)
         {
             services.AddTransient<ApprenticeFeedbackApiClient>();
+            services.AddTransient<IMenuVisibility, MenuVisibility>();
 
             return services;
         }
