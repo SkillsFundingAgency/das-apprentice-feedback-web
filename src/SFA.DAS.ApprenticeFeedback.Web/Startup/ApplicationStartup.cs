@@ -4,8 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using SFA.DAS.ApprenticePortal.SharedUi.Startup;
-using SFA.DAS.ApprenticeFeedback.Web.Configuration;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using SFA.DAS.ApprenticeFeedback.Web.Configuration;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
