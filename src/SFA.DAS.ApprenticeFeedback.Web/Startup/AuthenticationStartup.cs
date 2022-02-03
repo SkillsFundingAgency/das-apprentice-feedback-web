@@ -49,7 +49,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             this IServiceCollection services)
         {
             services.AddAuthorization();
-
+            services.AddHttpContextAccessor();
             services.AddRazorPages(o => o.Conventions
                 .AuthorizeFolder("/")
                 .AllowAnonymousToPage("/Index"));
@@ -59,9 +59,5 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
             return services;
         }
-    }
-    public class AuthenticationServiceConfiguration
-    {
-        public string MetadataAddress { get; set; } = null!;
     }
 }

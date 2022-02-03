@@ -5,23 +5,22 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
     public static class ConfigurationStartup
     {
-        public static IWebHostBuilder ConfigureAzureTableConfiguration(this IWebHostBuilder hostBuilder)
-        {
-            //hostBuilder.ConfigureAppConfiguration((hostingContext, configBuilder) =>
-            //{
-            //    if (hostingContext.HostingEnvironment.IsDevelopment()) return;
+        //public static IWebHostBuilder ConfigureAzureTableConfiguration(this IWebHostBuilder hostBuilder)
+        //{
+        //    //hostBuilder.ConfigureAppConfiguration((hostingContext, configBuilder) =>
+        //    //{
+              
+        //    //    configBuilder.AddAzureTableStorage(options =>
+        //    //    {
+        //    //        //var (names, connectionString, environment) = configBuilder.EmployerConfiguration();
+        //    //        options.ConfigurationKeys = config["ConfigNames"].Split(",");
+        //    //        options.StorageConnectionString = connectionString;
+        //    //        options.EnvironmentName = environment;
+        //    //        options.PreFixConfigurationKeys = false;
+        //    //    });
+        //    //});
 
-            //    configBuilder.AddAzureTableStorage(options =>
-            //    {
-            //        var (names, connectionString, environment) = configBuilder.EmployerConfiguration();
-            //        options.ConfigurationKeys = names.Split(",");
-            //        options.StorageConnectionString = connectionString;
-            //        options.EnvironmentName = environment;
-            //        options.PreFixConfigurationKeys = false;
-            //    });
-            //});
-
-            return hostBuilder;
-        }
+        //    //return hostBuilder;
+        //}
     }
 }

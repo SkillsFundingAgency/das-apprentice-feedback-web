@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SFA.DAS.ApprenticePortal.SharedUi.Startup;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using SFA.DAS.ApprenticeFeedback.Web.Configuration;
+using System.IO;
+using SFA.DAS.Configuration.AzureTableStorage;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
@@ -13,14 +15,29 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
     {
         public ApplicationStartup(IConfiguration configuration, IWebHostEnvironment environment)
         {
-            Configuration = configuration;
             Environment = environment;
+
+            var config = new ConfigurationBuilder()
+                .AddConfiguration(configuration)
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddEnvironmentVariables();
+            
+            config.AddAzureTableStorage(options =>
+            {
+                options.ConfigurationKeys = configuration["ConfigNames"].Split(",");
+                options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
+                options.EnvironmentName = configuration["EnvironmentName"];
+                options.PreFixConfigurationKeys = false;
+            });
+#if DEBUG
+            config.AddJsonFile($"appsettings.Development.json", optional: true);
+#endif
+            Configuration = config.Build();
         }
 
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Environment { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var appConfig = Configuration.Get<ApplicationConfiguration>();
@@ -39,7 +56,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             
