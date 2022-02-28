@@ -45,15 +45,18 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services
                 .AddAuthentication(appConfig.Authentication, Environment)
                 .AddOuterApi(appConfig.ApprenticeFeedbackOuterApi)
+                .AddSessionService(Environment)
                 .RegisterServices(Environment);
 
             services.AddSharedUi(appConfig, options =>
             {
                 // ToDo: add apprentice feedback section to shared ui package
+                // ToDo: or HideNavigation and create HideUserSettingsBar in ApprenticePortal.SharedUI
                 options.SetCurrentNavigationSection(NavigationSection.Home);
             });
 
             services.AddRazorPages();
+            services.AddSession();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -72,7 +75,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();

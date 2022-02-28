@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ApprenticeFeedback.Web", "SFA.DAS.ApprenticeFeedback.Web\SFA.DAS.ApprenticeFeedback.Web.csproj", "{76ADE8AF-0B2B-47E5-A0C7-059EA5F050B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ApprenticeFeedback.Web", "SFA.DAS.ApprenticeFeedback.Web\SFA.DAS.ApprenticeFeedback.Web.csproj", "{76ADE8AF-0B2B-47E5-A0C7-059EA5F050B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{35F97701-A12D-4244-9EC6-7F03B6DF222C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ApprenticeFeedback.Web.UnitTests", "SFA.DAS.ApprenticeFeedback.Web.UnitTests\SFA.DAS.ApprenticeFeedback.Web.UnitTests.csproj", "{FF37ADDB-CB7B-41CA-9DA4-139C532CA047}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.Apprentice.Feedback.Infrastructure", "SFA.DAS.Apprentice.Feedback.Infrastructure\SFA.DAS.Apprentice.Feedback.Infrastructure.csproj", "{5CBEAE2B-A3F6-467A-80D1-0A2B24098D49}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ApprenticeFeedback.Domain", "SFA.DAS.ApprenticeFeedback.Domain\SFA.DAS.ApprenticeFeedback.Domain.csproj", "{A316DA49-60FE-434F-8A33-C5EAFB08D666}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ApprenticeFeedback.Application", "SFA.DAS.ApprenticeFeedback.Application\SFA.DAS.ApprenticeFeedback.Application.csproj", "{B24C8301-5CE8-44E6-971A-9D9108D070EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +25,28 @@ Global
 		{76ADE8AF-0B2B-47E5-A0C7-059EA5F050B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76ADE8AF-0B2B-47E5-A0C7-059EA5F050B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76ADE8AF-0B2B-47E5-A0C7-059EA5F050B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF37ADDB-CB7B-41CA-9DA4-139C532CA047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF37ADDB-CB7B-41CA-9DA4-139C532CA047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF37ADDB-CB7B-41CA-9DA4-139C532CA047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF37ADDB-CB7B-41CA-9DA4-139C532CA047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CBEAE2B-A3F6-467A-80D1-0A2B24098D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CBEAE2B-A3F6-467A-80D1-0A2B24098D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CBEAE2B-A3F6-467A-80D1-0A2B24098D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CBEAE2B-A3F6-467A-80D1-0A2B24098D49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A316DA49-60FE-434F-8A33-C5EAFB08D666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A316DA49-60FE-434F-8A33-C5EAFB08D666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A316DA49-60FE-434F-8A33-C5EAFB08D666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A316DA49-60FE-434F-8A33-C5EAFB08D666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B24C8301-5CE8-44E6-971A-9D9108D070EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B24C8301-5CE8-44E6-971A-9D9108D070EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B24C8301-5CE8-44E6-971A-9D9108D070EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B24C8301-5CE8-44E6-971A-9D9108D070EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FF37ADDB-CB7B-41CA-9DA4-139C532CA047} = {35F97701-A12D-4244-9EC6-7F03B6DF222C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18DAD0AA-9999-4E58-9F60-C0063435B81B}

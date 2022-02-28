@@ -1,6 +1,6 @@
 ﻿using RestEase;
-using SFA.DAS.ApprenticeFeedback.Web.Models.OuterApi;
-using SFA.DAS.ApprenticeFeedback.Web.Services.OuterApi;
+using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
+using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -8,14 +8,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Services
 {
     public class ApprenticeFeedbackApiClient
     {
-        private readonly IOuterApiClient _client;
+        private readonly IApprenticeFeedbackApi _client;
 
-        public ApprenticeFeedbackApiClient(IOuterApiClient client)
+        public ApprenticeFeedbackApiClient(IApprenticeFeedbackApi client)
         {
             _client = client;
         }
 
-        public async Task<Apprentice?> TryGetApprentice(Guid apprenticeId)
+        public async Task<ApprenticeResponse?> TryGetApprentice(Guid apprenticeId)
         {
             try
             {

@@ -1,12 +1,8 @@
 ﻿using SFA.DAS.ApprenticePortal.Authentication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SFA.DAS.ApprenticeFeedback.Web.Models.OuterApi
+namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Responses
 {
-    public class Apprentice : IApprenticeAccount
+    public class ApprenticeResponse : IApprenticeAccount
     {
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;

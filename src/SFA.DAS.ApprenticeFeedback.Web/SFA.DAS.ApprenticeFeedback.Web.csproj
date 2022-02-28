@@ -15,4 +15,10 @@
     <PackageReference Include="WebEssentials.AspNetCore.CdnTagHelpers" Version="1.0.21" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.Apprentice.Feedback.Infrastructure\SFA.DAS.Apprentice.Feedback.Infrastructure.csproj" />
+    <ProjectReference Include="..\SFA.DAS.ApprenticeFeedback.Application\SFA.DAS.ApprenticeFeedback.Application.csproj" />
+    <ProjectReference Include="..\SFA.DAS.ApprenticeFeedback.Domain\SFA.DAS.ApprenticeFeedback.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
