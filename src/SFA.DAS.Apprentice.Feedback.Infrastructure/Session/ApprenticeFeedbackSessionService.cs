@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SFA.DAS.Apprentice.Feedback.Infrastructure.SessionService
+namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
 {
     public class ApprenticeFeedbackSessionService : IApprenticeFeedbackSessionService
     {

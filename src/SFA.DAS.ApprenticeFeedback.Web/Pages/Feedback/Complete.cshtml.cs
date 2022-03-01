@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using SFA.DAS.Apprentice.Feedback.Infrastructure.SessionService;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
+using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback

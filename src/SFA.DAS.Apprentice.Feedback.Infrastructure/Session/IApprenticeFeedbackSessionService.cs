@@ -1,6 +1,6 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 
-namespace SFA.DAS.Apprentice.Feedback.Infrastructure.SessionService
+namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
 {
     public interface IApprenticeFeedbackSessionService
     {

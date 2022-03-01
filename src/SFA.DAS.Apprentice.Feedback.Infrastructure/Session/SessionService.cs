@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Linq;
 
-namespace SFA.DAS.Apprentice.Feedback.Infrastructure.SessionService
+namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
 {
     public class SessionService : ISessionService
     {
