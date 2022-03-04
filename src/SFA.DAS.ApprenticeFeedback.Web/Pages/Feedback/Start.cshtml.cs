@@ -20,11 +20,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public void OnGet([FromServices] AuthenticatedUser user)
         {
+            var request = _sessionService.GetFeedbackRequest();
+
+            ProviderName = request.TrainingProvider;
         }
 
         public IActionResult OnPost()
         {
-            _sessionService.StartNewFeedbackRequest();
+           // _sessionService.StartNewFeedbackRequest();
 
             return RedirectToPage("FeedbackAttributes");
         }

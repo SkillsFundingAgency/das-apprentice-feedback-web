@@ -4,53 +4,92 @@
     ViewData["Title"] = "Home page";
 }
 
-
 <div class="govuk-width-container">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l"> Feedback on your training provider </h1>
-
-            @if (Model.IsLessThanThreeMonthsSinceStartDate || Model.IsMoreThanThreeMonthsSincePassing || Model.IsMoreThanThreeMonthsSinceWithdrawal)
+            @if (Model.SelectedProvider != null)
             {
-                <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+                <partial name="_singleProviderWarning" model="Model.SelectedProvider" />
 
-                    <div class="govuk-notification-banner__header">
-                        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-                            Important
-                        </h2>
-                    </div>
+                <a class="govuk-button" href="@Model.DashboardLink"> Return to dashboard </a>
+            }
+            else if (Model.PotentialProviders.Count > 1)
+            {
+                @*<partial name="_selectTrainingProvider" model="Model.PotentialProviders" />*@
 
-                    <div class="govuk-notification-banner__content">
-                        @if (Model.IsLessThanThreeMonthsSinceStartDate)
-                        {
-                            <p class="govuk-notification-banner__heading">
-                                We are unable to accept feedback on your training provider until 3 months after your planned training start date.
-                            </p>
+                <h1 class="govuk-heading-l"> Select a training provider </h1>
 
-                            <p> You can start giving feedback on or after @Model.FeedbackStartDate. </p>
-                        }
-                        else if (Model.IsMoreThanThreeMonthsSincePassing)
-                        {
-                            <p class="govuk-notification-banner__heading">
-                                It is over 3 months since you completed your apprenticeship and we are unable to accept feedback after this time.
-                            </p>
-                        }
-                        else if (Model.IsMoreThanThreeMonthsSinceWithdrawal)
-                        {
-                            <p class="govuk-notification-banner__heading">
-                                It is over 3 months since you withdrew from your apprenticeship and we are unable to accept feedback after this time.
-                            </p>
-                        }
+                <p class="govuk-body"> Select one of your current training providers to give feedback on. </p>
 
-                    </div>
+                <div class="govuk-inset-text">
+                    <p> Feedback can be given once every 3 weeks fo each training provider. </p>
+                    <p> You can start giving feedback from 3 months after your planned training start date. </p>
                 </div>
-            }
-            else if (Model.HasRecentlyCompleted || Model.HasGivenFinalFeedback)
-            {
 
+                <details class="govuk-details" data-module="govuk-details">
+                    <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">
+                            Why can't I see all my training providers?
+                        </span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        <p> The list includes all the training providers for your current apprenticeship and any that you have recently completed.</p>
+                        <p> We have not included any training providers from previous apprenticeships that you completed or withdrew from over 3 months ago.</p>
+                    </div>
+                </details>
+
+                <table class="govuk-table">
+                    <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption>
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header"> Training provider </th>
+                            <th scope="col" class="govuk-table__header"> Feedback status </th>
+                            <th scope="col" class="govuk-table__header"> Date submitted </th>
+                            <th scope="col" class="govuk-table__header"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        @foreach (var provider in Model.PotentialProviders.Where(p => p.IsMoreThanThreeMonthsSincePassing == false && p.IsMoreThanThreeMonthsSinceWithdrawal == false))
+                        {
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header">@provider.Name </th>
+
+                                <td class="govuk-table__cell">
+                                    @if (provider.IsValidForFeedback)
+                                    {
+                                        <strong class="govuk-tag govuk-tag--blue"> You can submit </strong>
+                                    }
+                                    else if (provider.IsLessThanThreeMonthsSinceStartDate)
+                                    {
+                                        <strong class="govuk-tag govuk-tag--grey"> You cannot submit yet </strong>
+                                    }
+                                    else if (provider.GetLatestSubmittedDate().HasValue)
+                                    {
+                                        <strong class="govuk-tag govuk-tag--green"> Submitted </strong>
+                                    }
+                                </td>
+
+                                <td class="govuk-table__cell govuk-table__cell--numeric">
+                                    @(provider.GetLatestSubmittedDate().Value != default ? (provider.GetLatestSubmittedDate()).Value.ToString("dd MMM yyyy") : "N/A")
+                                </td>
+
+                                <td class="govuk-table__cell">
+                                    @if (provider.IsValidForFeedback)
+                                    {
+                                        <form method="post">
+                                            <input type="hidden" asp-for="SelectedProviderUkprn" value="@provider.Ukprn" />
+                                            <input class="govuk-button govuk-button--looks-like-link" type="submit" value="Select" />
+                                        </form>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
 
-            <a class="govuk-button" href="@Model.DashboardLink"> Return to dashboard </a>
+
         </div>
     </div>
 </div>
