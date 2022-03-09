@@ -21,7 +21,7 @@
                     @foreach (var attribute in Model.FeedbackAttributes)
                     {
                         <tr class="govuk-table__row">
-                            <th scope="row" class="govuk-table__header">@(attribute.Title)</th>
+                            <th scope="row" class="govuk-table__header">@(attribute.Name)</th>
                             <td class="govuk-table__cell govuk-!-text-align-right">@(attribute.Status.Value == FeedbackAttributeStatus.Agree ? "Agree" : "Disagree")</td>
                         </tr>
                     }

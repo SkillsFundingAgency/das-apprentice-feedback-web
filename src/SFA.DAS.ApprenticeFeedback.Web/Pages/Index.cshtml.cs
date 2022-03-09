@@ -39,7 +39,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         public string DashboardLink { get; set; }
         public string Backlink => DashboardLink;
 
-        public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
+        public async Task<IActionResult> OnGet()//[FromServices] AuthenticatedUser user
         {
             DashboardLink = _urlHelper.Generate(NavigationSection.Home);
 

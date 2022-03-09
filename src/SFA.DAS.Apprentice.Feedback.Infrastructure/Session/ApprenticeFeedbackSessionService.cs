@@ -21,29 +21,7 @@ namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
             {
                 TrainingProvider = provderName,
                 Ukprn = ukprn,
-                LarsCode = larsCode,
-
-                // temporary feedback attributes
-                FeedbackAttributes = new List<FeedbackAttribute>
-                {
-                    new FeedbackAttribute { Title = "Organising well-structured training" },
-                    new FeedbackAttribute { Title = "Communicating clearly with you" },
-                    new FeedbackAttribute { Title = "Providing accessible training resources" }
-                }
-            };
-
-            _sessionService.Set(_sessionKey, request);
-        }
-        public void StartNewFeedbackRequest()
-        {
-            var request = new FeedbackRequest();
-
-            // temporary feedback attributes
-            request.FeedbackAttributes = new List<FeedbackAttribute>
-            {
-                new FeedbackAttribute { Title = "Organising well-structured training" },
-                new FeedbackAttribute { Title = "Communicating clearly with you" },
-                new FeedbackAttribute { Title = "Providing accessible training resources" }
+                LarsCode = larsCode
             };
 
             _sessionService.Set(_sessionKey, request);
