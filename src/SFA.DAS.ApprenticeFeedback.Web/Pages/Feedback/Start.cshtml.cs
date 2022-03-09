@@ -18,7 +18,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public string ProviderName { get; set; }
 
-        public void OnGet([FromServices] AuthenticatedUser user)
+        public void OnGet()//[FromServices] AuthenticatedUser user)
         {
             var request = _sessionService.GetFeedbackRequest();
 
