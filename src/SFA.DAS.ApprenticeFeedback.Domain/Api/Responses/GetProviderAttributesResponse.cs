@@ -7,7 +7,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Responses
 {
     public class GetProviderAttributesResponse
     {
-        [JsonProperty("provider-attributes")]
+        [JsonProperty("providerAttributes")]
         public IEnumerable<ProviderAttribute> ProviderAttributes { get; set; }
     }
 }
