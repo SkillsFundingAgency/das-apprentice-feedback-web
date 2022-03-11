@@ -6,11 +6,11 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
 {
     public class TrainingProvider
     {
-        private Apprenticeship _mostRecentApprenticeship => Apprenticeships.OrderByDescending(apprenticeship => apprenticeship.StartDate).FirstOrDefault();
-
         public string Name { get; set; }
         public long Ukprn { get; set; }
         public IEnumerable<Apprenticeship> Apprenticeships { get; set; }
+
+        private Apprenticeship _mostRecentApprenticeship => Apprenticeships.OrderByDescending(apprenticeship => apprenticeship.StartDate).FirstOrDefault();
 
         public DateTime GetEarliestFeedbackDate()
         {
@@ -29,7 +29,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
             return _mostRecentApprenticeship.LarsCode;
         }
 
-        public bool IsLessThanThreeMonthsSinceStartDate => _mostRecentApprenticeship.IsLessThanThreeMonthsSinceStartDate;
+        public bool IsLessThanThreeMonthsSinceStartDate => _mostRecentApprenticeship.IsTooEarlyForFeedback;
         public bool IsMoreThanThreeMonthsSincePassing => _mostRecentApprenticeship.IsMoreThanThreeMonthsSincePassing;
         public bool IsMoreThanThreeMonthsSinceWithdrawal => _mostRecentApprenticeship.IsMoreThanThreeMonthsSinceWithdrawal;
         public bool HasRecentlyCompleted => _mostRecentApprenticeship.HasRecentlyCompletedFeedback;

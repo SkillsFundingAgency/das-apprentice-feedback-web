@@ -30,7 +30,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.UnitTests.Models
                 }
             };
 
-            var result = trainingProvider.LatestSubmittedDate.Value;
+            var result = trainingProvider.GetLatestSubmittedDate();
 
             result.Should().Be(date);
         }
