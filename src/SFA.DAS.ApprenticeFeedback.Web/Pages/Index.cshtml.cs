@@ -40,8 +40,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
 
         public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
         {
-            var link = 
-
             DashboardLink = _urlHelper.Generate(NavigationSection.Home);
 
             PotentialProviders = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
@@ -63,7 +61,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
 
         public async Task<IActionResult> OnPost([FromServices] AuthenticatedUser user)
         {
-            var provider = await _apprenticeFeedbackService.GetTrainingProvider(Guid.NewGuid(), SelectedProviderUkprn);
+            var provider = await _apprenticeFeedbackService.GetTrainingProvider(user.ApprenticeId, SelectedProviderUkprn);
 
             if (provider.IsValidForFeedback)
             {
