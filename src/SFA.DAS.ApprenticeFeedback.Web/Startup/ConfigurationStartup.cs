@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using SFA.DAS.Configuration.AzureTableStorage;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using SFA.DAS.ApprenticeFeedback.Domain.Configuration;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {

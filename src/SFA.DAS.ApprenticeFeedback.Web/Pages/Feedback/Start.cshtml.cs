@@ -17,6 +17,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         }
 
         public string ProviderName { get; set; }
+        public string FATLink { get; set; }
+        //from data in the request build FAT link
+        //will have to store environment variable in FAT config and use in base url and add string interpolation to add rest of link
+        //inject the config into the helper class (in application, service layer) and inject helper class into the start page
+        ////going to need an interface - iurlhelper
+        //
 
         public void OnGet()//[FromServices] AuthenticatedUser user)
         {
