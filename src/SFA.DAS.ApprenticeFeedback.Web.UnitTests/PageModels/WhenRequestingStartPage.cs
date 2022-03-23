@@ -47,33 +47,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         public async Task And_UkprnAndLarscodeProvidedInSession_FatLinkIsGeneratedCorrectly(FeedbackRequest feedbackRequest, string url)
         {
             _mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(feedbackRequest);
-            _mockUrlHelper.Setup(u => u.FATFeedback(feedbackRequest.Ukprn, feedbackRequest.LarsCode));
+            _mockUrlHelper.Setup(u => u.FATFeedback(feedbackRequest.Ukprn, feedbackRequest.LarsCode)).Returns(url);
 
-            //testing provider name is populated
             var result = await StartPage.OnGet();
 
-            var providerName = StartPage.ProviderName;
-
-            providerName.Should().Be(feedbackRequest.TrainingProvider);
-
-            //testing url
-            var config = new FindApprenticeshipTrainingConfiguration { BaseUrl = url };
-
-            var mockOptions = new Mock<IOptions<FindApprenticeshipTrainingConfiguration>>();
-            mockOptions.Setup(c => c.Value).Returns(config);
-
-            var urlHelper = new UrlHelper(mockOptions.Object);
-
-            var actual = urlHelper.FATFeedback(feedbackRequest.Ukprn, feedbackRequest.LarsCode);
-
-            actual.Should().Be($"{url}/courses/{feedbackRequest.LarsCode}/providers/{feedbackRequest.Ukprn}");
+            StartPage.FATLink.Should().Be(url);
         }
     }
-
-    // 3. Unit test will to mock IApprenticeFeedbackSessionService, UrlHelper   
-    //       a. Happy Path -  New mock of Mock<IApprenticeFeedbackSessionService>  set up GetFeedbackRequest to return Ukprn and LarsCode
-    //          Asserting FatLink is generated correctly with mocked get feedback request.
-    //          Assert provider name is populated.
-    //       b. Unhappy Path - New mock of Mock<IApprenticeFeedbackSessionService> To Return null for get feedback request
-    //          Return a Redirect to the dashboard 
 }
