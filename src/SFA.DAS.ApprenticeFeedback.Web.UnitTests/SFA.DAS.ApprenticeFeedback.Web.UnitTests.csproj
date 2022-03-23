@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.Apprentice.Feedback.Infrastructure\SFA.DAS.ApprenticeFeedback.Infrastructure.csproj" />
     <ProjectReference Include="..\SFA.DAS.ApprenticeFeedback.Application\SFA.DAS.ApprenticeFeedback.Application.csproj" />
+    <ProjectReference Include="..\SFA.DAS.ApprenticeFeedback.Web\SFA.DAS.ApprenticeFeedback.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>
