@@ -9,6 +9,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
 {
@@ -29,7 +30,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
 
 
         [Test, MoqAutoData]
-        public async Task And_ModelStateIsNotValid_AndOneOrLessErrors_ReturnPage(string key, string message)
+        public PageResult And_ModelStateIsNotValid_AndOneOrLessErrors_ReturnPage(string key, string message)
         {
 
             FeedbackAttributesPage.ModelState.AddModelError(key, message);
@@ -37,11 +38,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
             IActionResult result = FeedbackAttributesPage.OnPost();
 
             result.Should().BeOfType<PageResult>();
+            return (PageResult)result;
 
         }
 
         [Test, MoqAutoData]
-        public async Task And_ModelStateIsNotValid_AndMoreThanOneError_AddCustomErrorMessageAndReturnPage
+        public PageResult And_ModelStateIsNotValid_AndMoreThanOneError_AddCustomErrorMessageAndReturnPage
             (string key1, string message1, string key2, string message2)
         {
 
@@ -52,13 +54,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
 
             FeedbackAttributesPage.ModelState.ErrorCount.Should().Be(3);
             result.Should().BeOfType<PageResult>();
+            return (PageResult)result;
 
         }
 
         [Test]
         [MoqInlineAutoData(null)]
         [MoqInlineAutoData(false)]
-        public async Task And_ModelStateIsValid_AndEditingHasNoValueOrIsFalse_RedirectToOverallRating(bool? editing, FeedbackRequest request)
+        public RedirectToPageResult And_ModelStateIsValid_AndEditingHasNoValueOrIsFalse_RedirectToOverallRating(bool? editing, FeedbackRequest request)
         {
 
             FeedbackAttributesPage.Editing = editing;
@@ -68,12 +71,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
 
             FeedbackAttributesPage.ModelState.IsValid.Should().BeTrue();
             result.Should().BeOfType<RedirectToPageResult>().Which.PageName.Should().Be("OverallRating");
+            return (RedirectToPageResult)result;
 
         }
 
         [Test]
         [MoqInlineAutoData(true)]
-        public async Task And_ModelStateIsValid_AndEditingIsTrue_RedirectToCheckYourAnswers(bool? editing, FeedbackRequest request)
+        public RedirectToPageResult And_ModelStateIsValid_AndEditingIsTrue_RedirectToCheckYourAnswers(bool? editing, FeedbackRequest request)
         {
             FeedbackAttributesPage.Editing = editing;
             _mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
@@ -82,6 +86,19 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
 
             FeedbackAttributesPage.ModelState.IsValid.Should().BeTrue();
             result.Should().BeOfType<RedirectToPageResult>().Which.PageName.Should().Be("CheckYourAnswers");
+            return(RedirectToPageResult)result;
+        }
+
+        [Test, MoqAutoData]
+        public async Task And_FeedbackAttributesIsPopulated_FeedbackAttributesIsPopulatedCorrectly(List<FeedbackAttribute> feedbackAttributes, FeedbackRequest request)
+        {
+            _mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
+            feedbackAttributes = request.FeedbackAttributes;
+
+            await FeedbackAttributesPage.OnGet(true);
+
+            FeedbackAttributesPage.FeedbackAttributes.Should().BeEquivalentTo(feedbackAttributes);
+
         }
 
     }
