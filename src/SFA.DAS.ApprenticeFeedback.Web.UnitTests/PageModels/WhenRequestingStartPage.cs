@@ -23,7 +23,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         {
             _mockSessionService = new Mock<IApprenticeFeedbackSessionService>();
             _mockUrlHelper = new Mock<Domain.Interfaces.IUrlHelper>();
-            StartPage = new StartModel(_mockSessionService.Object, _mockUrlHelper.Object, Mock.Of<ILogger<StartModel>>()); //setup the object so methods can be called to be tested
+            StartPage = new StartModel(_mockSessionService.Object, _mockUrlHelper.Object, Mock.Of<ILogger<StartModel>>()); 
         }
 
         [Test]
@@ -31,13 +31,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         [MoqInlineAutoData(0, 1)]
         public async Task And_NoUkrpnOrLarscodeIsProvidedInSession_RedirectsToIndex(int ukprn, int larscode, FeedbackRequest request)
         {
-            request.Ukprn = ukprn; //arrange variables so that test is ready
+            request.Ukprn = ukprn;
             request.LarsCode = larscode;
             _mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
 
-            var result = await StartPage.OnGet(); //call method to be tested
+            var result = await StartPage.OnGet();
 
-            result.Should().BeOfType<RedirectToPageResult>().Which.PageName.Should().Be("./Index"); //assert what should happen
+            result.Should().BeOfType<RedirectToPageResult>().Which.PageName.Should().Be("./Index");
         }
 
         [Test, MoqAutoData]
