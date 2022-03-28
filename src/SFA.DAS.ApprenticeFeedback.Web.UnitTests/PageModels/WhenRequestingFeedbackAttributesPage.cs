@@ -27,21 +27,17 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         }
 
         [Test, MoqAutoData]
-        public async Task And_FeedbackAttributesIsNull_FeedbackAttributesIsPopulatedCorrectly(FeedbackRequest request, Task<List<FeedbackAttribute>> attributes)
+        public async Task And_FeedbackAttributesIsNull_FeedbackAttributesIsPopulatedCorrectly(FeedbackRequest request, List<FeedbackAttribute> attributes)
         {
             _mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
-            _mockFeedbackService.Setup(s => s.GetTrainingProviderAttributes()).Returns(attributes);
             request.FeedbackAttributes = null;
-
+            _mockFeedbackService.Setup(s => s.GetTrainingProviderAttributes()).ReturnsAsync(attributes);
+            
             await FeedbackAttributesPage.OnGet(true);
 
-            FeedbackAttributesPage.FeedbackAttributes.Should().AllBeEquivalentTo(attributes);
-        }
+            FeedbackAttributesPage.FeedbackAttributes.Should().BeEquivalentTo(attributes);
 
-        // ^^^ The code being tested:
-        //var attributes = await _apprenticeFeedbackService.GetTrainingProviderAttributes();
-        //feedbackRequest.FeedbackAttributes = attributes;
-        //        _sessionService.UpdateFeedbackRequest(feedbackRequest);
+        }
 
         [Test, MoqAutoData]
         public async Task And_FeedbackAttributesIsPopulated_FeedbackAttributesIsPopulatedCorrectly(List<FeedbackAttribute> feedbackAttributes, FeedbackRequest request)
@@ -54,23 +50,5 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
             FeedbackAttributesPage.FeedbackAttributes.Should().BeEquivalentTo(feedbackAttributes);
 
         }
-
-        //[Test, MoqAutoData]
-        //public async Task And_PostingInvalidData_RefreshPage()
-        //{
-
-        //}
-
-        //[Test, MoqAutoData]
-        //public async Task And_PostingValidData_AndEditingIsTrue_RedirectToCheckAnswers()
-        //{
-
-        //}
-
-        //[Test, MoqAutoData]
-        //public async Task And_PostingValidData_AndEditingIsNotTrue_RedirectToOverallRating()
-        //{
-
-        //}
     }
 }
