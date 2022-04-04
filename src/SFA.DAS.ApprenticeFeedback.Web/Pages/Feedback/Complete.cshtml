@@ -1,0 +1,28 @@
+﻿@page "/complete"
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback.CompleteModel
+
+<div class="govuk-width-container">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-panel govuk-panel--confirmation">
+                <h1 class="govuk-panel__title">
+                    Feedback complete
+                </h1>
+            </div>
+
+            <p class="govuk-body"> Thanks for your feedback. It'll help @Model.TrainingProvider to continually improve their training provision. </p>
+
+            <p class="govuk-body"> You rated @Model.TrainingProvider as <strong> @Model.OverallRating </strong>. Your feedback will be published anonymously on <a class="govuk-link" href="https://findapprenticeshiptraining.apprenticeships.education.gov.uk/"> Find apprenticeship training (opens in a new tab)</a>.</p>
+
+            @if (Model.IsPoorlyRated)
+            {
+
+            }
+
+            <h2 class="govuk-heading-m"> What do you want to do next? </h2>
+
+            <p class="govuk-body"> <a class="govuk-link" href="#"> My apprenticeship dashboard </a> </p>
+
+        </div>
+    </div>
+</div>

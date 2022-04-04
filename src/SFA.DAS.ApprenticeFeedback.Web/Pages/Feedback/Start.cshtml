@@ -1,0 +1,28 @@
+﻿@page "/start"
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback.StartModel
+
+<div class="govuk-width-container">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-xl">Give feedback on @Model.ProviderName </h1>
+
+            <p class="govuk-body"> Give your feedback to help @Model.ProviderName improve their apprenticeship training. It'll also help other aprentices and employers how @Model.ProviderName is doing.</p>
+
+            <h2 class="govuk-heading-m"> Before you start </h2>
+
+            <p class="govuk-body"> We publish your feedback without your name so your training provider does not know who has given feedback.</p>
+
+            <p class="govuk-body"> To ensure you remain anonymous, feedback will only be published on an individual training provider once a minimum threshold has been reached.</p>
+
+            <p class="govuk-body"> By continuing, you agree to use using your feedback and publishing it anonymously on <a class="govuk-link" href="#"> Find apprenticeship training (opens in a new tab) </a>.</p>
+
+            <form method="post">
+                <button draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start" data-module="govuk-button">
+                    Start now
+                </button>
+            </form>
+            
+        </div>
+    </div>
+</div>
