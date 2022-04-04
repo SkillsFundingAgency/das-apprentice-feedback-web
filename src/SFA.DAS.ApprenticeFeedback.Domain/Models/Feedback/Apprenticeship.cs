@@ -30,13 +30,13 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
 
         public DateTime? MostRecentFeedbackCompletion => FeedbackCompletionDates.OrderByDescending(d => d).FirstOrDefault();
 
-        public bool IsLessThanThreeMonthsSinceStartDate => StartDate > _currentDate.AddMonths(-3);
+        public bool IsTooEarlyForFeedback => StartDate > _currentDate.AddMonths(-3);
         public bool HasGivenFinalFeedback => EndDate.HasValue && MostRecentFeedbackCompletion > EndDate.Value;
         public bool IsMoreThanThreeMonthsSincePassing => !HasGivenFinalFeedback && Status == "Pass" && _currentDate > EndDate.Value.AddMonths(3);
         public bool IsMoreThanThreeMonthsSinceWithdrawal => !HasGivenFinalFeedback && Status == "Withdrawn" && _currentDate > EndDate.Value.AddMonths(3);
         public bool HasRecentlyCompletedFeedback => !HasGivenFinalFeedback && MostRecentFeedbackCompletion > _currentDate.AddMonths(-3);
 
-        public bool IsValidForFeedback => !IsLessThanThreeMonthsSinceStartDate &&
+        public bool IsValidForFeedback => !IsTooEarlyForFeedback &&
                                             !IsMoreThanThreeMonthsSincePassing &&
                                             !IsMoreThanThreeMonthsSinceWithdrawal &&
                                             !HasGivenFinalFeedback &&

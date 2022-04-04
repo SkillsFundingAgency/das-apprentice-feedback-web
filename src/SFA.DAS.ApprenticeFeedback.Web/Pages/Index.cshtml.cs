@@ -34,7 +34,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         public long SelectedProviderUkprn { get; set; }
 
         public List<TrainingProvider> PotentialProviders { get; set; }
-        public TrainingProvider SelectedProvider { get; set; }
        
         public string DashboardLink { get; set; }
         public string Backlink => DashboardLink;
@@ -43,21 +42,15 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         {
             DashboardLink = _urlHelper.Generate(NavigationSection.Home);
 
-            var apprenticeId = Guid.NewGuid();
+            PotentialProviders = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
 
-            var providers = await _apprenticeFeedbackService.GetTrainingProviders(apprenticeId);
-
-            if (providers.Count > 1)
+            if (PotentialProviders.Count == 1)
             {
-                PotentialProviders = providers;
-            }
-            else
-            {
-                SelectedProvider = providers.FirstOrDefault();
+                var onlyProvider = PotentialProviders.Single();
 
-                if (SelectedProvider.IsValidForFeedback)
+                if (onlyProvider.IsValidForFeedback)
                 {
-                    _apprenticeFeedbackSessionService.StartNewFeedbackRequest(SelectedProvider.Name, SelectedProvider.Ukprn, 1);
+                    _apprenticeFeedbackSessionService.StartNewFeedbackRequest(onlyProvider.Name, onlyProvider.Ukprn, onlyProvider.GetMostRecentLarsCode());
 
                     return RedirectToPage("Feedback/Start");
                 }
@@ -66,9 +59,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost([FromServices] AuthenticatedUser user)
         {
-            var provider = await _apprenticeFeedbackService.GetTrainingProvider(Guid.NewGuid(), SelectedProviderUkprn);
+            var provider = await _apprenticeFeedbackService.GetTrainingProvider(user.ApprenticeId, SelectedProviderUkprn);
 
             if (provider.IsValidForFeedback)
             {
@@ -79,7 +72,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
                 return RedirectToPage("Feedback/Start");
             }
 
-            SelectedProvider = provider;
+            PotentialProviders = new List<TrainingProvider> { provider };
 
             return Page();
         }

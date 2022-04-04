@@ -75,7 +75,7 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
 
         private List<TrainingProvider> GetTrainingProviders()
         {
-             return new List<TrainingProvider>
+            return new List<TrainingProvider>
             {
                 new TrainingProvider
                 {

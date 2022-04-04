@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ApprenticeFeedback.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests", "SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests\SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.csproj", "{1BBA184F-FE5A-4BD5-B9D5-BA17E240366C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ApprenticeFeedback.Domain.UnitTests", "SFA.DAS.ApprenticeFeedback.Domain.UnitTests\SFA.DAS.ApprenticeFeedback.Domain.UnitTests.csproj", "{5438D577-3870-43A8-A370-9FB8CE2B6F8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ApprenticeFeedback.Domain.UnitTests", "SFA.DAS.ApprenticeFeedback.Domain.UnitTests\SFA.DAS.ApprenticeFeedback.Domain.UnitTests.csproj", "{5438D577-3870-43A8-A370-9FB8CE2B6F8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

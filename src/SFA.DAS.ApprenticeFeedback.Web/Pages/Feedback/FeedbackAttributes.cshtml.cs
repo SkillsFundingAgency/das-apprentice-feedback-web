@@ -31,7 +31,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         [BindProperty]
         public bool? Editing { get; set; }
 
-        public string Backlink => Editing.HasValue && Editing.Value == true ? "check-answers" : "";
+        public string Backlink => Editing.HasValue && Editing.Value == true ? "check-answers" : "start";
 
         public async Task OnGet(bool? edit)
         {
