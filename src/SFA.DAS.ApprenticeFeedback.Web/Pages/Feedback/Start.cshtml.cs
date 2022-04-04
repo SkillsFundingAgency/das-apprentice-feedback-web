@@ -20,12 +20,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public void OnGet([FromServices] AuthenticatedUser user)
         {
+            var request = _sessionService.GetFeedbackRequest();
+
+            ProviderName = request.TrainingProvider;
         }
 
         public IActionResult OnPost()
         {
-            _sessionService.StartNewFeedbackRequest();
-
+            // SV-275 - change to link to question page form post no longer required as session starts on previous page
             return RedirectToPage("FeedbackAttributes");
         }
     }

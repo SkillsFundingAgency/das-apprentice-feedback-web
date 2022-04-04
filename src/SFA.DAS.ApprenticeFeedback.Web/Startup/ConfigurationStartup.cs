@@ -9,7 +9,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
         //{
         //    //hostBuilder.ConfigureAppConfiguration((hostingContext, configBuilder) =>
         //    //{
-              
+
         //    //    configBuilder.AddAzureTableStorage(options =>
         //    //    {
         //    //        //var (names, connectionString, environment) = configBuilder.EmployerConfiguration();

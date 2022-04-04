@@ -21,14 +21,18 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 .AddConfiguration(configuration)
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddEnvironmentVariables();
+
+            //if (Environment.EnvironmentName != "Development")
+            //{
+                config.AddAzureTableStorage(options =>
+                {
+                    options.ConfigurationKeys = configuration["ConfigNames"].Split(",");
+                    options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
+                    options.EnvironmentName = configuration["EnvironmentName"];
+                    options.PreFixConfigurationKeys = false;
+                });
+            //}
             
-            config.AddAzureTableStorage(options =>
-            {
-                options.ConfigurationKeys = configuration["ConfigNames"].Split(",");
-                options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
-                options.EnvironmentName = configuration["EnvironmentName"];
-                options.PreFixConfigurationKeys = false;
-            });
 #if DEBUG
             config.AddJsonFile($"appsettings.Development.json", optional: true);
 #endif
