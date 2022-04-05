@@ -21,8 +21,9 @@
 
                     @for (var i = 0; i < Model.FeedbackAttributes.Count; i++)
                     {
+                        <input type="hidden" asp-for="FeedbackAttributes[i].Id" />
                         <input type="hidden" asp-for="FeedbackAttributes[i].Name" />
-
+                        
                         <div class="govuk-form-group">
                             <div validation-row-status property-name="@($"FeedbackAttributes[{i}].Status")">
                                 <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">

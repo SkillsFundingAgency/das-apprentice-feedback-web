@@ -6,6 +6,7 @@ using SFA.DAS.ApprenticeFeedback.Application.Services;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.Testing.AutoFixture;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
@@ -17,14 +18,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             (
             [Frozen] Mock<IApprenticeFeedbackApi> client,
             [Greedy] ApprenticeFeedbackService service,
-            GetProviderAttributesResponse response
+            List<ProviderAttribute> response
             )
         {
             client.Setup(x => x.GetProviderAttributes()).ReturnsAsync(response);
 
             var result = await service.GetTrainingProviderAttributes();
             
-            result.Should().BeEquivalentTo(response.ProviderAttributes);
+            result.Should().BeEquivalentTo(response);
         }
     }
 }

@@ -129,7 +129,7 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
         {
             var response = await _apiClient.GetProviderAttributes();
 
-            return response.ProviderAttributes.Select(attribute => (FeedbackAttribute)attribute).ToList();
+            return response.Select(attribute => (FeedbackAttribute)attribute).ToList();
         }
     }
 }

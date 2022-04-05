@@ -22,17 +22,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddEnvironmentVariables();
 
-            //if (Environment.EnvironmentName != "Development")
-            //{
-                config.AddAzureTableStorage(options =>
-                {
-                    options.ConfigurationKeys = configuration["ConfigNames"].Split(",");
-                    options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
-                    options.EnvironmentName = configuration["EnvironmentName"];
-                    options.PreFixConfigurationKeys = false;
-                });
-            //}
-            
+            config.AddAzureTableStorage(options =>
+            {
+                options.ConfigurationKeys = configuration["ConfigNames"].Split(",");
+                options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
+                options.EnvironmentName = configuration["EnvironmentName"];
+                options.PreFixConfigurationKeys = false;
+            });
+
 #if DEBUG
             config.AddJsonFile($"appsettings.Development.json", optional: true);
 #endif
@@ -49,6 +46,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services
                 .AddAuthentication(appConfig.Authentication, Environment)
                 .AddOuterApi(appConfig.ApprenticeFeedbackOuterApi)
+                .AddConfigurationOptions(Configuration)
                 .AddSessionService(Environment)
                 .RegisterServices(Environment);
 
@@ -65,7 +63,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
