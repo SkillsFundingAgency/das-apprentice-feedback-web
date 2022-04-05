@@ -124,5 +124,12 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
                 }
             };
         }
+
+        public async Task<List<FeedbackAttribute>> GetTrainingProviderAttributes()
+        {
+            var response = await _apiClient.GetProviderAttributes();
+
+            return response.Select(attribute => (FeedbackAttribute)attribute).ToList();
+        }
     }
 }

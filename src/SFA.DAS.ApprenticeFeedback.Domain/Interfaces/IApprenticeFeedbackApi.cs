@@ -2,6 +2,7 @@
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
@@ -19,6 +20,9 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 
         [Get("/feedback/{apprenticeId}/{ukprn}")]
         Task<TrainingProvider> GetTrainingProvider([Path] Guid apprenticeId, [Path] long ukprn);
+
+        [Get("/provider-attributes")]
+        Task<List<ProviderAttribute>> GetProviderAttributes();
 
     }
 }

@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
@@ -12,10 +14,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
     public class FeedbackAttributesModel : PageModel, IHasBackLink
     {
         private IApprenticeFeedbackSessionService _sessionService;
+        private IApprenticeFeedbackService _apprenticeFeedbackService;
 
-        public FeedbackAttributesModel(IApprenticeFeedbackSessionService sessionService)
+        public FeedbackAttributesModel(IApprenticeFeedbackSessionService sessionService,
+            IApprenticeFeedbackService apprenticeFeedbackService)
         {
             _sessionService = sessionService;
+            _apprenticeFeedbackService = apprenticeFeedbackService;
         }
 
         public string TrainingProvider { get; set; }
@@ -28,13 +33,20 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public string Backlink => Editing.HasValue && Editing.Value == true ? "check-answers" : "start";
 
-        public void OnGet(bool? edit)
+        public async Task OnGet(bool? edit)
         {
             Editing = edit;
 
             var feedbackRequest = _sessionService.GetFeedbackRequest();
 
             TrainingProvider = feedbackRequest.TrainingProvider;
+
+            if (feedbackRequest.FeedbackAttributes == null)
+            {
+                var attributes = await _apprenticeFeedbackService.GetTrainingProviderAttributes();
+                feedbackRequest.FeedbackAttributes = attributes;
+                _sessionService.UpdateFeedbackRequest(feedbackRequest);
+            }
             FeedbackAttributes = feedbackRequest.FeedbackAttributes;
         }
 

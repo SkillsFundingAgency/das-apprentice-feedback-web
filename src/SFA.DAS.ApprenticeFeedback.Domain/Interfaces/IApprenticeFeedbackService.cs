@@ -12,6 +12,6 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 
         Task<List<TrainingProvider>> GetTrainingProviders(Guid apprenticeId);
         Task<TrainingProvider> GetTrainingProvider(Guid apprenticeId, long ukprn);
-
+        Task<List<FeedbackAttribute>> GetTrainingProviderAttributes();
     }
 }
