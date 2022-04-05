@@ -37,11 +37,5 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             ProviderName = request.TrainingProvider;
             return Page();
         }
-
-        public IActionResult OnPost()
-        {
-            // SV-275 - change to link to question page form post no longer required as session starts on previous page
-            return RedirectToPage("FeedbackAttributes");
-        }
     }
 }
