@@ -1,6 +1,9 @@
 ﻿@page "/check-answers"
 @using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback; 
 @model SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback.CheckYourAnswersModel
+@{
+    ViewData["Title"] = "Check your answers";
+}
 
 <div class="govuk-width-container">
     <div class="govuk-grid-row">
@@ -52,7 +55,7 @@
                         <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
                                 <input class="govuk-checkboxes__input" type="checkbox" asp-for="ContactConsent">
-                                <label class="govuk-label govuk-checkboxes__label" for="organisation">
+                                <label class="govuk-label govuk-checkboxes__label" for="ContactConsent">
                                     I'm happy to be contacted by the Apprenticeship service about my answers
                                 </label>
                             </div>

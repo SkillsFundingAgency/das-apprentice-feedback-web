@@ -2,13 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
+using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
     [HideNavigationBar]
-    public class StartModel : PageModel
+    public class StartModel : PageModel, IHasBackLink
     {
         private readonly IApprenticeFeedbackSessionService _sessionService;
         private readonly Domain.Interfaces.IUrlHelper _urlHelper;
@@ -24,6 +25,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         public string ProviderName { get; set; }
         public string FATLink { get; set; }
 
+        public string Backlink => "/";
 
         public async Task<IActionResult> OnGet()
         {
