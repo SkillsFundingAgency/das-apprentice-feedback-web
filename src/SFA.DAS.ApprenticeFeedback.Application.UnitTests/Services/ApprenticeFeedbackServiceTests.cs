@@ -29,13 +29,12 @@ namespace SFA.DAS.ApprenticeFeedback.Application.UnitTests.Services
         public async Task When_CallingSubmitFeedback_Then_FeedbackSubmitted(
             PostSubmitFeedback request)
         {
+            PostSubmitFeedback sentRequest = null;
+            _mockApiClient.Setup(s => s.SubmitFeedback(It.IsAny<PostSubmitFeedback>())).Callback<PostSubmitFeedback>(x => sentRequest = x);
+
             await _apprenticeFeedbackService.SubmitFeedback(request);
 
-            _mockApiClient.Verify(s => s.SubmitFeedback(It.Is<PostSubmitFeedback>(t =>
-                t.Ukprn == request.Ukprn && t.ProviderName == request.ProviderName &&
-                t.StandardReference == request.StandardReference && t.ApprenticeId == request.ApprenticeId &&
-                t.LarsCode == request.LarsCode && t.StandardUId == request.StandardUId && t.FeedbackAttributes.Equals(request.FeedbackAttributes)))
-            );
+            sentRequest.Should().BeEquivalentTo(request);
         }
 
 

@@ -14,5 +14,6 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Requests
         public int LarsCode { get; set; }
         public string StandardUId { get; set; }
         public string StandardReference { get; set; }
+        public bool ContactConsent { get; set; }
     }
 }

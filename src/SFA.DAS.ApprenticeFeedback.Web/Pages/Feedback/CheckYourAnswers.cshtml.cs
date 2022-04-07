@@ -56,7 +56,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
                 StandardUId = feedbackRequest.StandardUId,
                 Ukprn = feedbackRequest.Ukprn,
                 OverallRating = feedbackRequest.OverallRating.Value,
-                FeedbackAttributes = feedbackRequest.FeedbackAttributes
+                FeedbackAttributes = feedbackRequest.FeedbackAttributes,
+                ContactConsent = ContactConsent
             };
 
             await _apprenticeFeedbackService.SubmitFeedback(submitFeedbackRequest);

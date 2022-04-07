@@ -35,15 +35,26 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         [Test, MoqAutoData]
         public async Task And_FeedbackRequestIsAvailable_SubmitsFeedbackForSignedInUser(FeedbackRequest request, Guid apprenticeId)
         {
+            PostSubmitFeedback postSubmitFeedback = null;
+            CheckYourAnswersPage.ContactConsent = true;
             var user = AuthenticatedUserHelper.CreateAuthenticatedUser(apprenticeId);
             _mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
+            _mockFeedbackService.Setup(s => s.SubmitFeedback(It.IsAny<PostSubmitFeedback>())).Callback<PostSubmitFeedback>(x => postSubmitFeedback = x);
 
             var result = await CheckYourAnswersPage.OnPost(user);
 
-            _mockFeedbackService.Verify(s => s.SubmitFeedback(It.Is<PostSubmitFeedback>(x =>
-            x.Ukprn == request.Ukprn && x.ProviderName == request.TrainingProvider && x.StandardReference == request.StandardReference &&
-            x.StandardUId == request.StandardUId && x.ApprenticeId == user.ApprenticeId && x.FeedbackAttributes == request.FeedbackAttributes)));
-
+            postSubmitFeedback.Should().BeEquivalentTo(new
+            {
+                request.Ukprn,
+                ProviderName = request.TrainingProvider,
+                request.OverallRating,
+                request.StandardReference,
+                request.FeedbackAttributes,
+                request.StandardUId,
+                request.LarsCode,
+                ApprenticeId = apprenticeId,
+                ContactConsent = true
+            });
             result.Should().BeOfType<RedirectToPageResult>().Which.PageName.Should().Be("Complete");
         }
     }
