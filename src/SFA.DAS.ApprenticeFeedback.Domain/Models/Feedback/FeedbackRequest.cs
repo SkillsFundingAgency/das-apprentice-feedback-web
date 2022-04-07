@@ -8,9 +8,10 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
         public string TrainingProvider { get; set; } = "Temporary Test Provider name";
         public long Ukprn { get; set; }
         public int LarsCode { get; set; }
+        public string StandardReference { get; set; }
+        public string StandardUId { get; set; }
 
         public List<FeedbackAttribute> FeedbackAttributes { get; set; } 
         public OverallRating? OverallRating { get; set; }
-
     }
 }

@@ -3,6 +3,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.ApprenticeFeedback.Application.Services;
+using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.Testing.AutoFixture;
@@ -14,10 +15,28 @@ namespace SFA.DAS.ApprenticeFeedback.Application.UnitTests.Services
     public class ApprenticeFeedbackServiceTests
     {
         private Mock<IApprenticeFeedbackApi> _mockApiClient;
-
         private ApprenticeFeedbackService _apprenticeFeedbackService;
+        
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            _mockApiClient = new Mock<IApprenticeFeedbackApi>();
+            _apprenticeFeedbackService = new ApprenticeFeedbackService(_mockApiClient.Object);
+        }
 
-        // To do: Tests for submit feedback
+
+        [Test, MoqAutoData]
+        public async Task When_CallingSubmitFeedback_Then_FeedbackSubmitted(
+            PostSubmitFeedback request)
+        {
+            await _apprenticeFeedbackService.SubmitFeedback(request);
+
+            _mockApiClient.Verify(s => s.SubmitFeedback(It.Is<PostSubmitFeedback>(t =>
+                t.Ukprn == request.Ukprn && t.ProviderName == request.ProviderName &&
+                t.StandardReference == request.StandardReference && t.ApprenticeId == request.ApprenticeId &&
+                t.LarsCode == request.LarsCode && t.StandardUId == request.StandardUId && t.FeedbackAttributes.Equals(request.FeedbackAttributes)))
+            );
+        }
 
 
         [Test, MoqAutoData]

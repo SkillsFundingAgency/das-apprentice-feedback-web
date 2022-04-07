@@ -10,5 +10,9 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Requests
         public long Ukprn { get; set; }
         public OverallRating OverallRating { get; set; }
         public List<FeedbackAttribute> FeedbackAttributes { get; set; }
+        public string ProviderName { get; set; }
+        public int LarsCode { get; set; }
+        public string StandardUId { get; set; }
+        public string StandardReference { get; set; }
     }
 }

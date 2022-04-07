@@ -5,8 +5,11 @@ using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
+using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
@@ -41,11 +44,19 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             OverallRating = feedbackRequest.OverallRating.Value;
         }
 
-        public async Task<IActionResult> OnPost()
-        {
+        public async Task<IActionResult> OnPost([FromServices] AuthenticatedUser user)
+        {            
+            var feedbackRequest = _sessionService.GetFeedbackRequest();
             var submitFeedbackRequest = new PostSubmitFeedback()
             {
-
+                ApprenticeId = user.ApprenticeId,
+                ProviderName = feedbackRequest.TrainingProvider,
+                LarsCode = feedbackRequest.LarsCode,
+                StandardReference = feedbackRequest.StandardReference,
+                StandardUId = feedbackRequest.StandardUId,
+                Ukprn = feedbackRequest.Ukprn,
+                OverallRating = feedbackRequest.OverallRating.Value,
+                FeedbackAttributes = feedbackRequest.FeedbackAttributes
             };
 
             await _apprenticeFeedbackService.SubmitFeedback(submitFeedbackRequest);
