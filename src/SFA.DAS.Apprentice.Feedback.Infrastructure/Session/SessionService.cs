@@ -21,20 +21,9 @@ namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
                 JsonConvert.SerializeObject(value));
         }
 
-        public void Set(string key, string stringValue)
-        {
-            _httpContextAccessor.HttpContext.Session.SetString(_environment + "_" + key,
-                stringValue);
-        }
-
         public void Remove(string key)
         {
             _httpContextAccessor.HttpContext.Session.Remove(_environment + "_" + key);
-        }
-
-        public string Get(string key)
-        {
-            return _httpContextAccessor.HttpContext.Session.GetString(_environment + "_" + key);
         }
 
         public T Get<T>(string key)

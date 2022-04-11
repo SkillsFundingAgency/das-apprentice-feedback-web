@@ -9,7 +9,7 @@
 
             <div class="govuk-grid-row govuk-!-margin-bottom-2">
                 <div class="govuk-grid-column-two-thirds">
-                    <h2 class="govuk-heading-m">What you told us about @(Model.TrainingProvider)?</h2>
+                    <h2 class="govuk-heading-m">What you told us about @(Model.ProviderName)?</h2>
                 </div>
                 <div class="govuk-grid-column-one-third govuk-!-text-align-right">
                     <a class="govuk-body govuk-link govuk-link--no-visited-state" asp-page="/Feedback/FeedbackAttributes" asp-route-edit="true">Change</a>
@@ -30,7 +30,7 @@
 
             <div class="govuk-grid-row govuk-!-margin-bottom-2">
                 <div class="govuk-grid-column-two-thirds">
-                    <h2 class="govuk-heading-m">How you rated @(Model.TrainingProvider += Model.TrainingProvider.EndsWith('s') ? "'" : "'s") apprenticeship training</h2>
+                    <h2 class="govuk-heading-m">How you rated @(Model.ProviderName += Model.ProviderName.EndsWith('s') ? "'" : "'s") apprenticeship training</h2>
                 </div>
                 <div class="govuk-grid-column-one-third govuk-!-text-align-right">
                     <a class="govuk-body govuk-link govuk-link--no-visited-state" asp-page="/Feedback/OverallRating" asp-route-edit="true">Change</a>

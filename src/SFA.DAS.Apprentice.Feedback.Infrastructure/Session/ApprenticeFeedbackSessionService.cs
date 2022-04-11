@@ -1,6 +1,4 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
-using System;
-using System.Collections.Generic;
 
 namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
 {
@@ -8,56 +6,20 @@ namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
     {
         private ISessionService _sessionService;
 
-        private const string _sessionKey = "Apprentice_Feedback_Request";
+        private const string _sessionKey = "Apprentice_Feedback_Context";
 
         public ApprenticeFeedbackSessionService(ISessionService sessionService)
         {
             _sessionService = sessionService;
         }
 
-        public void StartNewFeedbackRequest(string provderName, long ukprn, int larsCode)
+        public void SetFeedbackContext(FeedbackContext context)
         {
-            var request = new FeedbackRequest
-            {
-                TrainingProvider = provderName,
-                Ukprn = ukprn,
-                LarsCode = larsCode,
-
-                // temporary feedback attributes
-                FeedbackAttributes = new List<FeedbackAttribute>
-                {
-                    new FeedbackAttribute { Title = "Organising well-structured training" },
-                    new FeedbackAttribute { Title = "Communicating clearly with you" },
-                    new FeedbackAttribute { Title = "Providing accessible training resources" }
-                }
-            };
-
-            _sessionService.Set(_sessionKey, request);
+            _sessionService.Set(_sessionKey, context);
         }
-        public void StartNewFeedbackRequest()
+        public FeedbackContext GetFeedbackContext()
         {
-            var request = new FeedbackRequest();
-
-            // temporary feedback attributes
-            request.FeedbackAttributes = new List<FeedbackAttribute>
-            {
-                new FeedbackAttribute { Title = "Organising well-structured training" },
-                new FeedbackAttribute { Title = "Communicating clearly with you" },
-                new FeedbackAttribute { Title = "Providing accessible training resources" }
-            };
-
-            _sessionService.Set(_sessionKey, request);
+            return _sessionService.Get<FeedbackContext>(_sessionKey);
         }
-
-        public FeedbackRequest GetFeedbackRequest()
-        {
-            return _sessionService.Get<FeedbackRequest>(_sessionKey);
-        }
-
-        public void UpdateFeedbackRequest(FeedbackRequest request)
-        {
-            _sessionService.Set(_sessionKey, request);
-        }
-
     }
 }

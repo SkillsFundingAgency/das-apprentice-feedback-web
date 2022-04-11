@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
+using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.ComponentModel.DataAnnotations;
@@ -9,17 +9,12 @@ using System.ComponentModel.DataAnnotations;
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
     [HideNavigationBar]
-    public class OverallRatingModel : PageModel, IHasBackLink
+    public class OverallRatingModel : FeedbackContextPageModel, IHasBackLink
     {
-        private IApprenticeFeedbackSessionService _sessionService;
-
         public OverallRatingModel(IApprenticeFeedbackSessionService sessionService)
+            :base(sessionService)
         {
-            _sessionService = sessionService;
         }
-
-        [BindProperty]
-        public string TrainingProvider { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Select a rating")]
@@ -30,14 +25,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public string Backlink => Editing.HasValue && Editing.Value == true ? "/check-answers" : "feedback-attributes";
 
-        public void OnGet(bool? edit)
+        public IActionResult OnGet(bool? edit)
         { 
             Editing = edit;
+            OverallRating = FeedbackContext.OverallRating;
 
-            var feedbackRequest = _sessionService.GetFeedbackRequest();
-
-            TrainingProvider = feedbackRequest.TrainingProvider;
-            OverallRating = feedbackRequest.OverallRating;
+            return Page();
         }
 
         public IActionResult OnPost()
@@ -47,11 +40,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
                 return Page();
             }
 
-            var feedbackRequest = _sessionService.GetFeedbackRequest();
-
-            feedbackRequest.OverallRating = OverallRating;
-
-            _sessionService.UpdateFeedbackRequest(feedbackRequest);
+            FeedbackContext.OverallRating = OverallRating;
+            SaveFeedbackContext();
 
             return RedirectToPage("CheckYourAnswers");
         }

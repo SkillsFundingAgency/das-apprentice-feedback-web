@@ -9,9 +9,8 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.UnitTests.Models
 {
     public class TrainingProviderTests
     {
-
         [Test]
-        public void When_GettingLatestSubmissionDate_Then_CorrectDateIsReturned()
+        public void When_TrainingProviderHasApprenticeships_Then_MostRecentIsReturned()
         {
             var date = DateTime.UtcNow.Date;
 
@@ -21,18 +20,26 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.UnitTests.Models
                 {
                     new Apprenticeship
                     {
-                        FeedbackCompletionDates = new List<DateTime>
-                        {
-                            date.AddDays(-2),
-                            date
-                        }
-                    }
+                        StartDate = date.AddDays(-30),
+                        LarsCode = 1
+                    },
+                    new Apprenticeship
+                    {
+                        StartDate = date.AddDays(-10),
+                        LarsCode = 2
+                    },
+                    new Apprenticeship
+                    {
+                        StartDate = date.AddDays(-20),
+                        LarsCode = 3
+                    },
                 }
             };
 
-            var result = trainingProvider.GetLatestSubmittedDate();
+            var result = trainingProvider.GetMostRecentlyStartedApprenticeship();
 
-            result.Should().Be(date);
+            result.Should().NotBeNull();
+            result.LarsCode.Should().Be(2);
         }
     }
 }

@@ -1,37 +1,72 @@
-﻿using AutoFixture.NUnit3;
-using FluentAssertions;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using SFA.DAS.ApprenticeFeedback.Application.Services;
-using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
+using SFA.DAS.ApprenticeFeedback.Application.Settings;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.Testing.AutoFixture;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace SFA.DAS.ApprenticeFeedback.Application.UnitTests.Services
 {
     public class ApprenticeFeedbackServiceTests
     {
-        private Mock<IApprenticeFeedbackApi> _mockApiClient;
-
-        private ApprenticeFeedbackService _apprenticeFeedbackService;
-
-        // To do: Tests for submit feedback
-
-
-        [Test, MoqAutoData]
-        public async Task When_CallingGetTrainingProviders_Then_GetTrainingProviders(
-            Guid apprenticeId, 
-            [Frozen] Mock<IApprenticeFeedbackApi> _mockApiClient,
-            [Greedy] ApprenticeFeedbackService service,
-            GetTrainingProvidersResponse response)
+        public class GetFeedbackEligibility
         {
-            _mockApiClient.Setup(c => c.GetTrainingProviders(apprenticeId)).ReturnsAsync(response);
+            private readonly Mock<IApprenticeFeedbackApi> _mockApiClient;
+            private readonly Mock<IDateTimeProvider> _dateTimeProvider;
 
-            var result = await service.GetTrainingProviders(apprenticeId);
+            public GetFeedbackEligibility()
+            {
+                _mockApiClient = new Mock<IApprenticeFeedbackApi>();
+                _dateTimeProvider = new Mock<IDateTimeProvider>();
+                _dateTimeProvider.SetupGet(m => m.UtcNow).Returns(DateTime.UtcNow);
+            }
 
-            result.Should().BeEquivalentTo(response.TrainingProviders);
+            public static IEnumerable GetFeedbackEligibilityTestCases
+            {
+                get
+                {
+                    yield return new TestCaseData(
+                        new Apprenticeship
+                        {
+                            LarsCode = 1,
+                            StartDate = DateTime.Now.AddMonths(-1),
+                        },
+                        new FeedbackSettings()
+                        {
+                            InitialDenyPeriodDays = 61,
+                            FinalAllowPeriodDays = 92,
+                            RecentDenyPeriodDays = 14
+                        }
+                    ).Returns(FeedbackEligibility.Deny_TooSoon)
+                    .SetName("TestFeedbackEligibility-RecentIsNotOk");
+
+                    yield return new TestCaseData(
+                        new Apprenticeship
+                        {
+                            LarsCode = 1,
+                            StartDate = DateTime.Now.AddMonths(-1),
+                        },
+                        new FeedbackSettings()
+                        {
+                            InitialDenyPeriodDays = 61,
+                            FinalAllowPeriodDays = 92,
+                            RecentDenyPeriodDays = 14
+                        }
+                    ).Returns(FeedbackEligibility.Allow)
+                    .SetName("TestFeedbackEligibility-RecentIsOk");
+
+                    // @Todo: remaining test cases
+                }
+            }
+
+            [TestCaseSource(nameof(GetFeedbackEligibilityTestCases))]
+            public FeedbackEligibility TestFeedbackEligibility(Apprenticeship apprenticeship, FeedbackSettings settings)
+            {
+                var serviceUnderTest = new ApprenticeFeedbackService(_mockApiClient.Object, _dateTimeProvider.Object, settings);
+                return serviceUnderTest.GetFeedbackEligibility(apprenticeship).feedbackEligibility;
+            }
         }
     }
 }

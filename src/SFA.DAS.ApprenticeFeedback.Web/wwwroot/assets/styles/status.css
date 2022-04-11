@@ -1,0 +1,27 @@
+﻿.app-inset-text--success {
+    background: #f3f2f1;
+    border-left-color: #00703c;
+}
+
+.app-inset-text--has-icon {
+    position: relative;
+    padding-left: 50px;
+    min-height: 24px;
+}
+
+.app-inline-icon {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    position: absolute;
+    left: 15px;
+}
+
+.app-inline-icon--tick {
+    background-image: url("/assets/images/icon-tick--green.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 75%;
+    border-radius: 50%;
+    border: 2px solid #00703c;
+}

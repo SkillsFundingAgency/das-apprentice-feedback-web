@@ -8,6 +8,8 @@ using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using SFA.DAS.ApprenticeFeedback.Web.Configuration;
 using System.IO;
 using SFA.DAS.Configuration.AzureTableStorage;
+using SFA.DAS.ApprenticeFeedback.Web.Services;
+using SFA.DAS.ApprenticePortal.SharedUi.Zendesk;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
@@ -52,6 +54,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 .AddSessionService(Environment)
                 .RegisterServices(Environment);
 
+            services.AddTransient((_) => appConfig.FeedbackSettings);
+
             services.AddSharedUi(appConfig, options =>
             {
                 // ToDo: add apprentice feedback section to shared ui package
@@ -61,6 +65,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
             services.AddRazorPages();
             services.AddSession();
+
+            services.SetZenDeskConfiguration(appConfig.Zendesk);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
