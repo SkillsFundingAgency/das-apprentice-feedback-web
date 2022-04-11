@@ -3,6 +3,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.ApprenticeFeedback.Application.Services;
+using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.Testing.AutoFixture;
@@ -14,12 +15,29 @@ namespace SFA.DAS.ApprenticeFeedback.Application.UnitTests.Services
     public class ApprenticeFeedbackServiceTests
     {
         private Mock<IApprenticeFeedbackApi> _mockApiClient;
-
         private ApprenticeFeedbackService _apprenticeFeedbackService;
+        
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            _mockApiClient = new Mock<IApprenticeFeedbackApi>();
+            _apprenticeFeedbackService = new ApprenticeFeedbackService(_mockApiClient.Object);
+        }
 
-        // To do: Tests for submit feedback
 
+        [Test, MoqAutoData]
+        public async Task When_CallingSubmitFeedback_Then_FeedbackSubmitted(
+            PostSubmitFeedback request)
+        {
+            PostSubmitFeedback sentRequest = null;
+            _mockApiClient.Setup(s => s.SubmitFeedback(It.IsAny<PostSubmitFeedback>())).Callback<PostSubmitFeedback>(x => sentRequest = x);
 
+            await _apprenticeFeedbackService.SubmitFeedback(request);
+
+            sentRequest.Should().BeEquivalentTo(request);
+        }
+
+        [Ignore("Until Training Provider endpoint implementation is written")]
         [Test, MoqAutoData]
         public async Task When_CallingGetTrainingProviders_Then_GetTrainingProviders(
             Guid apprenticeId, 
