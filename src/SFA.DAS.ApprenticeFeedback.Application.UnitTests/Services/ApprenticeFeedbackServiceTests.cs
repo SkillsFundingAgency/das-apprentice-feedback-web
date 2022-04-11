@@ -46,7 +46,7 @@ namespace SFA.DAS.ApprenticeFeedback.Application.UnitTests.Services
                         new Apprenticeship
                         {
                             LarsCode = 1,
-                            StartDate = DateTime.Now.AddMonths(-1),
+                            StartDate = DateTime.Now.AddMonths(-2).AddDays(-2),
                         },
                         new FeedbackSettings()
                         {
@@ -56,6 +56,40 @@ namespace SFA.DAS.ApprenticeFeedback.Application.UnitTests.Services
                         }
                     ).Returns(FeedbackEligibility.Allow)
                     .SetName("TestFeedbackEligibility-RecentIsOk");
+
+                    yield return new TestCaseData(
+                        new Apprenticeship
+                        {
+                            LarsCode = 2,
+                            StartDate = DateTime.Now.AddMonths(-6),
+                            EndDate = DateTime.Now.AddMonths(-4),
+                            Status = ApprenticeshipStatus.Pass
+                        },
+                        new FeedbackSettings()
+                        {
+                            InitialDenyPeriodDays = 61,
+                            FinalAllowPeriodDays = 92,
+                            RecentDenyPeriodDays = 14
+                        }
+                    ).Returns(FeedbackEligibility.Deny_TooLateAfterPassing)
+                    .SetName("TestFeedbackEligibility-PassedTooLongAgoIsNotOk");
+
+                    yield return new TestCaseData(
+                        new Apprenticeship
+                        {
+                            LarsCode = 2,
+                            StartDate = DateTime.Now.AddMonths(-6),
+                            EndDate = DateTime.Now.AddMonths(-3),
+                            Status = ApprenticeshipStatus.Pass
+                        },
+                        new FeedbackSettings()
+                        {
+                            InitialDenyPeriodDays = 61,
+                            FinalAllowPeriodDays = 92,
+                            RecentDenyPeriodDays = 14
+                        }
+                    ).Returns(FeedbackEligibility.Allow)
+                    .SetName("TestFeedbackEligibility-PassedTooLongAgoIsOk");
 
                     // @Todo: remaining test cases
                 }
