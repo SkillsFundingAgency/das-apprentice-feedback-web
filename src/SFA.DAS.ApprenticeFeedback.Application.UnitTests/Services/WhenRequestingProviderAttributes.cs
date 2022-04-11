@@ -23,7 +23,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         {
             client.Setup(x => x.GetProviderAttributes()).ReturnsAsync(response);
 
-            var result = await service.GetTrainingProviderAttributes();
+            var result = await service.GetFeedbackAttributes();
             
             result.Should().BeEquivalentTo(response);
         }

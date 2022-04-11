@@ -1,4 +1,5 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Application.Settings;
+using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System;
@@ -164,7 +165,12 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
 
             return response.Select(attribute => (FeedbackAttribute)attribute).ToList();
         }
-        
+
+        public async Task SubmitFeedback(PostSubmitFeedback request)
+        {
+            await _apiClient.SubmitFeedback(request);
+        }
+
         public (FeedbackEligibility feedbackEligibility, DateTime? significantDate, TimeSpan? timeWindow) GetFeedbackEligibility(Apprenticeship apprenticeship)
         {
             if (null == apprenticeship) throw new ArgumentNullException(nameof(apprenticeship));

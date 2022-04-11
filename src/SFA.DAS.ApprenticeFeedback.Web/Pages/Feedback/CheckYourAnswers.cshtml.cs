@@ -43,24 +43,20 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             return Page();
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost([FromServices] AuthenticatedUser user)
         {
-            // FeedbackContext => submit request
-            //await _apprenticeFeedbackService.SubmitFeedback(request);
-
-            //             var feedbackRequest = _sessionService.GetFeedbackRequest();
-            // var submitFeedbackRequest = new PostSubmitFeedback()
-            // {
-            //     ApprenticeId = user.ApprenticeId,
-            //     ProviderName = feedbackRequest.TrainingProvider,
-            //     LarsCode = feedbackRequest.LarsCode,
-            //     StandardReference = feedbackRequest.StandardReference,
-            //     StandardUId = feedbackRequest.StandardUId,
-            //     Ukprn = feedbackRequest.Ukprn,
-            //     OverallRating = feedbackRequest.OverallRating.Value,
-            //     FeedbackAttributes = feedbackRequest.FeedbackAttributes,
-            //     ContactConsent = ContactConsent
-            // };
+            await _apprenticeFeedbackService.SubmitFeedback(new PostSubmitFeedback
+            {
+                FeedbackAttributes = FeedbackContext.FeedbackAttributes,
+                Ukprn = FeedbackContext.UkPrn,
+                LarsCode = FeedbackContext.LarsCode,
+                OverallRating = OverallRating.Value,
+                ProviderName = FeedbackContext.ProviderName,
+                ContactConsent = ContactConsent,
+                ApprenticeId = user.ApprenticeId
+                //StandardReference = FeedbackContext.StandardReference
+                //StandardUId = FeedbackContext.StandardUId,
+            });        
 
             return RedirectToPage("Complete");
         }
