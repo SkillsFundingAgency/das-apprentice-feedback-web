@@ -15,10 +15,10 @@
                 <div class="govuk-form-group"> 
                     <div validation-row-status property-name="OverallRating">
 
-                    <input type="hidden" asp-for="TrainingProvider" />
+                    <input type="hidden" asp-for="ProviderName" />
                     <input type="hidden" asp-for="Editing" />
 
-                    <h1 class="govuk-heading-l"> How would you rate @(Model.TrainingProvider + (Model.TrainingProvider.EndsWith('s') ? "'" : "'s")) training ? </h1>
+                    <h1 class="govuk-heading-l"> How would you rate @(Model.ProviderName + (Model.ProviderName.EndsWith('s') ? "'" : "'s")) training ? </h1>
 
                     <span asp-validation-for="OverallRating" class="govuk-error-message"></span>
 

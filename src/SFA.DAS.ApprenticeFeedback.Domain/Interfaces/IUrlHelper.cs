@@ -6,6 +6,6 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 {
     public interface IUrlHelper
     {
-        public string FATFeedback(long ukprn, int larscode);
+        public string FindApprenticeshipTrainingFeedbackUrl(long ukprn, int larscode);
     }
 }

@@ -13,7 +13,7 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
             _findApprenticeshipTrainingConfiguration = options.Value;
         }
 
-        public string FATFeedback(long ukprn, int larscode)
+        public string FindApprenticeshipTrainingFeedbackUrl(long ukprn, int larscode)
         {
             var url = _findApprenticeshipTrainingConfiguration.BaseUrl;
 

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
+using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.Collections.Generic;
@@ -11,19 +11,16 @@ using System.Threading.Tasks;
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
     [HideNavigationBar]
-    public class FeedbackAttributesModel : PageModel, IHasBackLink
+    public class FeedbackAttributesModel : FeedbackContextPageModel, IHasBackLink
     {
-        private IApprenticeFeedbackSessionService _sessionService;
+
         private IApprenticeFeedbackService _apprenticeFeedbackService;
 
-        public FeedbackAttributesModel(IApprenticeFeedbackSessionService sessionService,
-            IApprenticeFeedbackService apprenticeFeedbackService)
+        public FeedbackAttributesModel(IApprenticeFeedbackSessionService sessionService, IApprenticeFeedbackService apprenticeFeedbackService)
+            : base(sessionService)
         {
-            _sessionService = sessionService;
             _apprenticeFeedbackService = apprenticeFeedbackService;
         }
-
-        public string TrainingProvider { get; set; }
 
         [BindProperty]
         public List<FeedbackAttribute> FeedbackAttributes { get; set; }
@@ -31,23 +28,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         [BindProperty]
         public bool? Editing { get; set; }
 
-        public string Backlink => Editing.HasValue && Editing.Value == true ? "check-answers" : "start";
+        public string Backlink => Editing.HasValue && Editing.Value == true ? "check-answers" : $"start/{FeedbackContext.UkPrn}";
 
-        public async Task OnGet(bool? edit)
+        public async Task<IActionResult> OnGet(bool? edit)
         {
+            FeedbackAttributes = FeedbackContext.FeedbackAttributes;
             Editing = edit;
-
-            var feedbackRequest = _sessionService.GetFeedbackRequest();
-
-            TrainingProvider = feedbackRequest.TrainingProvider;
-
-            if (feedbackRequest.FeedbackAttributes == null)
-            {
-                var attributes = await _apprenticeFeedbackService.GetTrainingProviderAttributes();
-                feedbackRequest.FeedbackAttributes = attributes;
-                _sessionService.UpdateFeedbackRequest(feedbackRequest);
-            }
-            FeedbackAttributes = feedbackRequest.FeedbackAttributes;
+            return Page();
         }
 
         public IActionResult OnPost()
@@ -58,21 +45,17 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
                 {
                     ModelState.AddModelError("MultipleErrorSummary", "Select Agree or Disagree");
                 }
-                
+
                 return Page();
             }
 
-            var feedbackRequest = _sessionService.GetFeedbackRequest();
-
-            feedbackRequest.FeedbackAttributes = FeedbackAttributes;
-
-            _sessionService.UpdateFeedbackRequest(feedbackRequest);
+            FeedbackContext.FeedbackAttributes = FeedbackAttributes;
+            SaveFeedbackContext();
 
             if (Editing.HasValue && Editing.Value == true)
             {
                 return RedirectToPage("CheckYourAnswers");
             }
-
             return RedirectToPage("OverallRating");
         }
     }

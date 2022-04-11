@@ -4,8 +4,7 @@ namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
 {
     public interface IApprenticeFeedbackSessionService
     {
-        void StartNewFeedbackRequest(string provderName, long ukprn, int larsCode);
-        FeedbackRequest GetFeedbackRequest();
-        void UpdateFeedbackRequest(FeedbackRequest request);
+        void SetFeedbackContext(FeedbackContext context);
+        FeedbackContext GetFeedbackContext();
     }
 }

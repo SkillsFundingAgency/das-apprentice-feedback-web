@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Feedback\SelectTrainingProvider.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Feedback\SelectTrainingProvider.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Humanizer.Core" Version="2.14.1" />
     <PackageReference Include="RestEase" Version="1.5.5" />
     <PackageReference Include="RestEase.HttpClientFactory" Version="1.5.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.11" />
@@ -19,6 +28,10 @@
     <ProjectReference Include="..\SFA.DAS.Apprentice.Feedback.Infrastructure\SFA.DAS.ApprenticeFeedback.Infrastructure.csproj" />
     <ProjectReference Include="..\SFA.DAS.ApprenticeFeedback.Application\SFA.DAS.ApprenticeFeedback.Application.csproj" />
     <ProjectReference Include="..\SFA.DAS.ApprenticeFeedback.Domain\SFA.DAS.ApprenticeFeedback.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\images\" />
   </ItemGroup>
 
 </Project>

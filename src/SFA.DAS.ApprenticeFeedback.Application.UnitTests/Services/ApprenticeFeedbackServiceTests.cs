@@ -1,55 +1,72 @@
-﻿using AutoFixture.NUnit3;
-using FluentAssertions;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using SFA.DAS.ApprenticeFeedback.Application.Services;
-using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
-using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
+using SFA.DAS.ApprenticeFeedback.Application.Settings;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.Testing.AutoFixture;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace SFA.DAS.ApprenticeFeedback.Application.UnitTests.Services
 {
     public class ApprenticeFeedbackServiceTests
     {
-        private Mock<IApprenticeFeedbackApi> _mockApiClient;
-        private ApprenticeFeedbackService _apprenticeFeedbackService;
-        
-        [OneTimeSetUp]
-        public void Setup()
+        public class GetFeedbackEligibility
         {
-            _mockApiClient = new Mock<IApprenticeFeedbackApi>();
-            _apprenticeFeedbackService = new ApprenticeFeedbackService(_mockApiClient.Object);
-        }
+            private readonly Mock<IApprenticeFeedbackApi> _mockApiClient;
+            private readonly Mock<IDateTimeProvider> _dateTimeProvider;
 
+            public GetFeedbackEligibility()
+            {
+                _mockApiClient = new Mock<IApprenticeFeedbackApi>();
+                _dateTimeProvider = new Mock<IDateTimeProvider>();
+                _dateTimeProvider.SetupGet(m => m.UtcNow).Returns(DateTime.UtcNow);
+            }
 
-        [Test, MoqAutoData]
-        public async Task When_CallingSubmitFeedback_Then_FeedbackSubmitted(
-            PostSubmitFeedback request)
-        {
-            PostSubmitFeedback sentRequest = null;
-            _mockApiClient.Setup(s => s.SubmitFeedback(It.IsAny<PostSubmitFeedback>())).Callback<PostSubmitFeedback>(x => sentRequest = x);
+            public static IEnumerable GetFeedbackEligibilityTestCases
+            {
+                get
+                {
+                    yield return new TestCaseData(
+                        new Apprenticeship
+                        {
+                            LarsCode = 1,
+                            StartDate = DateTime.Now.AddMonths(-1),
+                        },
+                        new FeedbackSettings()
+                        {
+                            InitialDenyPeriodDays = 61,
+                            FinalAllowPeriodDays = 92,
+                            RecentDenyPeriodDays = 14
+                        }
+                    ).Returns(FeedbackEligibility.Deny_TooSoon)
+                    .SetName("TestFeedbackEligibility-RecentIsNotOk");
 
-            await _apprenticeFeedbackService.SubmitFeedback(request);
+                    yield return new TestCaseData(
+                        new Apprenticeship
+                        {
+                            LarsCode = 1,
+                            StartDate = DateTime.Now.AddMonths(-1),
+                        },
+                        new FeedbackSettings()
+                        {
+                            InitialDenyPeriodDays = 61,
+                            FinalAllowPeriodDays = 92,
+                            RecentDenyPeriodDays = 14
+                        }
+                    ).Returns(FeedbackEligibility.Allow)
+                    .SetName("TestFeedbackEligibility-RecentIsOk");
 
-            sentRequest.Should().BeEquivalentTo(request);
-        }
+                    // @Todo: remaining test cases
+                }
+            }
 
-        [Ignore("Until Training Provider endpoint implementation is written")]
-        [Test, MoqAutoData]
-        public async Task When_CallingGetTrainingProviders_Then_GetTrainingProviders(
-            Guid apprenticeId, 
-            [Frozen] Mock<IApprenticeFeedbackApi> _mockApiClient,
-            [Greedy] ApprenticeFeedbackService service,
-            GetTrainingProvidersResponse response)
-        {
-            _mockApiClient.Setup(c => c.GetTrainingProviders(apprenticeId)).ReturnsAsync(response);
-
-            var result = await service.GetTrainingProviders(apprenticeId);
-
-            result.Should().BeEquivalentTo(response.TrainingProviders);
+            [TestCaseSource(nameof(GetFeedbackEligibilityTestCases))]
+            public FeedbackEligibility TestFeedbackEligibility(Apprenticeship apprenticeship, FeedbackSettings settings)
+            {
+                var serviceUnderTest = new ApprenticeFeedbackService(_mockApiClient.Object, _dateTimeProvider.Object, settings);
+                return serviceUnderTest.GetFeedbackEligibility(apprenticeship).feedbackEligibility;
+            }
         }
     }
 }

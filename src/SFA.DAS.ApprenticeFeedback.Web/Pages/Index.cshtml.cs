@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.ApprenticeFeedback.Domain.Extensions;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
@@ -17,64 +19,112 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
     [HideNavigationBar]
     public class IndexModel : PageModel, IHasBackLink
     {
-        private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
-        private readonly IApprenticeFeedbackSessionService _apprenticeFeedbackSessionService;
-        private readonly NavigationUrlHelper _urlHelper;
         private readonly ILogger<IndexModel> _logger;
+        private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
+        private readonly IApprenticeFeedbackSessionService _sessionService;
 
-        public IndexModel(IApprenticeFeedbackService apprenticeFeedbackService, IApprenticeFeedbackSessionService apprenticeFeedbackSessionService, NavigationUrlHelper urlHelper, ILogger<IndexModel> logger)
-        {
-            _apprenticeFeedbackService = apprenticeFeedbackService;
-            _apprenticeFeedbackSessionService = apprenticeFeedbackSessionService;
-            _urlHelper = urlHelper;
-            _logger = logger;
-        }
-
-        [BindProperty]
-        public long SelectedProviderUkprn { get; set; }
-
-        public List<TrainingProvider> PotentialProviders { get; set; }
-       
         public string DashboardLink { get; set; }
         public string Backlink => DashboardLink;
 
-        public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
+        // Textual descriptions of the feedback time periods.
+        public string FeedbackRate { get; set; }
+        public string FeedbackInitialDenyPeriod { get; set; }
+        public string FeedbackFinalAllowPeriod { get; set; }
+
+        // provider viewmodel
+        public class ProviderItem
         {
-            DashboardLink = _urlHelper.Generate(NavigationSection.Home);
+            public const string NO_SUBMITTED_DATE = "N/A";
 
-            PotentialProviders = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
-
-            if (PotentialProviders.Count == 1)
-            {
-                var onlyProvider = PotentialProviders.Single();
-
-                if (onlyProvider.IsValidForFeedback)
-                {
-                    _apprenticeFeedbackSessionService.StartNewFeedbackRequest(onlyProvider.Name, onlyProvider.Ukprn, onlyProvider.GetMostRecentLarsCode());
-
-                    return RedirectToPage("Feedback/Start");
-                }
-            }
-
-            return Page();
+            public long Ukprn { get; set; }
+            public string Name { get; set; }
+            public string DateSubmitted { get; set; }
+            public FeedbackEligibility FeedbackEligibility { get; set; }
+            public TimeSpan? TimeWindow { get; set; }
+            public DateTime? SignificantDate { get; set; }
+            public bool Show { get; set; }
         }
 
-        public async Task<IActionResult> OnPost([FromServices] AuthenticatedUser user)
+        public List<ProviderItem> TrainingProviderItems { get; set; }
+
+
+        public IndexModel(ILogger<IndexModel> logger
+            , IApprenticeFeedbackService apprenticeFeedbackService
+            , NavigationUrlHelper urlHelper
+            , IApprenticeFeedbackSessionService sessionService
+        )
         {
-            var provider = await _apprenticeFeedbackService.GetTrainingProvider(user.ApprenticeId, SelectedProviderUkprn);
+            _logger = logger;
+            _apprenticeFeedbackService = apprenticeFeedbackService;
+            _sessionService = sessionService;
+            DashboardLink = urlHelper.Generate(NavigationSection.Home);
+        }
 
-            if (provider.IsValidForFeedback)
+
+        public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
+        {
+            var providers = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
+            var allItems = GenerateProviderItems(providers);
+            TrainingProviderItems = allItems.Where(tpi => tpi.Show == true).ToList();
+
+            if (TrainingProviderItems.Count == 1)
             {
-                var larsCode = provider.GetMostRecentLarsCode();
+                var feedbackContext = new FeedbackContext();
+                feedbackContext.FeedbackEligibility = TrainingProviderItems[0].FeedbackEligibility;
+                feedbackContext.TimeWindow = TrainingProviderItems[0].TimeWindow;
+                feedbackContext.SignificantDate = TrainingProviderItems[0].SignificantDate;
+                _sessionService.SetFeedbackContext(feedbackContext);
 
-                _apprenticeFeedbackSessionService.StartNewFeedbackRequest(provider.Name, provider.Ukprn, larsCode);
-
-                return RedirectToPage("Feedback/Start");
+                if(feedbackContext.FeedbackEligibility == FeedbackEligibility.Allow) {
+                    return Redirect($"/start/{TrainingProviderItems[0].Ukprn}");
+                }
+                return Redirect("/status");
             }
 
-            PotentialProviders = new List<TrainingProvider> { provider };
+            FeedbackRate = _apprenticeFeedbackService.RecentDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
+            FeedbackInitialDenyPeriod = _apprenticeFeedbackService.InitialDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
+            FeedbackFinalAllowPeriod = _apprenticeFeedbackService.FinalAllowPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
+            return Page();                
+        }
 
-            return Page();
+
+        private List<ProviderItem> GenerateProviderItems(IEnumerable<TrainingProvider> providers)
+        {
+            var vm = new List<ProviderItem>();
+
+            foreach(var provider in providers)
+            {
+                var mostRecentlyStartedApprenticeship = provider?.GetMostRecentlyStartedApprenticeship();
+                var feedbackEligiblity = _apprenticeFeedbackService.GetFeedbackEligibility(mostRecentlyStartedApprenticeship);
+
+                var item = new ProviderItem()
+                {
+                    Ukprn = provider.Ukprn,
+                    Name = provider.Name,
+                    DateSubmitted = ProviderItem.NO_SUBMITTED_DATE,
+                    FeedbackEligibility = feedbackEligiblity.feedbackEligibility,
+                    TimeWindow = feedbackEligiblity.timeWindow,
+                    SignificantDate = feedbackEligiblity.significantDate,
+                    Show = true,
+                };
+
+                if(null != mostRecentlyStartedApprenticeship.FeedbackCompletionDates 
+                    && !mostRecentlyStartedApprenticeship.FeedbackCompletionDates.ContainsCountItems(0))
+                {
+                    item.DateSubmitted = mostRecentlyStartedApprenticeship.FeedbackCompletionDates.First().ToString("d MMM yyyy");
+                }
+
+                if(item.FeedbackEligibility == FeedbackEligibility.Deny_TooLateAfterPassing 
+                    || item.FeedbackEligibility == FeedbackEligibility.Deny_TooLateAfterWithdrawing)
+                {
+                    // @ToDo: are other possibilities other than passed or withdrew that we want to exclude from the UI?
+                    item.Show = false;
+                }
+
+                vm.Add(item);
+            }
+
+            return vm;
         }
     }
 }
