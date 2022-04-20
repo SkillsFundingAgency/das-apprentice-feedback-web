@@ -95,12 +95,14 @@ namespace SFA.DAS.ApprenticeFeedback.Application.UnitTests.Services
                 }
             }
 
+/*
             [TestCaseSource(nameof(GetFeedbackEligibilityTestCases))]
             public FeedbackEligibility TestFeedbackEligibility(Apprenticeship apprenticeship, FeedbackSettings settings)
             {
                 var serviceUnderTest = new ApprenticeFeedbackService(_mockApiClient.Object, _dateTimeProvider.Object, settings);
                 return serviceUnderTest.GetFeedbackEligibility(apprenticeship).feedbackEligibility;
             }
+*/
         }
     }
 }

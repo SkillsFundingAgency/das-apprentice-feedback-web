@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
@@ -9,9 +7,7 @@ using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
@@ -45,18 +41,17 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public async Task<IActionResult> OnPost([FromServices] AuthenticatedUser user)
         {
-            await _apprenticeFeedbackService.SubmitFeedback(new PostSubmitFeedback
+            var request = new PostSubmitFeedback
             {
                 FeedbackAttributes = FeedbackContext.FeedbackAttributes,
                 Ukprn = FeedbackContext.UkPrn,
                 LarsCode = FeedbackContext.LarsCode,
-                OverallRating = OverallRating.Value,
+                OverallRating = FeedbackContext.OverallRating.Value,
                 ProviderName = FeedbackContext.ProviderName,
                 ContactConsent = ContactConsent,
                 ApprenticeId = user.ApprenticeId
-                //StandardReference = FeedbackContext.StandardReference
-                //StandardUId = FeedbackContext.StandardUId,
-            });        
+            };
+            await _apprenticeFeedbackService.SubmitFeedback(request);        
 
             return RedirectToPage("Complete");
         }

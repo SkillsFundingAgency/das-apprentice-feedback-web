@@ -8,14 +8,14 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 {
     public interface IApprenticeFeedbackService
     {
-        TimeSpan InitialDenyPeriod { get; }
-        TimeSpan RecentDenyPeriod { get; }
-        TimeSpan FinalAllowPeriod { get; }
+        //TimeSpan InitialDenyPeriod { get; }
+        //TimeSpan RecentDenyPeriod { get; }
+        //TimeSpan FinalAllowPeriod { get; }
 
         Task<IEnumerable<TrainingProvider>> GetTrainingProviders(Guid apprenticeId);
         Task<TrainingProvider> GetTrainingProvider(Guid apprenticeId, long ukprn);
         Task<IEnumerable<FeedbackAttribute>> GetFeedbackAttributes();
         Task SubmitFeedback(PostSubmitFeedback request);
-        (FeedbackEligibility feedbackEligibility, DateTime? significantDate, TimeSpan? timeWindow) GetFeedbackEligibility(Apprenticeship apprenticeship);
+        //(FeedbackEligibility feedbackEligibility, DateTime? significantDate, TimeSpan? timeWindow) GetFeedbackEligibility(Apprenticeship apprenticeship);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
@@ -27,6 +26,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         {
             _mockSessionService = new Mock<IApprenticeFeedbackSessionService>();
             _mockUrlHelper = new Mock<Domain.Interfaces.IUrlHelper>();
+            _mockApprenticeFeedbackService = new Mock<IApprenticeFeedbackService>();
             StartPage = new StartModel(_mockSessionService.Object, _mockApprenticeFeedbackService.Object, _mockUrlHelper.Object, Mock.Of<ILogger<StartModel>>());
         }
 
@@ -35,7 +35,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         {
             var user = AuthenticatedUserHelper.CreateAuthenticatedUser(apprenticeshipId);
             _mockApprenticeFeedbackService.Setup(s => s.GetTrainingProvider(apprenticeshipId, ukprn)).ReturnsAsync(trainingProvider);
-            _mockUrlHelper.Setup(u => u.FindApprenticeshipTrainingFeedbackUrl(ukprn, trainingProvider.GetMostRecentlyStartedApprenticeship().LarsCode)).Returns(url);
+            //_mockUrlHelper.Setup(u => u.FindApprenticeshipTrainingFeedbackUrl(ukprn, trainingProvider.GetMostRecentlyStartedApprenticeship().LarsCode)).Returns(url);
 
             var result = await StartPage.OnGet(user, ukprn);
 

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
 {
@@ -7,11 +6,9 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
     {
         public string Name { get; set; }
         public long Ukprn { get; set; }
-        public IEnumerable<Apprenticeship> Apprenticeships { get; set; }
-
-        public Apprenticeship GetMostRecentlyStartedApprenticeship()
-        {
-            return Apprenticeships?.OrderByDescending(apprenticeship => apprenticeship.StartDate).FirstOrDefault();
-        }
+        public FeedbackEligibility FeedbackEligibility { get; set; }
+        public DateTime? DateSubmitted { get; set; }
+        public TimeSpan? TimeWindow { get; set; }
+        public DateTime? SignificantDate { get; set; }
     }
 }

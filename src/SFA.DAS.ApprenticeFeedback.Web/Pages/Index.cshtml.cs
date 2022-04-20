@@ -31,7 +31,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         public string FeedbackInitialDenyPeriod { get; set; }
         public string FeedbackFinalAllowPeriod { get; set; }
 
-        // provider viewmodel
+        /*
+        // provider viewmodel - no longer needed?
         public class ProviderItem
         {
             public const string NO_SUBMITTED_DATE = "N/A";
@@ -44,8 +45,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
             public DateTime? SignificantDate { get; set; }
             public bool Show { get; set; }
         }
+        */
 
-        public List<ProviderItem> TrainingProviderItems { get; set; }
+        public IEnumerable<TrainingProvider> TrainingProviderItems { get; set; }
 
 
         public IndexModel(ILogger<IndexModel> logger
@@ -63,68 +65,41 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
 
         public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
         {
-            var providers = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
-            var allItems = GenerateProviderItems(providers);
-            TrainingProviderItems = allItems.Where(tpi => tpi.Show == true).ToList();
-
-            if (TrainingProviderItems.Count == 1)
+            try
             {
-                var feedbackContext = new FeedbackContext();
-                feedbackContext.FeedbackEligibility = TrainingProviderItems[0].FeedbackEligibility;
-                feedbackContext.TimeWindow = TrainingProviderItems[0].TimeWindow;
-                feedbackContext.SignificantDate = TrainingProviderItems[0].SignificantDate;
+                TrainingProviderItems = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to read training provider data from outer api.", ex);
+                return Redirect("Error");
+            }
+
+            if (TrainingProviderItems.ContainsCountItems(1))
+            {
+                var provider = TrainingProviderItems.First();
+                if (provider.FeedbackEligibility == FeedbackEligibility.Allow)
+                {
+                    return Redirect($"/start/{provider.Ukprn}");
+                }
+
+                var feedbackContext = new FeedbackContext()
+                {
+                    UkPrn = provider.Ukprn,
+                    ProviderName = provider.Name,
+                    FeedbackEligibility = provider.FeedbackEligibility,
+                    TimeWindow = provider.TimeWindow,
+                    SignificantDate = provider.SignificantDate,
+                };
                 _sessionService.SetFeedbackContext(feedbackContext);
 
-                if(feedbackContext.FeedbackEligibility == FeedbackEligibility.Allow) {
-                    return Redirect($"/start/{TrainingProviderItems[0].Ukprn}");
-                }
                 return Redirect("/status");
             }
 
-            FeedbackRate = _apprenticeFeedbackService.RecentDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
-            FeedbackInitialDenyPeriod = _apprenticeFeedbackService.InitialDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
-            FeedbackFinalAllowPeriod = _apprenticeFeedbackService.FinalAllowPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
+            //FeedbackRate = _apprenticeFeedbackService.RecentDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
+            //FeedbackInitialDenyPeriod = _apprenticeFeedbackService.InitialDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
+            //FeedbackFinalAllowPeriod = _apprenticeFeedbackService.FinalAllowPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
             return Page();                
-        }
-
-
-        private List<ProviderItem> GenerateProviderItems(IEnumerable<TrainingProvider> providers)
-        {
-            var vm = new List<ProviderItem>();
-
-            foreach(var provider in providers)
-            {
-                var mostRecentlyStartedApprenticeship = provider?.GetMostRecentlyStartedApprenticeship();
-                var feedbackEligiblity = _apprenticeFeedbackService.GetFeedbackEligibility(mostRecentlyStartedApprenticeship);
-
-                var item = new ProviderItem()
-                {
-                    Ukprn = provider.Ukprn,
-                    Name = provider.Name,
-                    DateSubmitted = ProviderItem.NO_SUBMITTED_DATE,
-                    FeedbackEligibility = feedbackEligiblity.feedbackEligibility,
-                    TimeWindow = feedbackEligiblity.timeWindow,
-                    SignificantDate = feedbackEligiblity.significantDate,
-                    Show = true,
-                };
-
-                if(null != mostRecentlyStartedApprenticeship.FeedbackCompletionDates 
-                    && !mostRecentlyStartedApprenticeship.FeedbackCompletionDates.ContainsCountItems(0))
-                {
-                    item.DateSubmitted = mostRecentlyStartedApprenticeship.FeedbackCompletionDates.First().ToString("d MMM yyyy");
-                }
-
-                if(item.FeedbackEligibility == FeedbackEligibility.Deny_TooLateAfterPassing 
-                    || item.FeedbackEligibility == FeedbackEligibility.Deny_TooLateAfterWithdrawing)
-                {
-                    // @ToDo: are other possibilities other than passed or withdrew that we want to exclude from the UI?
-                    item.Show = false;
-                }
-
-                vm.Add(item);
-            }
-
-            return vm;
         }
     }
 }

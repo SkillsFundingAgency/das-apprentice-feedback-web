@@ -9,6 +9,10 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 {
     public interface IApprenticeFeedbackApi
     {
+        [Get("/TrainingProviders/{apprenticeId}")]
+        Task<GetTrainingProvidersResponse> GetTrainingProviders([Path] Guid apprenticeId);
+
+        /*
         [Post("apprenticefeedback")]
         Task SubmitFeedback([Body] PostSubmitFeedback feedback);
 
@@ -23,6 +27,6 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 
         [Get("provider-attributes")]
         Task<List<ProviderAttribute>> GetProviderAttributes();
-
+        */
     }
 }

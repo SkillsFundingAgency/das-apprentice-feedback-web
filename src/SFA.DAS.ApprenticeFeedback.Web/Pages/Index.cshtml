@@ -41,32 +41,45 @@
                     <tbody class="govuk-table__body">
                         @foreach (var provider in Model.TrainingProviderItems)
                         {
+                            if(provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooLateAfterPassing ||
+                                provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooLateAfterWithdrawing ||
+                                provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_HasGivenFinalFeedback)
+                            {
+                                continue;
+                            }
+
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">@provider.Name </th>
 
                                 <td class="govuk-table__cell">
-                                    @if(provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooSoon)
+                                    @if (provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooSoon)
                                     {
                                         <strong class="govuk-tag govuk-tag--grey">YOU CANNOT SUBMIT YET</strong>
-                                    }                                                                    
-                                    else if(!provider.DateSubmitted.Equals(IndexModel.ProviderItem.NO_SUBMITTED_DATE, StringComparison.InvariantCultureIgnoreCase))
+                                    }
+                                    else if (provider.DateSubmitted.HasValue)
                                     {
                                         <strong class="govuk-tag govuk-tag govuk-tag--green">SUBMITTED</strong>
-                                    }                                                                    
-                                    else if(provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Allow)
+                                    }
+                                    else if (provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Allow)
                                     {
                                         <strong class="govuk-tag govuk-tag--blue">YOU CAN SUBMIT</strong>
-                                    }                                                                    
+                                    }
                                 </td>
 
                                 <td class="govuk-table__cell govuk-table__cell--numeric">
-                                    @provider.DateSubmitted
+                                    @if(null != provider.DateSubmitted && provider.DateSubmitted.HasValue)
+                                    {
+                                            @provider.DateSubmitted.Value.ToString("d MMM yyyy")
+                                    }
+                                    else {
+                                        <text>N/A</text>
+                                    }
                                 </td>
 
                                 <td class="govuk-table__cell">
                                     @if (provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Allow)
                                     {
-                                    <a href="start/@provider.Ukprn">Select</a>
+                                        <a href="start/@provider.Ukprn">Select</a>
                                     }
                                 </td>
                             </tr>

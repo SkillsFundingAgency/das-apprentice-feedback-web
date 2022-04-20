@@ -8,11 +8,8 @@ using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback;
 using SFA.DAS.ApprenticeFeedback.Web.UnitTests.Helpers;
-using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.Testing.AutoFixture;
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels

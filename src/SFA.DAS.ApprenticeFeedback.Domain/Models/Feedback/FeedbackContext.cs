@@ -24,7 +24,6 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
             {
                 feedbackContext.ProviderName = provider.Name;
                 feedbackContext.UkPrn = provider.Ukprn;
-                feedbackContext.LarsCode = provider.GetMostRecentlyStartedApprenticeship().LarsCode;
                 feedbackContext.FeedbackEligibility = FeedbackEligibility.Allow;
             }
 
