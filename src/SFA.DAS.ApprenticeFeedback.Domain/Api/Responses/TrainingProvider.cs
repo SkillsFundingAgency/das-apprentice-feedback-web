@@ -30,7 +30,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Responses
 
         public string ProviderName { get; set; }
         public long UkPrn { get; set; }
-        public DateTime? DateSubmitted { get; set; }
+        public DateTime? LastFeedbackSubmittedDate { get; set; }
         public FeedbackEligibility FeedbackEligibility { get; set; } 
         public TimeSpan? TimeWindow { get; set; }
         public DateTime? SignificantDate { get; set; }
