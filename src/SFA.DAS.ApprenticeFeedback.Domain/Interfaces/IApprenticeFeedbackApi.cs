@@ -9,7 +9,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 {
     public interface IApprenticeFeedbackApi
     {
-        [Get("/TrainingProviders/{apprenticeId}")]
+        [Get("/provider/{apprenticeId}")]
         Task<GetTrainingProvidersResponse> GetTrainingProviders([Path] Guid apprenticeId);
 
         /*
