@@ -23,7 +23,7 @@ namespace SFA.DAS.ApprenticeFeedback.Application.UnitTests.Services
 
             var urlHelper = new UrlHelper(mockOptions.Object);
 
-            var actual = urlHelper.FATFeedback(ukprn, larscode);
+            var actual = urlHelper.FindApprenticeshipTrainingFeedbackUrl(ukprn, larscode);
 
             actual.Should().Be($"http://FAT/courses/{larscode}/providers/{ukprn}");
         }

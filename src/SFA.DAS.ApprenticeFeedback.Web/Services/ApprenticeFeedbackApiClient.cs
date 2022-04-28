@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Services
 {
+    /*
     public class ApprenticeFeedbackApiClient
     {
         private readonly IApprenticeFeedbackApi _client;
@@ -27,4 +28,5 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Services
             }
         }
     }
+    */
 }

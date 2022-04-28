@@ -1,6 +1,4 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
-using System;
-using System.Collections.Generic;
 
 namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
 {
@@ -8,34 +6,20 @@ namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
     {
         private ISessionService _sessionService;
 
-        private const string _sessionKey = "Apprentice_Feedback_Request";
+        private const string _sessionKey = "Apprentice_Feedback_Context";
 
         public ApprenticeFeedbackSessionService(ISessionService sessionService)
         {
             _sessionService = sessionService;
         }
 
-        public void StartNewFeedbackRequest(string provderName, long ukprn, int larsCode)
+        public void SetFeedbackContext(FeedbackContext context)
         {
-            var request = new FeedbackRequest
-            {
-                TrainingProvider = provderName,
-                Ukprn = ukprn,
-                LarsCode = larsCode
-            };
-
-            _sessionService.Set(_sessionKey, request);
+            _sessionService.Set(_sessionKey, context);
         }
-
-        public FeedbackRequest GetFeedbackRequest()
+        public FeedbackContext GetFeedbackContext()
         {
-            return _sessionService.Get<FeedbackRequest>(_sessionKey);
+            return _sessionService.Get<FeedbackContext>(_sessionKey);
         }
-
-        public void UpdateFeedbackRequest(FeedbackRequest request)
-        {
-            _sessionService.Set(_sessionKey, request);
-        }
-
     }
 }

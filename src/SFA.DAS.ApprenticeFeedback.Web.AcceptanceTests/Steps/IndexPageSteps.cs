@@ -55,6 +55,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Steps
 
         private List<TrainingProvider> GetMultipleProviders()
         {
+            /*
             return new List<TrainingProvider>
             {
                 new TrainingProvider
@@ -103,6 +104,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Steps
                     }
                 }
             };
+            */
+            return null;
         }
     }
 }

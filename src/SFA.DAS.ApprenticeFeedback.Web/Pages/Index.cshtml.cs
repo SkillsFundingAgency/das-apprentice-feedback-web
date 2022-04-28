@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.ApprenticeFeedback.Domain.Extensions;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
@@ -17,64 +19,87 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
     [HideNavigationBar]
     public class IndexModel : PageModel, IHasBackLink
     {
-        private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
-        private readonly IApprenticeFeedbackSessionService _apprenticeFeedbackSessionService;
-        private readonly NavigationUrlHelper _urlHelper;
         private readonly ILogger<IndexModel> _logger;
+        private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
+        private readonly IApprenticeFeedbackSessionService _sessionService;
 
-        public IndexModel(IApprenticeFeedbackService apprenticeFeedbackService, IApprenticeFeedbackSessionService apprenticeFeedbackSessionService, NavigationUrlHelper urlHelper, ILogger<IndexModel> logger)
-        {
-            _apprenticeFeedbackService = apprenticeFeedbackService;
-            _apprenticeFeedbackSessionService = apprenticeFeedbackSessionService;
-            _urlHelper = urlHelper;
-            _logger = logger;
-        }
-
-        [BindProperty]
-        public long SelectedProviderUkprn { get; set; }
-
-        public List<TrainingProvider> PotentialProviders { get; set; }
-       
         public string DashboardLink { get; set; }
         public string Backlink => DashboardLink;
 
-        public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
+        // Textual descriptions of the feedback time periods.
+        public string FeedbackRate { get; set; }
+        public string FeedbackInitialDenyPeriod { get; set; }
+        public string FeedbackFinalAllowPeriod { get; set; }
+
+        /*
+        // provider viewmodel - no longer needed?
+        public class ProviderItem
         {
-            DashboardLink = _urlHelper.Generate(NavigationSection.Home);
+            public const string NO_SUBMITTED_DATE = "N/A";
 
-            PotentialProviders = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
+            public long Ukprn { get; set; }
+            public string Name { get; set; }
+            public string DateSubmitted { get; set; }
+            public FeedbackEligibility FeedbackEligibility { get; set; }
+            public TimeSpan? TimeWindow { get; set; }
+            public DateTime? SignificantDate { get; set; }
+            public bool Show { get; set; }
+        }
+        */
 
-            if (PotentialProviders.Count == 1)
-            {
-                var onlyProvider = PotentialProviders.Single();
+        public IEnumerable<TrainingProvider> TrainingProviderItems { get; set; }
 
-                if (onlyProvider.IsValidForFeedback)
-                {
-                    _apprenticeFeedbackSessionService.StartNewFeedbackRequest(onlyProvider.Name, onlyProvider.Ukprn, onlyProvider.GetMostRecentLarsCode());
 
-                    return RedirectToPage("Feedback/Start");
-                }
-            }
-
-            return Page();
+        public IndexModel(ILogger<IndexModel> logger
+            , IApprenticeFeedbackService apprenticeFeedbackService
+            , NavigationUrlHelper urlHelper
+            , IApprenticeFeedbackSessionService sessionService
+        )
+        {
+            _logger = logger;
+            _apprenticeFeedbackService = apprenticeFeedbackService;
+            _sessionService = sessionService;
+            DashboardLink = urlHelper.Generate(NavigationSection.Home);
         }
 
-        public async Task<IActionResult> OnPost([FromServices] AuthenticatedUser user)
+
+        public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
         {
-            var provider = await _apprenticeFeedbackService.GetTrainingProvider(user.ApprenticeId, SelectedProviderUkprn);
-
-            if (provider.IsValidForFeedback)
+            try
             {
-                var larsCode = provider.GetMostRecentLarsCode();
-
-                _apprenticeFeedbackSessionService.StartNewFeedbackRequest(provider.Name, provider.Ukprn, larsCode);
-
-                return RedirectToPage("Feedback/Start");
+                TrainingProviderItems = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to read training provider data from outer api.", ex);
+                return Redirect("Error");
             }
 
-            PotentialProviders = new List<TrainingProvider> { provider };
+            if (TrainingProviderItems.ContainsCountItems(1))
+            {
+                var provider = TrainingProviderItems.First();
+                if (provider.FeedbackEligibility == FeedbackEligibility.Allow)
+                {
+                    return Redirect($"/start/{provider.Ukprn}");
+                }
 
-            return Page();
+                var feedbackContext = new FeedbackContext()
+                {
+                    UkPrn = provider.Ukprn,
+                    ProviderName = provider.Name,
+                    FeedbackEligibility = provider.FeedbackEligibility,
+                    TimeWindow = provider.TimeWindow,
+                    SignificantDate = provider.SignificantDate,
+                };
+                _sessionService.SetFeedbackContext(feedbackContext);
+
+                return Redirect("/status");
+            }
+
+            //FeedbackRate = _apprenticeFeedbackService.RecentDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
+            //FeedbackInitialDenyPeriod = _apprenticeFeedbackService.InitialDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
+            //FeedbackFinalAllowPeriod = _apprenticeFeedbackService.FinalAllowPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
+            return Page();                
         }
     }
 }

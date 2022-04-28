@@ -6,16 +6,18 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Services
 {
     public class ApprenticeAccountProvider : IApprenticeAccountProvider
     {
-        private readonly ApprenticeFeedbackApiClient _client;
+        //private readonly ApprenticeFeedbackApiClient _client;
 
-        public ApprenticeAccountProvider(ApprenticeFeedbackApiClient client)
+        public ApprenticeAccountProvider(/*ApprenticeFeedbackApiClient client*/)
         {
-            _client = client;
+            //_client = client;
         }
 
         public async Task<IApprenticeAccount> GetApprenticeAccount(Guid id)
         {
-            return await _client.TryGetApprentice(id);
+            //return await _client.TryGetApprentice(id);
+
+            throw new NotImplementedException();   // TBC - we don't actually use this?
         }
     }
 }

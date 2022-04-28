@@ -7,21 +7,13 @@
 <div class="govuk-width-container">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            @if (Model.PotentialProviders.Count == 1)
-            {
-                <partial name="_singleProviderWarning" model="Model.PotentialProviders.First()" />
-
-                <a class="govuk-button" href="@Model.DashboardLink"> Return to dashboard </a>
-            }
-            else if (Model.PotentialProviders.Count > 1)
-            {
                 <h1 class="govuk-heading-l"> Select a training provider </h1>
 
                 <p class="govuk-body"> Select one of your current training providers to give feedback on. </p>
 
                 <div class="govuk-inset-text">
-                    <p> Feedback can be given once every 3 weeks fo each training provider. </p>
-                    <p> You can start giving feedback from 3 months after your planned training start date. </p>
+                    <p> Feedback can be given once every @Model.FeedbackRate for each training provider. </p>
+                    <p> You can start giving feedback from @Model.FeedbackInitialDenyPeriod after your planned training start date. </p>
                 </div>
 
                 <details class="govuk-details" data-module="govuk-details">
@@ -32,7 +24,7 @@
                     </summary>
                     <div class="govuk-details__text">
                         <p> The list includes all the training providers for your current apprenticeship and any that you have recently completed.</p>
-                        <p> We have not included any training providers from previous apprenticeships that you completed or withdrew from over 3 months ago.</p>
+                        <p> We have not included any training providers from previous apprenticeships that you completed or withdrew from over @Model.FeedbackFinalAllowPeriod ago.</p>
                     </div>
                 </details>
 
@@ -42,51 +34,58 @@
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header"> Training provider </th>
                             <th scope="col" class="govuk-table__header"> Feedback status </th>
-                            <th scope="col" class="govuk-table__header"> Date submitted </th>
+                            <th scope="col" class="govuk-table__header govuk-table__header--numeric"> Date submitted </th>
                             <th scope="col" class="govuk-table__header"> Action </th>
                         </tr>
                     </thead>
                     <tbody class="govuk-table__body">
-                        @foreach (var provider in Model.PotentialProviders.Where(p => p.IsMoreThanThreeMonthsSincePassing == false && p.IsMoreThanThreeMonthsSinceWithdrawal == false))
+                        @foreach (var provider in Model.TrainingProviderItems)
                         {
+                            if(provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooLateAfterPassing ||
+                                provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooLateAfterWithdrawing ||
+                                provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_HasGivenFinalFeedback)
+                            {
+                                continue;
+                            }
+
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">@provider.Name </th>
 
                                 <td class="govuk-table__cell">
-                                    @if (provider.IsValidForFeedback)
+                                    @if (provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooSoon)
                                     {
-                                        <strong class="govuk-tag govuk-tag--blue"> You can submit </strong>
+                                        <strong class="govuk-tag govuk-tag--grey">YOU CANNOT SUBMIT YET</strong>
                                     }
-                                    else if (provider.IsLessThanThreeMonthsSinceStartDate)
+                                    else if (provider.DateSubmitted.HasValue)
                                     {
-                                        <strong class="govuk-tag govuk-tag--grey"> You cannot submit yet </strong>
+                                        <strong class="govuk-tag govuk-tag govuk-tag--green">SUBMITTED</strong>
                                     }
-                                    else if (provider.GetLatestSubmittedDate().HasValue)
+                                    else if (provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Allow)
                                     {
-                                        <strong class="govuk-tag govuk-tag--green"> Submitted </strong>
+                                        <strong class="govuk-tag govuk-tag--blue">YOU CAN SUBMIT</strong>
                                     }
                                 </td>
 
                                 <td class="govuk-table__cell govuk-table__cell--numeric">
-                                    @(provider.GetLatestSubmittedDate().Value != default ? (provider.GetLatestSubmittedDate()).Value.ToString("dd MMM yyyy") : "N/A")
+                                    @if(null != provider.DateSubmitted && provider.DateSubmitted.HasValue)
+                                    {
+                                            @provider.DateSubmitted.Value.ToString("d MMM yyyy")
+                                    }
+                                    else {
+                                        <text>N/A</text>
+                                    }
                                 </td>
 
                                 <td class="govuk-table__cell">
-                                    @if (provider.IsValidForFeedback)
+                                    @if (provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Allow)
                                     {
-                                        <form method="post">
-                                            <input type="hidden" asp-for="SelectedProviderUkprn" value="@provider.Ukprn" />
-
-                                            <button type="submit" class="govuk-button"> Select </button>
-                                        </form>
+                                        <a href="start/@provider.Ukprn">Select</a>
                                     }
-
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-            }
         </div>
     </div>
 </div>
