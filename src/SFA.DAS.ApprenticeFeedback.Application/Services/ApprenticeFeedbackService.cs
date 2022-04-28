@@ -13,6 +13,14 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
     {
         private readonly IApprenticeFeedbackApi _apiClient;
 
+        public TimeSpan InitialDenyPeriod { get; internal set; }
+
+        public TimeSpan RecentDenyPeriod { get; internal set; }
+
+        public TimeSpan FinalAllowPeriod { get; internal set; }
+
+        public int MinimumActiveApprenticeshipCount { get; internal set; }
+
         public ApprenticeFeedbackService(IApprenticeFeedbackApi apiClient)
         {
             _apiClient = apiClient;
@@ -22,8 +30,14 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
         {
             try
             {
-                // Get the training providers from the Outer Api
+                // Get the training provider data set from the Outer Api
                 var response = await _apiClient.GetTrainingProviders(apprenticeId);
+
+                // Initialise the config parameters
+                InitialDenyPeriod = new TimeSpan(days: response.InitialDenyPeriodDays, 0, 0, 0);
+                RecentDenyPeriod = new TimeSpan(days: response.RecentDenyPeriodDays, 0, 0, 0);
+                FinalAllowPeriod = new TimeSpan(days: response.FinalAllowedPeriodDays, 0, 0, 0);
+                MinimumActiveApprenticeshipCount = response.MinimumActiveApprenticeshipCount;
 
                 // automapper?
                 return response.TrainingProviders.Select(tp => new Domain.Models.Feedback.TrainingProvider()
