@@ -39,19 +39,15 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
             _mockSessionService.Setup(s => s.GetFeedbackContext()).Returns(context);
             _mockFeedbackService.Setup(s => s.SubmitFeedback(It.IsAny<PostSubmitFeedback>())).Callback<PostSubmitFeedback>(x => postSubmitFeedback = x);
 
-            var result = await CheckYourAnswersPage.OnPost(user);
+            var result = await CheckYourAnswersPage.OnPost();
 
             postSubmitFeedback.Should().BeEquivalentTo(new
             {
-                context.UkPrn,
-                ProviderName = context.ProviderName,
                 context.OverallRating,
-                //context.StandardReference,
                 context.FeedbackAttributes,
-                //context.StandardUId,
-                context.LarsCode,
-                ApprenticeId = apprenticeId,
-                ContactConsent = true
+                ContactConsent = true,
+                context.ApprenticeFeedbackTargetId
+
             });
             result.Should().BeOfType<RedirectToPageResult>().Which.PageName.Should().Be("Complete");
         }

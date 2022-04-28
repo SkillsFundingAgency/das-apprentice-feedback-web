@@ -8,6 +8,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
         public string ProviderName { get; set; }
         public long UkPrn { get; set; }
         public int LarsCode { get; set; }
+        public Guid ApprenticeFeedbackTargetId { get; set; }
         public List<FeedbackAttribute> FeedbackAttributes { get; set; }
         public OverallRating? OverallRating { get; set; }
 
@@ -25,6 +26,9 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
                 feedbackContext.ProviderName = provider.Name;
                 feedbackContext.UkPrn = provider.Ukprn;
                 feedbackContext.FeedbackEligibility = FeedbackEligibility.Allow;
+
+                // Needs sorting with the singular call via ukprn plus sign in id
+                feedbackContext.ApprenticeFeedbackTargetId = new Guid("07B3C9BC-07BA-4F48-823D-EA07933CB922");
             }
 
             return feedbackContext;
