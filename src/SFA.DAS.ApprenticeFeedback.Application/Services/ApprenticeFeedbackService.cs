@@ -53,17 +53,13 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
 
         public async Task<IEnumerable<FeedbackAttribute>> GetFeedbackAttributes()
         {
-            /*
-            var response = await _apiClient.GetProviderAttributes();
+            var response = await _apiClient.GetFeedbackAttributes();
             return response.Select(attribute => (FeedbackAttribute)attribute).ToList();
-            */
-            return new List<FeedbackAttribute>() { new FeedbackAttribute() { Id = 1, Name = "Feedback attribute 1" } };
         }
 
-        public Task SubmitFeedback(PostSubmitFeedback request)
+        public async Task SubmitFeedback(PostSubmitFeedback request)
         {
-            //await _apiClient.SubmitFeedback(request);
-            return Task.CompletedTask;
+            await _apiClient.SubmitFeedback(request);
         }
     }
 }

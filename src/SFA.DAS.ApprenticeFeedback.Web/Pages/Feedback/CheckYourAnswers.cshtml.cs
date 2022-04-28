@@ -39,17 +39,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             return Page();
         }
 
-        public async Task<IActionResult> OnPost([FromServices] AuthenticatedUser user)
+        public async Task<IActionResult> OnPost()
         {
             var request = new PostSubmitFeedback
             {
                 FeedbackAttributes = FeedbackContext.FeedbackAttributes,
-                Ukprn = FeedbackContext.UkPrn,
-                LarsCode = FeedbackContext.LarsCode,
                 OverallRating = FeedbackContext.OverallRating.Value,
-                ProviderName = FeedbackContext.ProviderName,
-                ContactConsent = ContactConsent,
-                ApprenticeId = user.ApprenticeId
+                AllowContact = ContactConsent,
+                ApprenticeFeedbackTargetId = FeedbackContext.ApprenticeFeedbackTargetId
             };
             await _apprenticeFeedbackService.SubmitFeedback(request);        
 
