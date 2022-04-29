@@ -2,7 +2,7 @@
 {
     public static class ApprenticeshipStatus
     {
-        public static string Pass = "Pass";
-        public static string Withdraw = "Withdraw";
+        public const string Pass = "Pass";
+        public const string Withdraw = "Withdraw";
     }
 }
