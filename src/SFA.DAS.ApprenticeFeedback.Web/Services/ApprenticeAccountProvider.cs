@@ -4,20 +4,15 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Services
 {
+    /// <summary>
+    /// We need to have an implementation of <code>IApprenticeAccountProvider</code> even 
+    /// though we don't actually need to use it.
+    /// </summary>
     public class ApprenticeAccountProvider : IApprenticeAccountProvider
     {
-        //private readonly ApprenticeFeedbackApiClient _client;
-
-        public ApprenticeAccountProvider(/*ApprenticeFeedbackApiClient client*/)
-        {
-            //_client = client;
-        }
-
         public async Task<IApprenticeAccount> GetApprenticeAccount(Guid id)
         {
-            //return await _client.TryGetApprentice(id);
-
-            throw new NotImplementedException();   // TBC - we don't actually use this?
+            throw new NotImplementedException();
         }
     }
 }

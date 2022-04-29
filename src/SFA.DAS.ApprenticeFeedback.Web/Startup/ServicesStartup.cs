@@ -19,12 +19,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
         {
             services.AddTransient<IApprenticeFeedbackService, ApprenticeFeedbackService>();
             services.AddTransient<IMenuVisibility, MenuVisibility>();
-            //services.AddScoped<ApprenticeFeedbackApiClient>();
             services.AddScoped<IApprenticeFeedbackService, ApprenticeFeedbackService>();
             services.AddScoped<IMenuVisibility, MenuVisibility>();
             services.AddScoped<IDateTimeProvider, SystemDateTimeProvider>();
             services.AddTransient<IUrlHelper, UrlHelper>();
-
 
             return services;
         }
