@@ -4,7 +4,7 @@ namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
 {
     public class ApprenticeFeedbackSessionService : IApprenticeFeedbackSessionService
     {
-        private ISessionService _sessionService;
+        private readonly ISessionService _sessionService;
 
         private const string _sessionKey = "Apprentice_Feedback_Context";
 
