@@ -10,8 +10,5 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Responses
         public int MinimumActiveApprenticeshipCount { get; set; }
 
         public IEnumerable<TrainingProvider> TrainingProviders { get; set; }
-
-        //[JsonProperty("trainingProviders")]
-        //public IEnumerable<TrainingProvider> TrainingProviders { get; set; }
     }
 }
