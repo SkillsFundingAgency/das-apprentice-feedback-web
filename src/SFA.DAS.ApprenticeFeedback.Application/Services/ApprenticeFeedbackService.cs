@@ -28,61 +28,48 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
 
         public async Task<IEnumerable<Domain.Models.Feedback.TrainingProvider>> GetTrainingProviders(Guid apprenticeId)
         {
-            try
-            {
-                // Get the training provider data set from the Outer Api
-                var response = await _apiClient.GetTrainingProviders(apprenticeId);
+            // Get the training provider data set from the Outer Api
+            var response = await _apiClient.GetTrainingProviders(apprenticeId);
 
-                // Initialise the config parameters
-                InitialDenyPeriod = new TimeSpan(days: response.InitialDenyPeriodDays, 0, 0, 0);
-                RecentDenyPeriod = new TimeSpan(days: response.RecentDenyPeriodDays, 0, 0, 0);
-                FinalAllowPeriod = new TimeSpan(days: response.FinalAllowedPeriodDays, 0, 0, 0);
-                MinimumActiveApprenticeshipCount = response.MinimumActiveApprenticeshipCount;
+            // Initialise the config parameters
+            InitialDenyPeriod = new TimeSpan(days: response.InitialDenyPeriodDays, 0, 0, 0);
+            RecentDenyPeriod = new TimeSpan(days: response.RecentDenyPeriodDays, 0, 0, 0);
+            FinalAllowPeriod = new TimeSpan(days: response.FinalAllowedPeriodDays, 0, 0, 0);
+            MinimumActiveApprenticeshipCount = response.MinimumActiveApprenticeshipCount;
 
-                // automapper?
-                return response.TrainingProviders.Select(tp => new Domain.Models.Feedback.TrainingProvider()
-                {
-                    Name = tp.ProviderName,
-                    Ukprn = tp.UkPrn,
-                    DateSubmitted = tp.LastFeedbackSubmittedDate,
-                    FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)tp.FeedbackEligibility,
-                    TimeWindow = tp.TimeWindow,
-                    SignificantDate = tp.SignificantDate,
-                });
-            }
-            catch (Exception ex)
+            // automapper?
+            return response.TrainingProviders.Select(tp => new Domain.Models.Feedback.TrainingProvider()
             {
-                throw;
-            }
+                Name = tp.ProviderName,
+                Ukprn = tp.UkPrn,
+                DateSubmitted = tp.LastFeedbackSubmittedDate,
+                FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)tp.FeedbackEligibility,
+                TimeWindow = tp.TimeWindow,
+                SignificantDate = tp.SignificantDate,
+            });
         }
 
         public async Task<Domain.Models.Feedback.TrainingProvider> GetTrainingProvider(Guid apprenticeId, long ukprn)
         {
-            try
-            {
-                var response = await _apiClient.GetTrainingProvider(apprenticeId, ukprn);
 
-                if(response == null)
-                {
-                    return null;
-                }
+            var response = await _apiClient.GetTrainingProvider(apprenticeId, ukprn);
 
-                // automapper? implicit cast?
-                return new Domain.Models.Feedback.TrainingProvider()
-                {
-                    ApprenticeFeedbackTargetId = response.ApprenticeFeedbackTargetId,
-                    Name = response.ProviderName,
-                    Ukprn = response.UkPrn,
-                    DateSubmitted = response.LastFeedbackSubmittedDate,
-                    FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)response.FeedbackEligibility,
-                    TimeWindow = response.TimeWindow,
-                    SignificantDate = response.SignificantDate,
-                };
-            }
-            catch (Exception ex)
+            if (response == null)
             {
-                throw;
+                return null;
             }
+
+            // automapper? implicit cast?
+            return new Domain.Models.Feedback.TrainingProvider()
+            {
+                ApprenticeFeedbackTargetId = response.ApprenticeFeedbackTargetId,
+                Name = response.ProviderName,
+                Ukprn = response.UkPrn,
+                DateSubmitted = response.LastFeedbackSubmittedDate,
+                FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)response.FeedbackEligibility,
+                TimeWindow = response.TimeWindow,
+                SignificantDate = response.SignificantDate,
+            };
         }
 
         public async Task<IEnumerable<FeedbackAttribute>> GetFeedbackAttributes()
