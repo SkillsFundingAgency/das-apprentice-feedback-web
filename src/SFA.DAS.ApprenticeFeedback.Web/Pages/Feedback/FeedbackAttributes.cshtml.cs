@@ -14,12 +14,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
     public class FeedbackAttributesModel : FeedbackContextPageModel, IHasBackLink
     {
 
-        private IApprenticeFeedbackService _apprenticeFeedbackService;
-
-        public FeedbackAttributesModel(IApprenticeFeedbackSessionService sessionService, IApprenticeFeedbackService apprenticeFeedbackService)
+        public FeedbackAttributesModel(IApprenticeFeedbackSessionService sessionService)
             : base(sessionService)
         {
-            _apprenticeFeedbackService = apprenticeFeedbackService;
         }
 
         [BindProperty]
