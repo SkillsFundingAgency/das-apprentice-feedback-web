@@ -52,7 +52,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services.AddHttpContextAccessor();
             services.AddRazorPages(o => o.Conventions
                 .AuthorizeFolder("/"));
-                //.AllowAnonymousToPage("/Index"));
             services.AddRazorPages();
             services.AddScoped<AuthenticatedUser>();
             services.AddScoped(s => s
