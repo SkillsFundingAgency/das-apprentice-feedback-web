@@ -12,6 +12,9 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
         [Get("/provider/{apprenticeId}")]
         Task<GetTrainingProvidersResponse> GetTrainingProviders([Path] Guid apprenticeId);
 
+        [Get("provider/{apprenticeId}/{ukprn}")]
+        Task<TrainingProvider> GetTrainingProvider([Path] Guid apprenticeId, [Path] long ukprn);
+
         [Get("provider-attributes")]
         Task<List<ProviderAttribute>> GetFeedbackAttributes();
 
