@@ -27,7 +27,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
             _mockSessionService = new Mock<IApprenticeFeedbackSessionService>();
             _mockUrlHelper = new Mock<Domain.Interfaces.IUrlHelper>();
             _mockApprenticeFeedbackService = new Mock<IApprenticeFeedbackService>();
-            StartPage = new StartModel(_mockSessionService.Object, _mockApprenticeFeedbackService.Object, _mockUrlHelper.Object, Mock.Of<ILogger<StartModel>>());
+            StartPage = new StartModel(_mockSessionService.Object, _mockApprenticeFeedbackService.Object, _mockUrlHelper.Object);
         }
 
         [Ignore("Temporarily ignire in order to get Azure Build running")]
