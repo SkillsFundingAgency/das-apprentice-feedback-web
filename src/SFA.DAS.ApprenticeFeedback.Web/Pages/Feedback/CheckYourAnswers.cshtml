@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <table class="govuk-table">
+            <table class="govuk-table" aria-label="Feedback answers">
                 <tbody class="govuk-table__body">
                     @foreach (var attribute in Model.FeedbackAttributes)
                     {
@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <table class="govuk-table">
+            <table class="govuk-table" aria-label="Overall rating">
                 <tbody class="govuk-table__body">
                     <tr class="govuk-table__row">
                         <th scope="row" class="govuk-table__header">Overall rating</th>
@@ -52,6 +52,7 @@
             <form method="post">
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
+                        <legend></legend>
                         <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
                                 <input class="govuk-checkboxes__input" type="checkbox" asp-for="ContactConsent">
