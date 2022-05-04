@@ -13,6 +13,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Configuration
         public OuterApiConfiguration ApprenticeFeedbackOuterApi { get; set; }
         public GoogleAnalyticsConfiguration GoogleAnalytics { get; set; }
         public ZenDeskConfiguration Zendesk { get; set; }
-        public FeedbackSettings FeedbackSettings { get; set; }        
+        public AppSettings AppSettings { get; set; }        
     }
 }

@@ -48,11 +48,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services
                 .AddAuthentication(appConfig.Authentication, Environment)
                 .AddOuterApi(appConfig.ApprenticeFeedbackOuterApi)
-                .AddConfigurationOptions(Configuration)
                 .AddSessionService(Environment)
                 .RegisterServices(Environment);
 
-            services.AddTransient((_) => appConfig.FeedbackSettings);
+            services.AddTransient((_) => appConfig.AppSettings);
 
             services.AddSharedUi(appConfig, options =>
             {
