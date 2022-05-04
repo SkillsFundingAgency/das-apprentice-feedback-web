@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SFA.DAS.ApprenticeFeedback.Application.Services          
+namespace SFA.DAS.ApprenticeFeedback.Application.Services
 {
     public class ApprenticeFeedbackService : IApprenticeFeedbackService
     {
@@ -51,11 +51,25 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
 
         public async Task<Domain.Models.Feedback.TrainingProvider> GetTrainingProvider(Guid apprenticeId, long ukprn)
         {
-            // @ToDo:
-            // Is there an api call for this on the outer api, or do we do what we are doing here?
 
-            var providers = await GetTrainingProviders(apprenticeId);
-            return providers.FirstOrDefault(p => p.Ukprn == ukprn);
+            var response = await _apiClient.GetTrainingProvider(apprenticeId, ukprn);
+
+            if (response == null)
+            {
+                return null;
+            }
+
+            // automapper? implicit cast?
+            return new Domain.Models.Feedback.TrainingProvider()
+            {
+                ApprenticeFeedbackTargetId = response.ApprenticeFeedbackTargetId,
+                Name = response.ProviderName,
+                Ukprn = response.UkPrn,
+                DateSubmitted = response.LastFeedbackSubmittedDate,
+                FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)response.FeedbackEligibility,
+                TimeWindow = response.TimeWindow,
+                SignificantDate = response.SignificantDate,
+            };
         }
 
         public async Task<IEnumerable<FeedbackAttribute>> GetFeedbackAttributes()
