@@ -27,8 +27,9 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
                 feedbackContext.UkPrn = provider.Ukprn;
                 feedbackContext.FeedbackEligibility = FeedbackEligibility.Allow;
 
-                // Needs sorting with the singular call via ukprn plus sign in id
-                feedbackContext.ApprenticeFeedbackTargetId = new Guid("07B3C9BC-07BA-4F48-823D-EA07933CB922");
+                // Needed so we know which target we're saving the feedback against
+                // To save us re-calculating if there is more than one against each provider.
+                feedbackContext.ApprenticeFeedbackTargetId = provider.ApprenticeFeedbackTargetId;
             }
 
             return feedbackContext;
