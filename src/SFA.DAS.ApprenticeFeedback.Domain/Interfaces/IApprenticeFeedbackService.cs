@@ -17,6 +17,5 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
         Task<TrainingProvider> GetTrainingProvider(Guid apprenticeId, long ukprn);
         Task<IEnumerable<FeedbackAttribute>> GetFeedbackAttributes();
         Task SubmitFeedback(PostSubmitFeedback request);
-        //(FeedbackEligibility feedbackEligibility, DateTime? significantDate, TimeSpan? timeWindow) GetFeedbackEligibility(Apprenticeship apprenticeship);
     }
 }

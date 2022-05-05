@@ -16,14 +16,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         private FeedbackAttributesModel FeedbackAttributesPage;
 
         Mock<IApprenticeFeedbackSessionService> _mockSessionService;
-        Mock<IApprenticeFeedbackService> _mockFeedbackService;
 
         [SetUp]
         public void Arrange()
         {
             _mockSessionService = new Mock<IApprenticeFeedbackSessionService>();
-            _mockFeedbackService = new Mock<IApprenticeFeedbackService>();
-            FeedbackAttributesPage = new FeedbackAttributesModel(_mockSessionService.Object, _mockFeedbackService.Object);
+            FeedbackAttributesPage = new FeedbackAttributesModel(_mockSessionService.Object);
         }
 
 

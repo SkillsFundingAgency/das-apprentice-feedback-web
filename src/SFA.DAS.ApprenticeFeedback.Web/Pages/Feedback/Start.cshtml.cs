@@ -18,7 +18,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
         private readonly IApprenticeFeedbackSessionService _sessionService;
         private readonly Domain.Interfaces.IUrlHelper _urlHelper;
-        private readonly ILogger<StartModel> _logger;
 
         public string Backlink => "/";
         public string ProviderName { get; set;  }
@@ -26,12 +25,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public StartModel(IApprenticeFeedbackSessionService sessionService, 
         IApprenticeFeedbackService apprenticeFeedbackService,
-        Domain.Interfaces.IUrlHelper urlHelper, ILogger<StartModel> logger)
+        Domain.Interfaces.IUrlHelper urlHelper)
         {
             _sessionService = sessionService;
             _apprenticeFeedbackService = apprenticeFeedbackService;
             _urlHelper = urlHelper;
-            _logger = logger;
         }
 
         public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user, int ukprn)

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
@@ -14,12 +13,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
     public class FeedbackAttributesModel : FeedbackContextPageModel, IHasBackLink
     {
 
-        private IApprenticeFeedbackService _apprenticeFeedbackService;
-
-        public FeedbackAttributesModel(IApprenticeFeedbackSessionService sessionService, IApprenticeFeedbackService apprenticeFeedbackService)
+        public FeedbackAttributesModel(IApprenticeFeedbackSessionService sessionService)
             : base(sessionService)
         {
-            _apprenticeFeedbackService = apprenticeFeedbackService;
         }
 
         [BindProperty]

@@ -31,25 +31,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         public string FeedbackInitialDenyPeriod { get; set; }
         public string FeedbackFinalAllowPeriod { get; set; }
 
-        /*
-        // provider viewmodel - no longer needed?
-        public class ProviderItem
-        {
-            public const string NO_SUBMITTED_DATE = "N/A";
-
-            public long Ukprn { get; set; }
-            public string Name { get; set; }
-            public string DateSubmitted { get; set; }
-            public FeedbackEligibility FeedbackEligibility { get; set; }
-            public TimeSpan? TimeWindow { get; set; }
-            public DateTime? SignificantDate { get; set; }
-            public bool Show { get; set; }
-        }
-        */
-
         public IEnumerable<TrainingProvider> TrainingProviderItems { get; set; }
-
-
         public IndexModel(ILogger<IndexModel> logger
             , IApprenticeFeedbackService apprenticeFeedbackService
             , NavigationUrlHelper urlHelper

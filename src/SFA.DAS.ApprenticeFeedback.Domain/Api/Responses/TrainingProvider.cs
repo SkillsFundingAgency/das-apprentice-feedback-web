@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Responses
 {
@@ -31,7 +28,5 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Responses
         public FeedbackEligibility FeedbackEligibility { get; set; } 
         public TimeSpan? TimeWindow { get; set; }
         public DateTime? SignificantDate { get; set; }
-
-
     }
 }

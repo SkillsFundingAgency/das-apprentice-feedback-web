@@ -5,11 +5,7 @@ using Microsoft.IdentityModel.Logging;
 using SFA.DAS.ApprenticeFeedback.Web.Configuration;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
@@ -52,7 +48,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services.AddHttpContextAccessor();
             services.AddRazorPages(o => o.Conventions
                 .AuthorizeFolder("/"));
-                //.AllowAnonymousToPage("/Index"));
             services.AddRazorPages();
             services.AddScoped<AuthenticatedUser>();
             services.AddScoped(s => s
