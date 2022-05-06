@@ -40,6 +40,21 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
                 return Redirect("/Error");
             }
 
+            // Safety check incase the URL has been manipulated with a valid but ineligible ukprn
+            if(provider.FeedbackEligibility != FeedbackEligibility.Allow)
+            {
+                var errorFeedbackContext = new FeedbackContext()
+                {
+                    UkPrn = provider.Ukprn,
+                    ProviderName = provider.Name,
+                    FeedbackEligibility = provider.FeedbackEligibility,
+                    TimeWindow = provider.TimeWindow,
+                    SignificantDate = provider.SignificantDate,
+                };
+                _sessionService.SetFeedbackContext(errorFeedbackContext);
+                return Redirect("/status");
+            }
+
             var feedbackContext = FeedbackContext.CreateFrom(provider);
             feedbackContext.FeedbackAttributes = new List<FeedbackAttribute>(await _apprenticeFeedbackService.GetFeedbackAttributes());
             _sessionService.SetFeedbackContext(feedbackContext);
