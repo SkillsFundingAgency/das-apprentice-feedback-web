@@ -59,15 +59,15 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
                 return null;
             }
 
+            // automapper?
             return new Domain.Models.Feedback.TrainingProvider()
             {
-                ApprenticeFeedbackTargetId = response.ApprenticeFeedbackTargetId,
-                Name = response.ProviderName,
-                Ukprn = response.UkPrn,
-                LastFeedbackSubmittedDate = response.LastFeedbackSubmittedDate,
-                FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)response.FeedbackEligibility,
-                TimeWindow = response.TimeWindow,
-                SignificantDate = response.SignificantDate,
+                Name = response.TrainingProvider.ProviderName,
+                Ukprn = response.TrainingProvider.UkPrn,
+                LastFeedbackSubmittedDate = response.TrainingProvider.LastFeedbackSubmittedDate,
+                FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)response.TrainingProvider.FeedbackEligibility,
+                TimeWindow = response.TrainingProvider.TimeWindow,
+                SignificantDate = response.TrainingProvider.SignificantDate,
             };
         }
 
