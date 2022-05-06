@@ -4,8 +4,6 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Responses
 {
     public enum FeedbackEligibility
     {
-        // Updated Eligibility from Apim + Inner Api 
-        // One to look at Matt in case this breaks anything your side for UX
         Unknown = 0,
         Allow = 1,
         Deny_TooSoon = 2,
