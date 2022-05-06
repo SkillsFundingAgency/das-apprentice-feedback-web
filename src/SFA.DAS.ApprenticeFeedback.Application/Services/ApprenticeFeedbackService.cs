@@ -42,7 +42,7 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
             {
                 Name = tp.ProviderName,
                 Ukprn = tp.UkPrn,
-                DateSubmitted = tp.LastFeedbackSubmittedDate,
+                LastFeedbackSubmittedDate = tp.LastFeedbackSubmittedDate,
                 FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)tp.FeedbackEligibility,
                 TimeWindow = tp.TimeWindow,
                 SignificantDate = tp.SignificantDate,
@@ -59,13 +59,12 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
                 return null;
             }
 
-            // automapper? implicit cast?
             return new Domain.Models.Feedback.TrainingProvider()
             {
                 ApprenticeFeedbackTargetId = response.ApprenticeFeedbackTargetId,
                 Name = response.ProviderName,
                 Ukprn = response.UkPrn,
-                DateSubmitted = response.LastFeedbackSubmittedDate,
+                LastFeedbackSubmittedDate = response.LastFeedbackSubmittedDate,
                 FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)response.FeedbackEligibility,
                 TimeWindow = response.TimeWindow,
                 SignificantDate = response.SignificantDate,

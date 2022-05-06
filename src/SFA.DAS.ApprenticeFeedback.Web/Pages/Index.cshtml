@@ -57,7 +57,7 @@
                                     {
                                         <strong class="govuk-tag govuk-tag--grey">YOU CANNOT SUBMIT YET</strong>
                                     }
-                                    else if (provider.DateSubmitted.HasValue)
+                                    else if (provider.LastFeedbackSubmittedDate.HasValue)
                                     {
                                         <strong class="govuk-tag govuk-tag govuk-tag--green">SUBMITTED</strong>
                                     }
@@ -68,9 +68,9 @@
                                 </td>
 
                                 <td class="govuk-table__cell govuk-table__cell--numeric">
-                                    @if(null != provider.DateSubmitted && provider.DateSubmitted.HasValue)
+                                    @if(null != provider.LastFeedbackSubmittedDate && provider.LastFeedbackSubmittedDate.HasValue)
                                     {
-                                            @provider.DateSubmitted.Value.ToString("d MMM yyyy")
+                                            @provider.LastFeedbackSubmittedDate.Value.ToString("d MMM yyyy")
                                     }
                                     else {
                                         <text>N/A</text>
