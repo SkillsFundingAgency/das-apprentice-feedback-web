@@ -43,6 +43,7 @@
                         {
                             if(provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooLateAfterPassing ||
                                 provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooLateAfterWithdrawing ||
+                                provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_TooLateAfterPausing ||
                                 provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Deny_HasGivenFinalFeedback)
                             {
                                 continue;
