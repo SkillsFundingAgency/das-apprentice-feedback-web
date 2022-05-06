@@ -1,13 +1,8 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using NLog.Web;
 using SFA.DAS.ApprenticeFeedback.Web.Startup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web
 {
@@ -15,12 +10,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web
     {
         public static void Main(string[] args)
         {
+            NLogStartup.ConfigureNLog();
             CreateHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<ApplicationStartup>();
+                .UseStartup<ApplicationStartup>()
+                .UseNLog();
                
     }
 }

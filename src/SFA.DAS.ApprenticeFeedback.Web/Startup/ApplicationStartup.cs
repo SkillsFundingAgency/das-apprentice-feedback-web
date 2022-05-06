@@ -46,6 +46,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             var appConfig = Configuration.Get<ApplicationConfiguration>();
 
             services
+                .AddApplicationInsightsTelemetry()
                 .AddAuthentication(appConfig.Authentication, Environment)
                 .AddOuterApi(appConfig.ApprenticeFeedbackOuterApi)
                 .AddSessionService(Environment)
