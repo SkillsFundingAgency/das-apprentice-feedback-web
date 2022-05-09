@@ -24,6 +24,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 var redisConnectionString = configuration.RedisConnectionString;
                 var dataProtectionKeysDatabase = configuration.DataProtectionKeysDatabase;
 
+                services.AddStackExchangeRedisCache(options =>
+                {
+                    options.Configuration = redisConnectionString;
+                });
+
                 var redis = ConnectionMultiplexer
                     .Connect($"{redisConnectionString},{dataProtectionKeysDatabase}");
 
