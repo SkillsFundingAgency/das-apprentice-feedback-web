@@ -25,6 +25,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
             {
                 feedbackContext.ProviderName = provider.Name;
                 feedbackContext.UkPrn = provider.Ukprn;
+                feedbackContext.LarsCode = provider.LarsCode;
                 feedbackContext.FeedbackEligibility = FeedbackEligibility.Allow;
 
                 // Needed so we know which target we're saving the feedback against

@@ -46,6 +46,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
                 var errorFeedbackContext = new FeedbackContext()
                 {
                     UkPrn = provider.Ukprn,
+                    LarsCode = provider.LarsCode,
                     ApprenticeFeedbackTargetId = provider.ApprenticeFeedbackTargetId,
                     ProviderName = provider.Name,
                     FeedbackEligibility = provider.FeedbackEligibility,

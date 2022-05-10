@@ -11,8 +11,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
         TimeSpan InitialDenyPeriod { get; }
         TimeSpan RecentDenyPeriod { get; }
         TimeSpan FinalAllowPeriod { get; }
-        int MinimumActiveApprenticeshipCount { get; }
-
+        
         Task<IEnumerable<TrainingProvider>> GetTrainingProviders(Guid apprenticeId);
         Task<TrainingProvider> GetTrainingProvider(Guid apprenticeId, long ukprn);
         Task<IEnumerable<FeedbackAttribute>> GetFeedbackAttributes();
