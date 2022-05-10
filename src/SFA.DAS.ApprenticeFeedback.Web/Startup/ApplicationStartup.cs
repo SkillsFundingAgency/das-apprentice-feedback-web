@@ -47,6 +47,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
             services
                 .AddApplicationInsightsTelemetry()
+                .AddDataProtection(appConfig.ConnectionStrings, Environment)
                 .AddAuthentication(appConfig.Authentication, Environment)
                 .AddOuterApi(appConfig.ApprenticeFeedbackOuterApi)
                 .AddSessionService(Environment)

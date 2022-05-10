@@ -54,7 +54,7 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
 
             var response = await _apiClient.GetTrainingProvider(apprenticeId, ukprn);
 
-            if (response == null)
+            if (response?.TrainingProvider == null)
             {
                 return null;
             }
@@ -62,6 +62,7 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
             // automapper?
             return new Domain.Models.Feedback.TrainingProvider()
             {
+                ApprenticeFeedbackTargetId = response.TrainingProvider.ApprenticeFeedbackTargetId,
                 Name = response.TrainingProvider.ProviderName,
                 Ukprn = response.TrainingProvider.UkPrn,
                 LastFeedbackSubmittedDate = response.TrainingProvider.LastFeedbackSubmittedDate,

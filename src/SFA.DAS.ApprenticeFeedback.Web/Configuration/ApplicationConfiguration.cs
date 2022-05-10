@@ -1,4 +1,5 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Application.Settings;
+using SFA.DAS.ApprenticeFeedback.Web.Startup;
 using SFA.DAS.ApprenticePortal.SharedUi;
 using SFA.DAS.ApprenticePortal.SharedUi.GoogleAnalytics;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
@@ -10,6 +11,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Configuration
     {
         public AuthenticationConfiguration Authentication { get; set; }
         public NavigationSectionUrls ApplicationUrls { get; set; }
+        public DataProtectionConnectionStrings ConnectionStrings { get; set; }
         public OuterApiConfiguration ApprenticeFeedbackOuterApi { get; set; }
         public GoogleAnalyticsConfiguration GoogleAnalytics { get; set; }
         public ZenDeskConfiguration Zendesk { get; set; }
