@@ -15,7 +15,7 @@
 
             <p class="govuk-body"> Thanks for your feedback. It'll help @Model.ProviderName to continually improve their training provision. </p>
 
-            <p class="govuk-body"> You rated @Model.ProviderName as <strong> @Model.OverallRating </strong>. Your feedback will be published anonymously on <a class="govuk-link" href="https://findapprenticeshiptraining.apprenticeships.education.gov.uk/" _target="blank"> Find apprenticeship training (opens in a new tab)</a>.</p>
+            <p class="govuk-body"> You rated @Model.ProviderName as <strong> @Model.OverallRating </strong>. Your feedback will be published anonymously on <a class="govuk-link" href="@Model.FindApprenticeshipUrl" target="_blank"> Find apprenticeship training (opens in a new tab)</a>.</p>
 
             @if (Model.IsPoorlyRated)
             {
@@ -36,7 +36,7 @@
 
             <h2 class="govuk-heading-m"> What do you want to do next? </h2>
 
-            <p class="govuk-body"> <a class="govuk-link" href="@Model.ReturnToDashboardUrl" target="_blank"> My apprenticeship dashboard </a> </p>
+            <p class="govuk-body"> <a class="govuk-link" href="@Model.ReturnToDashboardUrl"> My apprenticeship dashboard </a> </p>
 
         </div>
     </div>

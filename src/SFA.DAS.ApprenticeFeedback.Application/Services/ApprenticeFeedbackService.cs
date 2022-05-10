@@ -65,6 +65,7 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
                 ApprenticeFeedbackTargetId = response.TrainingProvider.ApprenticeFeedbackTargetId,
                 Name = response.TrainingProvider.ProviderName,
                 Ukprn = response.TrainingProvider.UkPrn,
+                LarsCode = response.TrainingProvider.LarsCode,
                 LastFeedbackSubmittedDate = response.TrainingProvider.LastFeedbackSubmittedDate,
                 FeedbackEligibility = (Domain.Models.Feedback.FeedbackEligibility)response.TrainingProvider.FeedbackEligibility,
                 TimeWindow = response.TrainingProvider.TimeWindow,
