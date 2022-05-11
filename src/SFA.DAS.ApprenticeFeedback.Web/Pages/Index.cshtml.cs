@@ -22,6 +22,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
         private readonly IApprenticeFeedbackSessionService _sessionService;
+        private readonly IApprenticeAccountProvider _apprenticeAccountProvider;
 
         public string DashboardLink { get; set; }
         public string Backlink => DashboardLink;
@@ -36,17 +37,28 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
             , IApprenticeFeedbackService apprenticeFeedbackService
             , NavigationUrlHelper urlHelper
             , IApprenticeFeedbackSessionService sessionService
+            , IApprenticeAccountProvider apprenticeAccountProvider
         )
         {
             _logger = logger;
             _apprenticeFeedbackService = apprenticeFeedbackService;
             _sessionService = sessionService;
+            _apprenticeAccountProvider = apprenticeAccountProvider;
             DashboardLink = urlHelper.Generate(NavigationSection.Home);
         }
 
 
         public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
         {
+            // Wire up the user name claims so that the full name appears in the header.
+            var apprenticeAccount = await _apprenticeAccountProvider.GetApprenticeAccount(user.ApprenticeId);
+            if(null != apprenticeAccount)
+            {
+                var identity = (System.Security.Claims.ClaimsIdentity)User.Identity;
+                identity.AddClaim(new System.Security.Claims.Claim("given_name", apprenticeAccount.FirstName));
+                identity.AddClaim(new System.Security.Claims.Claim("family_name", apprenticeAccount.LastName));
+            }
+
             try
             {
                 TrainingProviderItems = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
