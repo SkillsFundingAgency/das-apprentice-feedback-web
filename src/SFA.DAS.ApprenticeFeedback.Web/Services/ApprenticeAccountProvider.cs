@@ -1,18 +1,29 @@
-﻿using SFA.DAS.ApprenticePortal.Authentication;
+﻿using RestEase;
+using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
+using SFA.DAS.ApprenticePortal.Authentication;
 using System;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Services
 {
-    /// <summary>
-    /// We need to have an implementation of <code>IApprenticeAccountProvider</code> even 
-    /// though we don't actually need to use it.
-    /// </summary>
     public class ApprenticeAccountProvider : IApprenticeAccountProvider
     {
-        public async Task<IApprenticeAccount> GetApprenticeAccount(Guid id)
+        private readonly IApprenticeFeedbackApi _client;
+
+        public ApprenticeAccountProvider(IApprenticeFeedbackApi client)
         {
-            throw new NotImplementedException();
+            _client = client;
+        }
+        public async Task<IApprenticeAccount?> GetApprenticeAccount(Guid id)
+        {
+            try
+            {
+                return await _client.GetApprentice(id);
+            }
+            catch (ApiException e) when (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return null;
+            }
         }
     }
 }

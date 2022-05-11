@@ -20,5 +20,8 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 
         [Post("apprenticefeedback")]
         Task SubmitFeedback([Body] PostSubmitFeedback feedback);
+
+        [Get("/apprentice/{id}")]
+        Task<Apprentice> GetApprentice([Path] Guid id);
     }
 }

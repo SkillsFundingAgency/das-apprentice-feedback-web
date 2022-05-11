@@ -22,7 +22,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
         private readonly IApprenticeFeedbackSessionService _sessionService;
-
         public string DashboardLink { get; set; }
         public string Backlink => DashboardLink;
 
