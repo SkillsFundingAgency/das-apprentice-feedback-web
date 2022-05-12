@@ -28,8 +28,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         {
             FindApprenticeshipUrl = _urlHelper.FindApprenticeshipTrainingFeedbackUrl(FeedbackContext.UkPrn, FeedbackContext.LarsCode);
             OverallRating = FeedbackContext.OverallRating.Value;
-            ReturnToDashboardUrl = _navigationUrlHelper.Generate(NavigationSection.Home);
-            HelpAndSupportUrl = _navigationUrlHelper.Generate(NavigationSection.HelpAndSupport);
+            ReturnToDashboardUrl = _navigationUrlHelper.Generate(NavigationSection.Home, page:"Home");
+            HelpAndSupportUrl = _navigationUrlHelper.Generate(NavigationSection.HelpAndSupport, page:"HelpAndSupport");
             MentalHealthSupportUrl = "#";
         }
     }
