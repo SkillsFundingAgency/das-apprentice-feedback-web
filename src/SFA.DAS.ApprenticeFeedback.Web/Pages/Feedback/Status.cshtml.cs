@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
+using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
     public class StatusModel : FeedbackContextPageModel
     {
+        private readonly NavigationUrlHelper _navigationUrlHelper { get; }
         public bool IsHappyStatus { get; set; }
         public string Header { get; set; }
         public string NotificationTitle { get; set; }
@@ -16,9 +18,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         public string NotificationContent { get; set; }
         public string ReturnToDashboardUrl { get; set; }
 
-        public StatusModel(IApprenticeFeedbackSessionService sessionService)
-            :base(sessionService)
+        public StatusModel(IApprenticeFeedbackSessionService sessionService, NavigationUrlHelper navigationUrlHelper)
+            : base(sessionService)
         {
+            _navigationUrlHelper = navigationUrlHelper;
         }
 
         public IActionResult OnGet()
@@ -26,9 +29,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             Header = "Feedback on your training provider";
             ViewData["Title"] = Header;
             NotificationTitle = "Important";
-            ReturnToDashboardUrl = "/";
+            ReturnToDashboardUrl = _navigationUrlHelper.Generate(NavigationSection.Home, "Home");
 
-            switch(FeedbackContext.FeedbackEligibility)
+            switch (FeedbackContext.FeedbackEligibility)
             {
                 // Happy messages
                 case Domain.Models.Feedback.FeedbackEligibility.Deny_HasGivenFeedbackRecently:
