@@ -1,7 +1,5 @@
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
@@ -10,7 +8,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
     public class StatusModel : FeedbackContextPageModel
     {
-        private readonly NavigationUrlHelper _navigationUrlHelper { get; }
+        private NavigationUrlHelper _navigationUrlHelper { get; }
         public bool IsHappyStatus { get; set; }
         public string Header { get; set; }
         public string NotificationTitle { get; set; }
