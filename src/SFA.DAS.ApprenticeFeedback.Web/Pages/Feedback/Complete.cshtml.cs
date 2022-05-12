@@ -5,15 +5,16 @@ using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
-    [HideNavigationBar]
     public class CompleteModel : FeedbackContextPageModel
     {
         private readonly Domain.Interfaces.IUrlHelper _urlHelper;
+        private readonly NavigationUrlHelper _navigationUrlHelper;
 
-        public CompleteModel(IApprenticeFeedbackSessionService sessionService, Domain.Interfaces.IUrlHelper urlHelper)
+        public CompleteModel(IApprenticeFeedbackSessionService sessionService, Domain.Interfaces.IUrlHelper urlHelper, NavigationUrlHelper navigationUrlHelper)
             :base(sessionService) 
         {
             _urlHelper = urlHelper;
+            _navigationUrlHelper = navigationUrlHelper;
         }
 
         public OverallRating OverallRating { get; set; }
@@ -27,8 +28,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         {
             FindApprenticeshipUrl = _urlHelper.FindApprenticeshipTrainingFeedbackUrl(FeedbackContext.UkPrn, FeedbackContext.LarsCode);
             OverallRating = FeedbackContext.OverallRating.Value;
-            ReturnToDashboardUrl = "/";
-            HelpAndSupportUrl = "#";
+            ReturnToDashboardUrl = _navigationUrlHelper.Generate(NavigationSection.Home);
+            HelpAndSupportUrl = _navigationUrlHelper.Generate(NavigationSection.HelpAndSupport);
             MentalHealthSupportUrl = "#";
         }
     }

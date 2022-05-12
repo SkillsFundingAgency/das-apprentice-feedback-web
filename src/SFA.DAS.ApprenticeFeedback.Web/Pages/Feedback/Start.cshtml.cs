@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
-    [HideNavigationBar]
     public class StartModel : PageModel, IHasBackLink
     {
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;

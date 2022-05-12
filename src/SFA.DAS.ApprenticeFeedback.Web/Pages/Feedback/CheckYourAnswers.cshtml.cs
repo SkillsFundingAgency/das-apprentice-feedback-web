@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
-    [HideNavigationBar]
     public class CheckYourAnswersModel : FeedbackContextPageModel, IHasBackLink
     {
         public List<FeedbackAttribute> FeedbackAttributes { get; set; }

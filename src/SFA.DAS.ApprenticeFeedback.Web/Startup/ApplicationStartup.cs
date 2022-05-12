@@ -57,9 +57,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
             services.AddSharedUi(appConfig, options =>
             {
-                // ToDo: add apprentice feedback section to shared ui package
-                // ToDo: or HideNavigation and create HideUserSettingsBar in ApprenticePortal.SharedUI
-                options.SetCurrentNavigationSection(NavigationSection.Home);
+                options.SetCurrentNavigationSection(NavigationSection.ApprenticeFeedback);
             });
 
             services.AddRazorPages();

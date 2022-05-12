@@ -8,7 +8,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
-    [HideNavigationBar]
     public class OverallRatingModel : FeedbackContextPageModel, IHasBackLink
     {
         public OverallRatingModel(IApprenticeFeedbackSessionService sessionService)
