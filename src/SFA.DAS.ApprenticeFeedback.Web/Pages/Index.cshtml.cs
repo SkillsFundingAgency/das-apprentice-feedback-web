@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages
 {
-    [HideNavigationBar]
     public class IndexModel : PageModel, IHasBackLink
     {
         private readonly ILogger<IndexModel> _logger;
