@@ -80,6 +80,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 app.UseHsts();
             }
 
+            app.UseHealthChecks("/ping");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
@@ -87,7 +88,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
