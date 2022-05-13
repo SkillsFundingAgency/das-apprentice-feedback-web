@@ -29,6 +29,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
         public static IServiceCollection AddOuterApi(this IServiceCollection services, OuterApiConfiguration configuration)
         {
+            services.AddHealthChecks();
             services.AddScoped<Http.MessageHandlers.DefaultHeadersHandler>();
             services.AddScoped<Http.MessageHandlers.LoggingMessageHandler>();
             services.AddScoped<Http.MessageHandlers.ApimHeadersHandler>();
