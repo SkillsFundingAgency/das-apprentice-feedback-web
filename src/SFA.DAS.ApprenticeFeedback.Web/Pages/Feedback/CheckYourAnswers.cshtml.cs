@@ -32,6 +32,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public IActionResult OnGet()
         {
+            // Prevent a user from resubmitting feedback.
+            if(FeedbackContext.FeedbackEligibility != FeedbackEligibility.Allow)
+            {
+                return Redirect("/index");
+            }
+
             FeedbackAttributes = FeedbackContext.FeedbackAttributes;
             OverallRating = FeedbackContext.OverallRating;
 
@@ -47,7 +53,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
                 AllowContact = ContactConsent,
                 ApprenticeFeedbackTargetId = FeedbackContext.ApprenticeFeedbackTargetId
             };
-            await _apprenticeFeedbackService.SubmitFeedback(request);        
+            await _apprenticeFeedbackService.SubmitFeedback(request);
+
+            // Set the feedback status in session, to prevent the user from resubmitting feedback 
+            FeedbackContext.FeedbackEligibility = FeedbackEligibility.Deny_HasGivenFeedbackRecently;
+            SaveFeedbackContext();
 
             return RedirectToPage("Complete");
         }
