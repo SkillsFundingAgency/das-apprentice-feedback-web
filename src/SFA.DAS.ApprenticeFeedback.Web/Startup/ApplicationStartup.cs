@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using SFA.DAS.ApprenticePortal.SharedUi.Startup;
-using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using Microsoft.Extensions.Hosting;
 using SFA.DAS.ApprenticeFeedback.Web.Configuration;
-using System.IO;
-using SFA.DAS.Configuration.AzureTableStorage;
-using SFA.DAS.ApprenticeFeedback.Web.Services;
+using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using SFA.DAS.ApprenticePortal.SharedUi.Startup;
 using SFA.DAS.ApprenticePortal.SharedUi.Zendesk;
+using SFA.DAS.Configuration.AzureTableStorage;
+using System.IO;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
@@ -60,7 +59,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 options.SetCurrentNavigationSection(NavigationSection.ApprenticeFeedback);
             });
 
-            services.AddRazorPages();
             services.AddSession();
 
             services.SetZenDeskConfiguration(appConfig.Zendesk);

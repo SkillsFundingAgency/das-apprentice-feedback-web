@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
 using SFA.DAS.ApprenticeFeedback.Web.Configuration;
+using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
+using SFA.DAS.ApprenticePortal.Authentication.Filters;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
@@ -48,7 +51,20 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services.AddHttpContextAccessor();
             services.AddRazorPages(o => o.Conventions
                 .AuthorizeFolder("/"));
-            services.AddRazorPages();
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.ConfigureFilter(factory =>
+                {
+                    var typeFilterAttribute = new TypeFilterAttribute(typeof(RequiresIdentityConfirmedFilter));
+                    return typeFilterAttribute;
+                });
+
+                options.Conventions.ConfigureFilter(factory =>
+                {
+                    var typeFilterAttribute = new TypeFilterAttribute(typeof(IsPrivateBetaFilter));
+                    return typeFilterAttribute;
+                });
+            });
             services.AddScoped<AuthenticatedUser>();
             services.AddScoped(s => s
                 .GetRequiredService<IHttpContextAccessor>().HttpContext.User);
