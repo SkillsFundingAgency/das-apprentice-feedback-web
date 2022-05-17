@@ -48,7 +48,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services.AddAuthorization();
             services.AddHttpContextAccessor();
             services.AddRazorPages(o => o.Conventions
-                .AuthorizeFolder("/"));
+                .AuthorizeFolder("/")
+                .AllowAnonymousToPage("/ping"));
+
             services.AddRazorPages(options =>
             {
                 options.Conventions.ConfigureFilter(factory =>
