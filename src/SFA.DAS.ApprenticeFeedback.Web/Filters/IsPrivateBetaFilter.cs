@@ -5,7 +5,7 @@ using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Filters
 {
-    public class IsPrivateBetaFilter
+    public class IsPrivateBetaFilter : IAuthorizationFilter
     {
 
         private readonly NavigationUrlHelper _urlHelper;

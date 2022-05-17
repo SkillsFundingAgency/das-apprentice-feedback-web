@@ -38,9 +38,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             IdentityModelEventSource.ShowPII = true;
 
             services.AddApprenticeAuthentication(config.MetadataAddress, environment);
-
             services.AddTransient<IApprenticeAccountProvider, ApprenticeAccountProvider>();
-
             return services;
         }
 
