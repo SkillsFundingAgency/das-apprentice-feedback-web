@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using SFA.DAS.ApprenticeFeedback.Application.Settings;
+﻿using SFA.DAS.ApprenticeFeedback.Application.Settings;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 
 namespace SFA.DAS.ApprenticeFeedback.Application.Services

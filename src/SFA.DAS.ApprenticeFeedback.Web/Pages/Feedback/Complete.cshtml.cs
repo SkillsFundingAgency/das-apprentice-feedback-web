@@ -9,6 +9,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
     {
         private readonly Domain.Interfaces.IUrlHelper _urlHelper;
         private readonly NavigationUrlHelper _navigationUrlHelper;
+        private const string _mentalHealthAndSupportUrl = "https://www.remploy.co.uk/individuals/finding-work-and-support-work/workplace/support-apprentices/";
 
         public CompleteModel(IApprenticeFeedbackSessionService sessionService, Domain.Interfaces.IUrlHelper urlHelper, NavigationUrlHelper navigationUrlHelper)
             :base(sessionService) 
@@ -30,7 +31,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             OverallRating = FeedbackContext.OverallRating.Value;
             ReturnToDashboardUrl = _navigationUrlHelper.Generate(NavigationSection.Home, page:"Home");
             HelpAndSupportUrl = _navigationUrlHelper.Generate(NavigationSection.HelpAndSupport, page:"HelpAndSupport");
-            MentalHealthSupportUrl = "#";
+            MentalHealthSupportUrl = _mentalHealthAndSupportUrl;
         }
     }
 }
