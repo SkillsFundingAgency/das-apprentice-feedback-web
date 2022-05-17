@@ -1,4 +1,7 @@
 ﻿@if (Model is SFA.DAS.ApprenticeFeedback.Web.Services.IHasBackLink backlink)
 {
-    <a href="@backlink.Backlink" class="govuk-back-link">Back</a>
+    if(!string.IsNullOrWhiteSpace(backlink.Backlink))
+    {
+       <a href="@backlink.Backlink" class="govuk-back-link">Back</a>
+    }
 }

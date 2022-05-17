@@ -18,7 +18,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         private readonly IApprenticeFeedbackSessionService _sessionService;
         private readonly Domain.Interfaces.IUrlHelper _urlHelper;
 
-        public string Backlink => "/";
+        public string Backlink { get; set; }
         public string ProviderName { get; set;  }
         public string FindApprenticeshipUrl { get; set; }
 
@@ -54,6 +54,18 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
                 };
                 _sessionService.SetFeedbackContext(errorFeedbackContext);
                 return Redirect("/status");
+            }
+
+            // Clear the back link url if there is nothing to go back to
+            // (ie. the user only has one training provider).
+            Backlink = "/";
+            var existingContext = _sessionService.GetFeedbackContext();
+            if(null != existingContext)
+            {
+                if(1 == existingContext.ProviderCount)
+                {
+                    Backlink = "";
+                }
             }
 
             var feedbackContext = FeedbackContext.CreateFrom(provider);
