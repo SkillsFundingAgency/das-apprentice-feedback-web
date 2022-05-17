@@ -58,10 +58,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
             if (TrainingProviderItems.ContainsCountItems(1))
             {
                 var provider = TrainingProviderItems.First();
-                if (provider.FeedbackEligibility == FeedbackEligibility.Allow)
-                {
-                    return Redirect($"/start/{provider.Ukprn}");
-                }
 
                 var feedbackContext = new FeedbackContext()
                 {
@@ -70,8 +66,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
                     FeedbackEligibility = provider.FeedbackEligibility,
                     TimeWindow = provider.TimeWindow,
                     SignificantDate = provider.SignificantDate,
+                    ProviderCount = 1,
                 };
                 _sessionService.SetFeedbackContext(feedbackContext);
+
+                if (provider.FeedbackEligibility == FeedbackEligibility.Allow)
+                {
+                    return Redirect($"/start/{provider.Ukprn}");
+                }
 
                 return Redirect("/status");
             }

@@ -15,6 +15,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
         public FeedbackEligibility FeedbackEligibility { get; set; }
         public DateTime? SignificantDate { get; set; }
         public TimeSpan? TimeWindow { get; set; }
+        public int ProviderCount { get; set; }
 
         public FeedbackContext() { }
 
