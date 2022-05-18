@@ -4,40 +4,39 @@
     ViewData["Title"] = "Feedback Submitted";
 }
 
-<div class="govuk-width-container">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-panel govuk-panel--confirmation">
-                <h1 class="govuk-panel__title">
-                    Feedback complete
-                </h1>
-            </div>
 
-            <p class="govuk-body"> Thanks for your feedback. It'll help @Model.ProviderName to continually improve their training provision. </p>
-
-            <p class="govuk-body"> You rated @Model.ProviderName as <strong> @Model.OverallRating </strong>. Your feedback will be published anonymously on <a class="govuk-link" href="@Model.FindApprenticeshipUrl" target="_blank"> Find apprenticeship training (opens in a new tab)</a>.</p>
-
-            @if (Model.IsPoorlyRated)
-            {
-                <h2 class="govuk-heading-m"> Need help? </h2>
-                <p class="govuk-body">
-                    Discuss any concerns you have with your line manager. Where appropriate, they will support you to raise these concerns with your training provider. It should be possible to resolve most issues.
-                </p>
-                <p class="govuk-body">
-                    If you are making a formal complaint, the training provider will require you to follow their complaints procedure which will be published on their website.
-                </p>
-                <p class="govuk-body">
-                    If you're unhappy with the outcome of your formal complaint to your training provider, you can <a href="@Model.HelpAndSupportUrl" target="_blank" class="govuk-link">contact the Education and Skills Funding Agency (opens in a new tab)</a>.
-                </p>
-                <p class="govuk-body">
-                    If you need help with your mental health, a free <a href="@Model.MentalHealthSupportUrl" target="_blank" class="govuk-link">support and advice service (opens in a new tab)</a> funded by the Department for Work and Pensions is available for apprentices in the workplace.
-                </p>
-            }
-
-            <h2 class="govuk-heading-m"> What do you want to do next? </h2>
-
-            <p class="govuk-body"> <a class="govuk-link" href="@Model.ReturnToDashboardUrl"> My apprenticeship dashboard </a> </p>
-
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                Feedback complete
+            </h1>
         </div>
+
+        <p class="govuk-body"> Thanks for your feedback. It'll help @Model.ProviderName to continually improve their training provision. </p>
+
+        <p class="govuk-body"> You rated @Model.ProviderName as <strong> @Model.OverallRating </strong>. Your feedback will be published anonymously on <a class="govuk-link" href="@Model.FindApprenticeshipUrl" target="_blank"> Find apprenticeship training (opens in a new tab)</a>.</p>
+
+        @if (Model.IsPoorlyRated)
+        {
+            <h2 class="govuk-heading-m"> Need help? </h2>
+            <p class="govuk-body">
+                Discuss any concerns you have with your line manager. Where appropriate, they will support you to raise these concerns with your training provider. It should be possible to resolve most issues.
+            </p>
+            <p class="govuk-body">
+                If you are making a formal complaint, the training provider will require you to follow their complaints procedure which will be published on their website.
+            </p>
+            <p class="govuk-body">
+                If you're unhappy with the outcome of your formal complaint to your training provider, you can <a href="@Model.HelpAndSupportUrl" target="_blank" class="govuk-link">contact the Education and Skills Funding Agency (opens in a new tab)</a>.
+            </p>
+            <p class="govuk-body">
+                If you need help with your mental health, a free <a href="@Model.MentalHealthSupportUrl" target="_blank" class="govuk-link">support and advice service (opens in a new tab)</a> funded by the Department for Work and Pensions is available for apprentices in the workplace.
+            </p>
+        }
+
+        <h2 class="govuk-heading-m"> What do you want to do next? </h2>
+
+        <p class="govuk-body"> <a class="govuk-link" href="@Model.ReturnToDashboardUrl"> My apprenticeship dashboard </a> </p>
+
     </div>
 </div>

@@ -5,45 +5,44 @@
     <link href="/assets/styles/status.css" rel="stylesheet" no-cdn />
 }
 
-<div class="govuk-width-container">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">@Model.Header</h1>
 
-            @if(Model.IsHappyStatus)
-            {
-                <div class="govuk-inset-text app-inset-text--success app-inset-text--has-icon">
-                    <span class="app-inline-icon app-inline-icon--tick"></span>
-                    <span class="govuk-!-font-weight-bold">@Model.NotificationContentHeading</span>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">@Model.Header</h1>
+
+        @if(Model.IsHappyStatus)
+        {
+            <div class="govuk-inset-text app-inset-text--success app-inset-text--has-icon">
+                <span class="app-inline-icon app-inline-icon--tick"></span>
+                <span class="govuk-!-font-weight-bold">@Model.NotificationContentHeading</span>
+            </div>
+            <p>
+                @Model.NotificationContent
+            </p>
+        }
+        else
+        {
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                        @Model.NotificationTitle
+                    </h2>
                 </div>
-                <p>
-                    @Model.NotificationContent
-                </p>
-            }
-            else
-            {
-                <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
 
-                    <div class="govuk-notification-banner__header">
-                        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-                            @Model.NotificationTitle
-                        </h2>
-                    </div>
-
-                    <div class="govuk-notification-banner__content">
-                        <p class="govuk-notification-banner__heading">
-                            @Model.NotificationContentHeading
-                        </p>
-                        <p>
-                            @Model.NotificationContent
-                        </p>
-                    </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">
+                        @Model.NotificationContentHeading
+                    </p>
+                    <p>
+                        @Model.NotificationContent
+                    </p>
                 </div>
-            }
+            </div>
+        }
 
-            <a href="@Model.ReturnToDashboardUrl" class="govuk-button">
-              Return to dashboard
-            </a>
-        </div>
+        <a href="@Model.ReturnToDashboardUrl" class="govuk-button">
+            Return to dashboard
+        </a>
     </div>
 </div>
