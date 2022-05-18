@@ -24,7 +24,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
             _feedbackContext = _sessionService.GetFeedbackContext();
             if(null == _feedbackContext)
             {
-                context.Result = Redirect("/Error");
+                context.Result = Redirect("/");
+                return;
             }
 
             ProviderName = _feedbackContext.ProviderName;
