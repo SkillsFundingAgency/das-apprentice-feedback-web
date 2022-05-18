@@ -81,7 +81,7 @@
                             <td class="govuk-table__cell">
                                 @if (provider.FeedbackEligibility == Domain.Models.Feedback.FeedbackEligibility.Allow)
                                 {
-                                    <a href="start/@provider.Ukprn">Select</a>
+                                    <a href="start/@provider.Ukprn" class="govuk-link">Select<span class="govuk-visually-hidden"> @provider.Name</span></a>
                                 }
                             </td>
                         </tr>
