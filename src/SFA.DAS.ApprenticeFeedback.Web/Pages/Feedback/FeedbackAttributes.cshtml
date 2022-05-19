@@ -1,0 +1,66 @@
+﻿@page "/feedback-attributes"
+@using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback.FeedbackAttributesModel
+@{
+    ViewData["Title"] = "Feedback Questions";
+}
+
+<div class="govuk-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <partial name="ValidationSummary" />
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full-width">
+                <h1 class="govuk-heading-l"> Do you think that @Model.ProviderName is providing the following aspects of your apprenticeship training to a reasonable standard? </h1>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <form method="post">
+                    <input type="hidden" asp-for="Editing" />
+
+                    @for (var i = 0; i < Model.FeedbackAttributes.Count; i++)
+                    {
+                        <input type="hidden" asp-for="FeedbackAttributes[i].Id" />
+                        <input type="hidden" asp-for="FeedbackAttributes[i].Name" />
+                        
+                        <div class="govuk-form-group">
+                            <div validation-row-status property-name="@($"FeedbackAttributes[{i}].Status")">
+                                <fieldset class="govuk-fieldset">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                        <h2 class="govuk-fieldset__heading">
+                                            @(Model.FeedbackAttributes[i].Name)
+                                        </h2>
+                                    </legend>
+                    
+                                    <span asp-validation-for="FeedbackAttributes[i].Status" class="govuk-error-message"></span>
+                                    
+                                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                                        <div class="govuk-radios__item">
+                                            <input class="govuk-radios__input" id="@($"feedback-attribute-{i}-agree")" asp-for="FeedbackAttributes[i].Status" type="radio" value="@FeedbackAttributeStatus.Agree">
+                                            <label class="govuk-label govuk-radios__label" for="@($"feedback-attribute-{i}-agree")">
+                                                Agree
+                                            </label>
+                                        </div>
+                                        <div class="govuk-radios__item">
+                                            <input class="govuk-radios__input" id="@($"feedback-attribute-{i}-disagree")" asp-for="FeedbackAttributes[i].Status" type="radio" value="@FeedbackAttributeStatus.Disagree">
+                                            <label class="govuk-label govuk-radios__label" for="@($"feedback-attribute-{i}-disagree")">
+                                                Disagree
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </div>
+                        </div>
+                    }
+
+                    <button class="govuk-button" type="submit"> Continue </button>
+                </form>
+
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,60 @@
+﻿@page "/overall-rating"
+@using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback.OverallRatingModel
+@{
+    ViewData["Title"] = "Feedback Rating";
+}
+
+<div class="govuk-width-container">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <partial name="ValidationSummary" />
+            <form method="post">
+
+                <div class="govuk-form-group"> 
+                    <div validation-row-status property-name="OverallRating">
+
+                    <input type="hidden" asp-for="ProviderName" />
+                    <input type="hidden" asp-for="Editing" />
+
+                    <h1 class="govuk-heading-l"> How would you rate @(Model.ProviderName + (Model.ProviderName.EndsWith('s') ? "'" : "'s")) training ? </h1>
+
+                    <span asp-validation-for="OverallRating" class="govuk-error-message"></span>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="overall-rating" asp-for="OverallRating" type="radio" value="@OverallRating.Excellent">
+                            <label class="govuk-label govuk-radios__label" for="overall-rating">
+                                Excellent
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="overall-rating-2" asp-for="OverallRating" type="radio" value="@OverallRating.Good">
+                            <label class="govuk-label govuk-radios__label" for="overall-rating-2">
+                                Good
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="overall-rating-3" asp-for="OverallRating" type="radio" value="@OverallRating.Poor">
+                            <label class="govuk-label govuk-radios__label" for="overall-rating-3">
+                                Poor
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="overall-rating-4" asp-for="OverallRating" type="radio" value="@OverallRating.VeryPoor">
+                            <label class="govuk-label govuk-radios__label" for="overall-rating-4">
+                                Very poor
+                            </label>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <button class="govuk-button" type="submit"> Continue </button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

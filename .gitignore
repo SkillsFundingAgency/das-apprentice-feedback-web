@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+src/SFA.DAS.ApprenticeFeedback.Web/appsettings.Development.json
+/src/SFA.DAS.ApprenticeFeedback.Web/internal-nlog.txt
