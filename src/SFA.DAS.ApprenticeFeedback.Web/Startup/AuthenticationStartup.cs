@@ -58,12 +58,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                     var typeFilterAttribute = new TypeFilterAttribute(typeof(RequiresIdentityConfirmedFilter));
                     return typeFilterAttribute;
                 });
-
-                options.Conventions.ConfigureFilter(factory =>
-                {
-                    var typeFilterAttribute = new TypeFilterAttribute(typeof(IsPrivateBetaFilter));
-                    return typeFilterAttribute;
-                });
             });
             services.AddScoped<AuthenticatedUser>();
             services.AddScoped(s => s
