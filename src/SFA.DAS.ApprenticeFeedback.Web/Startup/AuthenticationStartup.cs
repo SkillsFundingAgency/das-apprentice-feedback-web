@@ -58,7 +58,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                     var typeFilterAttribute = new TypeFilterAttribute(typeof(RequiresIdentityConfirmedFilter));
                     return typeFilterAttribute;
                 });
+
             });
+            services.AddAntiforgery(options =>
+            {
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            });
+
             services.AddScoped<AuthenticatedUser>();
             services.AddScoped(s => s
                 .GetRequiredService<IHttpContextAccessor>().HttpContext.User);
