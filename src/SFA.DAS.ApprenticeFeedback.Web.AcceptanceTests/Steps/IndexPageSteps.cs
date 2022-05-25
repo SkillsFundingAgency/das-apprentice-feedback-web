@@ -48,7 +48,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Steps
         [When("accessing the index page")]
         public async Task WhenAccessingTheIndexPage()
         {
-            var indexPageResponse = await _context.Web.Get("error");
+            try
+            {
+                var indexPageResponse = await _context.Web.Get("/");
+            }
+            catch(Exception ex)
+            {
+                ex = ex;
+            }
 
             //_context.
         }
