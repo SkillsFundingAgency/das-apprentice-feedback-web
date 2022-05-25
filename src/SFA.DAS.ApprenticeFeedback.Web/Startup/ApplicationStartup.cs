@@ -59,7 +59,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 options.SetCurrentNavigationSection(NavigationSection.ApprenticeFeedback);
             });
 
-            services.AddSession();
+            services.AddSession(options =>
+            {
+                options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
+            });
 
             services.SetZenDeskConfiguration(appConfig.Zendesk);
         }
@@ -83,6 +86,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
+            app.UseMiddleware<SecurityHeadersMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
