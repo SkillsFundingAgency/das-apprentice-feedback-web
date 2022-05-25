@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Testing.Handlers;
 using SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Hooks;
 using SFA.DAS.ApprenticeFeedback.Web.Startup;
 using SFA.DAS.ApprenticePortal.Authentication.TestHelpers;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using TechTalk.SpecFlow;
@@ -16,6 +18,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Bindings
         public static HttpClient Client { get; set; }
         public static Dictionary<string, string> Config { get; set; }
         public static LocalWebApplicationFactory<ApplicationStartup> Factory { get; set; }
+        public static CookieContainer Cookies { get; set; }
 
         public static Hook<IActionResult> ActionResultHook;
 
@@ -45,8 +48,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Bindings
                 ActionResultHook = new Hook<IActionResult>();
 
                 Factory = new LocalWebApplicationFactory<ApplicationStartup>(Config, ActionResultHook);
+                var handler = new CookieContainerHandler()
+                {
+                    InnerHandler = Factory.Server.CreateHandler(),
+                };
 
-                Client = new HttpClient() { BaseAddress = Factory.Server.BaseAddress };
+                Client = new HttpClient(handler) { BaseAddress = Factory.Server.BaseAddress };
+                Cookies = handler.Container;
             }
 
             _context.Web = new ApprenticeFeedbackWeb(Client, ActionResultHook, Config);
