@@ -58,7 +58,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                     var typeFilterAttribute = new TypeFilterAttribute(typeof(RequiresIdentityConfirmedFilter));
                     return typeFilterAttribute;
                 });
-
             });
             services.AddAntiforgery(options =>
             {
