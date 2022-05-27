@@ -5,67 +5,66 @@
     ViewData["Title"] = "Check your answers";
 }
 
-<div class="govuk-width-container">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl"> Check your answers </h1>
 
-            <div class="govuk-grid-row govuk-!-margin-bottom-2">
-                <div class="govuk-grid-column-two-thirds">
-                    <h2 class="govuk-heading-m">What you told us about @(Model.ProviderName)?</h2>
-                </div>
-                <div class="govuk-grid-column-one-third govuk-!-text-align-right">
-                    <a class="govuk-body govuk-link govuk-link--no-visited-state" asp-page="/Feedback/FeedbackAttributes" asp-route-edit="true">Change</a>
-                </div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl"> Check your answers </h1>
+
+        <div class="govuk-grid-row govuk-!-margin-bottom-2">
+            <div class="govuk-grid-column-two-thirds">
+                <h2 class="govuk-heading-m">What you told us about @(Model.ProviderName)?</h2>
             </div>
-
-            <table class="govuk-table" aria-label="Feedback answers">
-                <tbody class="govuk-table__body">
-                    @foreach (var attribute in Model.FeedbackAttributes)
-                    {
-                        <tr class="govuk-table__row">
-                            <th scope="row" class="govuk-table__header">@(attribute.Name)</th>
-                            <td class="govuk-table__cell govuk-!-text-align-right">@(attribute.Status.Value == FeedbackAttributeStatus.Agree ? "Agree" : "Disagree")</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-            <div class="govuk-grid-row govuk-!-margin-bottom-2">
-                <div class="govuk-grid-column-two-thirds">
-                    <h2 class="govuk-heading-m">How you rated @(Model.ProviderName += Model.ProviderName.EndsWith('s') ? "'" : "'s") apprenticeship training</h2>
-                </div>
-                <div class="govuk-grid-column-one-third govuk-!-text-align-right">
-                    <a class="govuk-body govuk-link govuk-link--no-visited-state" asp-page="/Feedback/OverallRating" asp-route-edit="true">Change</a>
-                </div>
+            <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+                <a class="govuk-body govuk-link govuk-link--no-visited-state" asp-page="/Feedback/FeedbackAttributes" asp-route-edit="true">Change</a>
             </div>
-
-            <table class="govuk-table" aria-label="Overall rating">
-                <tbody class="govuk-table__body">
-                    <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Overall rating</th>
-                        <td class="govuk-table__cell govuk-!-text-align-right">@Model.OverallRating</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <form method="post">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Contact preferences</legend>
-                        <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-                            <div class="govuk-checkboxes__item">
-                                <input class="govuk-checkboxes__input" type="checkbox" asp-for="ContactConsent">
-                                <label class="govuk-label govuk-checkboxes__label" for="ContactConsent">
-                                    I'm happy to be contacted by the Apprenticeship service about my answers
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <button class="govuk-button" type="submit"> Submit </button>
-            </form>
         </div>
+
+        <table class="govuk-table" aria-label="Feedback answers">
+            <tbody class="govuk-table__body">
+                @foreach (var attribute in Model.FeedbackAttributes)
+                {
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">@(attribute.Name)</th>
+                        <td class="govuk-table__cell govuk-!-text-align-right">@(attribute.Status.Value == FeedbackAttributeStatus.Agree ? "Agree" : "Disagree")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="govuk-grid-row govuk-!-margin-bottom-2">
+            <div class="govuk-grid-column-two-thirds">
+                <h2 class="govuk-heading-m">How you rated @(Model.ProviderName += Model.ProviderName.EndsWith('s') ? "'" : "'s") apprenticeship training</h2>
+            </div>
+            <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+                <a class="govuk-body govuk-link govuk-link--no-visited-state" asp-page="/Feedback/OverallRating" asp-route-edit="true">Change</a>
+            </div>
+        </div>
+
+        <table class="govuk-table" aria-label="Overall rating">
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">Overall rating</th>
+                    <td class="govuk-table__cell govuk-!-text-align-right">@Model.OverallRating</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form method="post">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Contact preferences</legend>
+                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="ContactConsent">
+                            <label class="govuk-label govuk-checkboxes__label" for="ContactConsent">
+                                I'm happy to be contacted by the Apprenticeship service about my answers
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" type="submit"> Submit </button>
+        </form>
     </div>
 </div>

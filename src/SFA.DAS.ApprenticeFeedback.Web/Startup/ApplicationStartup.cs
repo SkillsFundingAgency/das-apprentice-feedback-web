@@ -86,6 +86,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
+            app.UseMiddleware<SecurityHeadersMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
