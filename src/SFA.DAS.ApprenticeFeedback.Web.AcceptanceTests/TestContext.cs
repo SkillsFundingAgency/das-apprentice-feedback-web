@@ -1,16 +1,13 @@
-﻿using SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Hooks;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests
 {
     public class TestContext
     {
         public ApprenticeFeedbackWeb Web { get; set; }
-        public MockOuterApi OuterApi { get; set; }
-        public TestActionResult ActionResult { get; set; }
+        public MockOuterApi OuterApi { get; set; }        
         public string IdentityServiceUrl { get; } = "https://identity";
+        public string TestActionResultContent { get; set; }
     }
 
     public class RegisteredUserContext

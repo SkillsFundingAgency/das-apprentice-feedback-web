@@ -42,7 +42,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Bindings
                     {"ApplicationUrls:ApprenticeHomeUrl", "https://home/"},
                     {"ApplicationUrls:ApprenticeAccountsUrl", "https://account/"},
                     {"ApplicationUrls:ApprenticeCommitmentsUrl", "http://commitments/"},
-                    {"ApplicationUrls:ApprenticeLoginUrl", "https://login/"}
+                    {"ApplicationUrls:ApprenticeLoginUrl", "https://login/"},
+                    {"ApplicationUrls:ApprenticeFeedbackUrl", "https://localhost"}
                 };
 
                 ActionResultHook = new Hook<IActionResult>();
