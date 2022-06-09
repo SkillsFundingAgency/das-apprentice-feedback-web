@@ -52,19 +52,19 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 .AddSessionService(Environment)
                 .RegisterServices(Environment);
 
-            services.AddTransient((_) => appConfig.AppSettings);
+            services.AddSingleton((_) => appConfig.AppSettings);
 
             services.AddSharedUi(appConfig, options =>
             {
                 options.SetCurrentNavigationSection(NavigationSection.ApprenticeFeedback);
+                options.EnableZendesk();
+                options.EnableGoogleAnalytics();
             });
 
             services.AddSession(options =>
             {
                 options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
             });
-
-            services.SetZenDeskConfiguration(appConfig.Zendesk);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
