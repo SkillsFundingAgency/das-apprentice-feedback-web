@@ -1,5 +1,4 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
@@ -10,12 +9,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Steps
 {
 
     [Binding]
-    public class IndexPageSteps : StepsBase
+    public class IndexPageSteps
     {
         private readonly TestContext _context;
         private readonly RegisteredUserContext _userContext;
 
-        public IndexPageSteps(TestContext context, RegisteredUserContext userContext) : base(context)
+        public IndexPageSteps(TestContext context, RegisteredUserContext userContext)
         {
             _context = context;
             _userContext = userContext;
@@ -33,8 +32,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Steps
             _context.OuterApi.MockServer.Given(
                 Request.Create()
                     .UsingAnyMethod()
-                    //.WithPath($"/apprentices/*/apprenticeships/{_userContext.ApprenticeId}"))
-                   // .WithPath($"/"))
+                    .WithPath($"/provider/{_userContext.ApprenticeId}")
                    )
                     .RespondWith(
                         Response.Create()
@@ -48,64 +46,44 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Steps
         [When("accessing the index page")]
         public async Task WhenAccessingTheIndexPage()
         {
-            var indexPageResponse = await _context.Web.Get("error");
+            var indexPageResponse = await _context.Web.Get("/");
 
-            //_context.
+            indexPageResponse.EnsureSuccessStatusCode();
+
+            _context.TestActionResultContent = await indexPageResponse.Content.ReadAsStringAsync();           
         }
 
-        private List<TrainingProvider> GetMultipleProviders()
+        private List<TrainingProvider> GetSingleProvider()
         {
-            /*
             return new List<TrainingProvider>
             {
                 new TrainingProvider
                 {
-                    Ukprn = 100000003,
-                    ProviderName = "Test provider 3",
-                    Apprenticeships = new List<Apprenticeship>
-                    {
-                        new Apprenticeship
-                        {
-                            LarsCode = 3,
-                            StartDate = DateTime.Now.AddMonths(-4),
-                            FeedbackCompletionDates = new List<DateTime>()
-                        }
-                    }
-                },
-                new TrainingProvider
-                {
-                    Ukprn = 100000002,
-                    ProviderName = "Test provider 2",
-                    Apprenticeships = new List<Apprenticeship>
-                    {
-                        new Apprenticeship
-                        {
-                            LarsCode = 1,
-                            StartDate = DateTime.Now,
-                            FeedbackCompletionDates = new List<DateTime>()
-                        }
-                    }
-                },
-                new TrainingProvider
-                {
-                    Ukprn = 100000001,
+                    UkPrn = 100000003,
                     ProviderName = "Test provider 1",
-                    Apprenticeships = new List<Apprenticeship>
-                    {
-                        new Apprenticeship
-                        {
-                            LarsCode = 1,
-                            StartDate = DateTime.Now.AddMonths(-12),
-                            FeedbackCompletionDates = new List<DateTime>
-                            {
-                                DateTime.Now.AddDays(-5)
-                            }
-                        }
-                    }
+                },
+            };
+        }
+        private List<TrainingProvider> GetMultipleProviders()
+        {
+            return new List<TrainingProvider>
+            {
+                new TrainingProvider
+                {
+                    UkPrn = 100000003,
+                    ProviderName = "Test provider 3",
+                },
+                new TrainingProvider
+                {
+                    UkPrn = 100000002,
+                    ProviderName = "Test provider 2",
+                },
+                new TrainingProvider
+                {
+                    UkPrn = 100000001,
+                    ProviderName = "Test provider 1",
                 }
             };
-            */
-            return null;
         }
     }
 }

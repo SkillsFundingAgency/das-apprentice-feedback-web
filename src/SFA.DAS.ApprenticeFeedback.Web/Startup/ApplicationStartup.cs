@@ -23,13 +23,20 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddEnvironmentVariables();
 
-            config.AddAzureTableStorage(options =>
+            var environmentName = configuration["EnvironmentName"];
+            // Integration tests which use the AspNet Core TestHost will 
+            // set the config value to ACCEPTANCE_TESTS so that they provide their own configuration
+            // rether than read from Azure table storage
+            if (environmentName != "ACCEPTANCE_TESTS")
             {
-                options.ConfigurationKeys = configuration["ConfigNames"].Split(",");
-                options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
-                options.EnvironmentName = configuration["EnvironmentName"];
-                options.PreFixConfigurationKeys = false;
-            });
+                config.AddAzureTableStorage(options =>
+                {
+                    options.ConfigurationKeys = configuration["ConfigNames"].Split(",");
+                    options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
+                    options.EnvironmentName = configuration["EnvironmentName"];
+                    options.PreFixConfigurationKeys = false;
+                });
+            }
 
 #if DEBUG
             config.AddJsonFile($"appsettings.Development.json", optional: true);

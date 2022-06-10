@@ -77,12 +77,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("The apprentice has multiple potential training providers")]
-        public virtual void TheApprenticeHasMultiplePotentialTrainingProviders()
+        [NUnit.Framework.DescriptionAttribute("The apprentice has multiple potential training providers so ask them to select on" +
+            "e")]
+        public virtual void TheApprenticeHasMultiplePotentialTrainingProvidersSoAskThemToSelectOne()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The apprentice has multiple potential training providers", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The apprentice has multiple potential training providers so ask them to select on" +
+                    "e", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -113,7 +115,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("accessing the index page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
- testRunner.Then("the page content includes the following: Select training provider", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the page content includes the following: Select a training provider", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

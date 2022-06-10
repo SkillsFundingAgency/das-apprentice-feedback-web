@@ -1,29 +1,23 @@
 ﻿using FluentAssertions;
-using SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Infrastructure;
-using System.Net.Http;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Steps
 {
     [Binding]
-    public sealed class ContentSteps : StepsBase
+    public sealed class ContentSteps
     {
         private readonly TestContext _context;
 
-        public ContentSteps(TestContext context) : base(context)
+        public ContentSteps(TestContext context)
         {
             _context = context;
         }
 
         [Then("the page content includes the following: (.*)")]
-        public async Task ThenThePageContentIncludesTheFollowing(string expectedContent)
+        public void ThenThePageContentIncludesTheFollowing(string expectedContent)
         {
-            var response = _context.ActionResult;
-
-            //var actualContent = await response.Content.ReadAsStringAsync();
-
-            //actualContent.Should().Contain(expectedContent);
+            _context.TestActionResultContent.Should().Contain(expectedContent);
         }
     }
 }
