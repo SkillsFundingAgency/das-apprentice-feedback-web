@@ -10,10 +10,7 @@
     <input type="hidden" asp-for="Editing" />
 
     <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset">
-        <legend class="govuk-fieldset__legend">
-            <h1 class="govuk-heading-l"> Do you think that @Model.ProviderName is providing the following aspects of your apprenticeship training to a reasonable standard? </h1>
-        </legend>
+        <h1 class="govuk-heading-l"> Do you think that @Model.ProviderName is providing the following aspects of your apprenticeship training to a reasonable standard? </h1>
 
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
@@ -23,16 +20,20 @@
 
         @for (var i = 0; i < Model.FeedbackAttributes.Count; i++)
         {
-            <input type="hidden" asp-for="FeedbackAttributes[i].Id" />
-            <input type="hidden" asp-for="FeedbackAttributes[i].Name" />
+            <fieldset class="govuk-fieldset">
+
+                <input type="hidden" asp-for="FeedbackAttributes[i].Id" />
+                <input type="hidden" asp-for="FeedbackAttributes[i].Name" />
                         
-            <div class="govuk-form-group">
-                <div validation-row-status property-name="@($"FeedbackAttributes[{i}].Status")">
+                <div class="govuk-form-group">
+                    <div validation-row-status property-name="@($"FeedbackAttributes[{i}].Status")">
 
                         <div class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                            <h2 class="govuk-fieldset__heading">
-                                @(Model.FeedbackAttributes[i].Name)
-                            </h2>
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                <h2 class="govuk-fieldset__heading">
+                                    @(Model.FeedbackAttributes[i].Name)
+                                </h2>
+                            </legend>
                         </div>
                     
                         <span asp-validation-for="FeedbackAttributes[i].Status" class="govuk-error-message"></span>
@@ -51,12 +52,12 @@
                                 </label>
                             </div>
                         </div>
-
+                    </div>
                 </div>
-            </div>
+
+            </fieldset>
         }
 
-        </fieldset>
     </div>
 
     <button class="govuk-button" type="submit"> Continue </button>
