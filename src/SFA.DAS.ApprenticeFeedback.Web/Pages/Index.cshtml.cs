@@ -16,14 +16,12 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages
 {
-    public class IndexModel : PageModel, IHasBackLink
+    public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
         private readonly IApprenticeFeedbackSessionService _sessionService;
-        public string DashboardLink { get; set; }
-        public string Backlink => DashboardLink;
-
+                
         // Textual descriptions of the feedback time periods.
         public string FeedbackRate { get; set; }
         public string FeedbackInitialDenyPeriod { get; set; }
@@ -32,14 +30,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         public IEnumerable<TrainingProvider> TrainingProviderItems { get; set; }
         public IndexModel(ILogger<IndexModel> logger
             , IApprenticeFeedbackService apprenticeFeedbackService
-            , NavigationUrlHelper urlHelper
             , IApprenticeFeedbackSessionService sessionService
         )
         {
             _logger = logger;
             _apprenticeFeedbackService = apprenticeFeedbackService;
             _sessionService = sessionService;
-            DashboardLink = urlHelper.Generate(NavigationSection.Home);
         }
 
 

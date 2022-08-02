@@ -23,7 +23,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
 
         private Mock<IApprenticeFeedbackService> _mockFeedbackService;
         private Mock<IApprenticeFeedbackSessionService> _mockSession;
-        private NavigationUrlHelper _urlHelper;
         private AuthenticatedUser _authenticatedUser;
 
         [SetUp]
@@ -31,14 +30,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         {
             _mockFeedbackService = new Mock<IApprenticeFeedbackService>();
             _mockSession = new Mock<IApprenticeFeedbackSessionService>();
-
-            var urls = new NavigationSectionUrls();
-            urls.ApprenticeHomeUrl = new Uri("https://localhost:5001/");
-            _urlHelper = new NavigationUrlHelper(urls);
-
+            
             _authenticatedUser = AuthenticatedUserHelper.CreateAuthenticatedUser(Guid.NewGuid());
 
-            IndexPage = new IndexModel(Mock.Of<ILogger<IndexModel>>(), _mockFeedbackService.Object, _urlHelper, _mockSession.Object);
+            IndexPage = new IndexModel(Mock.Of<ILogger<IndexModel>>(), _mockFeedbackService.Object, _mockSession.Object);
         }
 
         [Test]

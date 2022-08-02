@@ -25,7 +25,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public string Backlink => Editing.HasValue && Editing.Value == true ? "check-answers" : $"start/{FeedbackContext.UkPrn}";
 
-        public async Task<IActionResult> OnGet(bool? edit)
+        public IActionResult OnGet(bool? edit)
         {
             FeedbackAttributes = FeedbackContext.FeedbackAttributes;
             Editing = edit;
