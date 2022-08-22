@@ -1,40 +1,40 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Responses
 {
     public class GetApprenticeFeedbackResponse
     {
-        [JsonProperty("feedbackTargets")]
+        [JsonPropertyName("feedbackTargets")]
         public IEnumerable<FeedbackTarget> FeedbackTargets { get; set; }
     }
 
     public class FeedbackTarget
     {
-        [JsonProperty("apprenticeId")]
+        [JsonPropertyName("apprenticeId")]
         public Guid ApprenticeId { get; set; }
-        [JsonProperty("apprenticeshipId")]
+        [JsonPropertyName("apprenticeshipId")]
         public long ApprenticeshipId { get; set; }
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public string Status { get; set; }
-        [JsonProperty("startDate")]
+        [JsonPropertyName("startDate")]
         public DateTime StartDate { get; set; }
-        [JsonProperty("endDate")]
+        [JsonPropertyName("endDate")]
         public DateTime? EndDate { get; set; }
-        [JsonProperty("results")]
+        [JsonPropertyName("results")]
         public IEnumerable<FeedbackResult> Results { get; set; }
     }
 
     public class FeedbackResult
     {
-        [JsonProperty("ukprn")]
+        [JsonPropertyName("ukprn")]
         public long Ukprn { get; set; }
-        [JsonProperty("larsCode")]
+        [JsonPropertyName("larsCode")]
         public int LarsCode { get; set; }
-        [JsonProperty("providerName")]
+        [JsonPropertyName("providerName")]
         public string ProviderName { get; set; }
-        [JsonProperty("dateTimeCompleted")]
+        [JsonPropertyName("dateTimeCompleted")]
         public DateTime DateTimeCompleted { get; set; }
     }
 }
