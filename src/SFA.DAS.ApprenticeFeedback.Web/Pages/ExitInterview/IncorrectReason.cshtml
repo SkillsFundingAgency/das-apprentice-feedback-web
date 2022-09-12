@@ -1,0 +1,71 @@
+﻿@page "/exit/incorrect"
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview.IncorrectReasonModel
+@{
+    ViewData["Title"] = "Exit survey";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="options-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            This is not correct because…
+                        </h1>
+                    </legend>
+
+                    <div id="options-hint" class="govuk-hint">
+                        Please select one answer that is most relevant to you.
+                    </div>
+
+                    <span asp-validation-for="ReasonForIncorrect" class="govuk-error-message"></span>
+                    <div class="govuk-radios" data-module="govuk-radios">
+
+                        @foreach (var reason in Model.Reasons)
+                        {
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="ReasonForIncorrect" value="@reason" />
+                                <label class="govuk-label govuk-radios__label" for="ReasonForIncorrect@(reason)">
+                                    @reason
+                                </label>
+                            </div>
+                        }
+
+                    </div>
+
+                </fieldset>
+
+            </div>
+
+            <hr><br>
+
+            <div class="govuk-form-group">
+
+                <fieldset class="govuk-fieldset">
+
+                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                        
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" asp-for="ContactMe">
+                            <label class="govuk-label govuk-checkboxes__label" for="ContactMe">
+                                I'm happy to be contacted by the Apprenticeship service about my answers
+                            </label>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+            </div>
+
+            <div class="govuk-button-group">
+
+                <button class="govuk-button" type="submit">Confirm and submit</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
