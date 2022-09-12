@@ -53,11 +53,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
             services.AddRazorPages(options =>
             {
+                /*
                 options.Conventions.ConfigureFilter(factory =>
                 {
                     var typeFilterAttribute = new TypeFilterAttribute(typeof(RequiresIdentityConfirmedFilter));
                     return typeFilterAttribute;
                 });
+                */
             });
             services.AddAntiforgery(options =>
             {

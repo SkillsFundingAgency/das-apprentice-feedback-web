@@ -1,0 +1,44 @@
+﻿@page "/exit/question2"
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview.Question2Model
+@{
+    ViewData["Title"] = "Exit survey";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <div class="govuk-form-group" validation-row-status property-name="IncompletionReason">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-heading-l">
+                            I did not complete my apprenticeship because...
+                        </h1>
+                    </legend>
+
+                    <div id="options-hint" class="govuk-hint">
+                        Please select one answer that is relevant to you.
+                    </div>
+
+                    <span asp-validation-for="IncompletionReason" class="govuk-error-message"></span>
+                    <div class="govuk-radios" data-module="govuk-radios">
+
+                        @foreach (var reason in Model.Reasons)
+                        {
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="IncompletionReason" value="@reason" />
+                                <label class="govuk-label govuk-radios__label" for="IncompletionReason@(reason)">
+                                    @reason
+                                </label>
+                            </div>
+                        }
+
+                    </div>
+
+                </fieldset>
+            </div>
+            <button class="govuk-button" type="submit"> Continue </button>
+        </form>
+
+    </div>
+</div>

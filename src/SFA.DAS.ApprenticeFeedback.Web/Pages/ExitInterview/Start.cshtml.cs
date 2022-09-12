@@ -1,14 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
+using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
 {
     [HideNavigationBar]
-    public class StartModel : PageModel
+    public class StartModel : ExitInterviewContextPageModel
     {
-        public StartModel()
+        public StartModel(IExitInterviewSessionService sessionService)
+            :base(sessionService)
         {
         }
 

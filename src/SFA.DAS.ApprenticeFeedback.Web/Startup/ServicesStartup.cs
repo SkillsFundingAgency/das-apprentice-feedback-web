@@ -22,6 +22,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services.AddScoped<IMenuVisibility, MenuVisibility>();
             services.AddScoped<IDateTimeProvider, SystemDateTimeProvider>();
             services.AddTransient<IUrlHelper, UrlHelper>();
+            services.AddScoped<IExitInterviewSessionService, ExitInterviewSessionService>();
 
             return services;
         }

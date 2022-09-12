@@ -1,0 +1,52 @@
+﻿@page "/exit/question3"
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview.Question3Model
+@{
+    ViewData["Title"] = "Exit survey";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <div class="govuk-form-group" validation-row-status property-name="IncompletionFactor">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-heading-l">
+                            Did any of the following factors contribute to you not completing your apprenticeship?
+                        </h1>
+                    </legend>
+
+                    <div id="options-hint" class="govuk-hint">
+                        Please select one answer that is most relevant to you.
+                    </div>
+
+                    <span asp-validation-for="IncompletionFactor" class="govuk-error-message"></span>
+                    <div class="govuk-radios" data-module="govuk-radios">
+
+                        @foreach (var factor in Model.Factors)
+                        {
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="IncompletionFactor" value="@factor" />
+                                <label class="govuk-label govuk-radios__label" for="IncompletionFactor@(factor)">
+                                    @factor
+                                </label>
+                            </div>
+                        }
+                        <div class="govuk-radios__divider">or</div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" type="radio" asp-for="IncompletionFactor" value="Prefer not to say" />
+                            <label class="govuk-label govuk-radios__label" for="IncompletionFactorPrefer not to say">
+                                Prefer not to say
+                            </label>
+                        </div>
+
+
+                    </div>
+
+                </fieldset>
+            </div>
+            <button class="govuk-button" type="submit"> Continue </button>
+        </form>
+
+    </div>
+</div>
