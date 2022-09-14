@@ -23,7 +23,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
         };
 
         [BindProperty]
-        public bool ContactMe { get; set; }
+        public bool AllowContact { get; set; }
 
         public string Backlink => $"./question1";
 
@@ -44,7 +44,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
             }
 
             ExitInterviewContext.ReasonForIncorrect = ReasonForIncorrect;
-            ExitInterviewContext.ContactMe = ContactMe;
+            ExitInterviewContext.AllowContact = AllowContact;
             SaveContext();
 
             return RedirectToPage("./incorrectcomplete");
