@@ -1,7 +1,11 @@
-﻿namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitInterview
+﻿using System;
+
+namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitInterview
 {
     public class ExitInterviewContext
     {
+        public Guid ApprenticeFeedbackTargetId { get; set; }
+
         public bool CheckingAnswers { get; set; }
 
         // Question 1 - did you NOT complete the apprenticeship?
@@ -14,7 +18,9 @@
 
         // Unhappy path - yes I did complete the apprenticeship, your information about me is incorrect
         public string ReasonForIncorrect { get; set; }
-        public bool ContactMe { get; set; }
+
+        // Common to happy and unhappy paths
+        public bool AllowContact { get; set; }
 
 
         public void Reset()
@@ -25,7 +31,7 @@
             IncompletionFactor = null;
             RemainedReason = null;
             ReasonForIncorrect = null;
-            ContactMe = false;
+            AllowContact = false;
         }
     }
 }

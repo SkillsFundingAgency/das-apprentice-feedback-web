@@ -11,7 +11,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
     public class CheckYourAnswersModel : ExitInterviewContextPageModel, IHasBackLink
     {
         [BindProperty]
-        public bool ContactMe { get; set; }
+        public bool AllowContact { get; set; }
 
         public string Backlink => $"./question4";
 
@@ -39,7 +39,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
                 return Page();
             }
 
-            ExitInterviewContext.ContactMe = ContactMe;
+            ExitInterviewContext.AllowContact = AllowContact;
             SaveContext();
 
             // Save the context values to the database
