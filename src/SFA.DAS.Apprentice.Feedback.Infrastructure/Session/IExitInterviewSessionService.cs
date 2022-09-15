@@ -1,10 +1,10 @@
-﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitInterview;
+﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 
 namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
 {
-    public interface IExitInterviewSessionService
+    public interface IExitSurveySessionService
     {
-        ExitInterviewContext GetExitInterviewContext();
-        void SetExitInterviewContext(ExitInterviewContext exitInterviewContext);
+        ExitSurveyContext GetExitSurveyContext();
+        void SetExitSurveyContext(ExitSurveyContext ExitSurveyContext);
     }
 }

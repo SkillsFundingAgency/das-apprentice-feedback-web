@@ -1,11 +1,11 @@
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 
-namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
+namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 {
-    public class CompleteModel : ExitInterviewContextPageModel
+    public class CompleteModel : ExitSurveyContextPageModel
     {
-        public CompleteModel(IExitInterviewSessionService sessionService)
+        public CompleteModel(IExitSurveySessionService sessionService)
             : base(sessionService)
         {
         }

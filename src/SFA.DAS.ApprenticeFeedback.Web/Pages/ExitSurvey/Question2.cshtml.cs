@@ -6,10 +6,10 @@ using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.ComponentModel.DataAnnotations;
 
-namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
+namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 {
     [HideNavigationBar]
-    public class Question2Model : ExitInterviewContextPageModel, IHasBackLink
+    public class Question2Model : ExitSurveyContextPageModel, IHasBackLink
     {
         [BindProperty]
         [Required(ErrorMessage = "Please select an answer")]
@@ -31,9 +31,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
             "The salary did not meet my financial needs",
         };   
 
-        public string Backlink => (ExitInterviewContext.CheckingAnswers)? $"./checkyouranswers" : $"./question1";
+        public string Backlink => (ExitSurveyContext.CheckingAnswers)? $"./checkyouranswers" : $"./question1";
 
-        public Question2Model(IExitInterviewSessionService sessionService)
+        public Question2Model(IExitSurveySessionService sessionService)
             : base(sessionService)
         {
         }
@@ -44,7 +44,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
             // and hasn't filled in an exit survey, otherwise redirect,
             // will take in a feedback target guid in the Url as well.
 
-            IncompletionReason = ExitInterviewContext.IncompletionReason;
+            IncompletionReason = ExitSurveyContext.IncompletionReason;
 
             return Page();
         }
@@ -56,10 +56,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
                 return Page();
             }
 
-            ExitInterviewContext.IncompletionReason = IncompletionReason;
+            ExitSurveyContext.IncompletionReason = IncompletionReason;
             SaveContext();
 
-            if (ExitInterviewContext.CheckingAnswers)
+            if (ExitSurveyContext.CheckingAnswers)
             {
                 return RedirectToPage("./checkyouranswers");
             }

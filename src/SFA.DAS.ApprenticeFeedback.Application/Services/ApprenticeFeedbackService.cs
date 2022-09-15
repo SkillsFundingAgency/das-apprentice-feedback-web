@@ -83,5 +83,10 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
         {
             await _apiClient.SubmitFeedback(request);
         }
+
+        public async Task SubmitExitSurvey(PostSubmitExitSurvey request)
+        {
+            await _apiClient.SubmitExitSurvey(request);
+        }
     }
 }

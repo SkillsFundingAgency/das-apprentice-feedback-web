@@ -1,5 +1,5 @@
 ﻿@page "/exit/checkyouranswers"
-@model SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview.CheckYourAnswersModel
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey.CheckYourAnswersModel
 @{
     ViewData["Title"] = "Exit survey";
 }
@@ -18,7 +18,7 @@
                         <br>Is this correct?
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @if (Model.ExitInterviewContext.DidNotCompleteApprenticeship.Value)
+                        @if (Model.ExitSurveyContext.DidNotCompleteApprenticeship.Value)
                         {
                             <text>I did not complete</text>
                         }
@@ -38,7 +38,7 @@
                         I did not complete my apprenticeship because...
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.ExitInterviewContext.IncompletionReason
+                        @Model.ExitSurveyContext.IncompletionReason
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link--no-visited-state" href="/exit/question2">
@@ -51,7 +51,7 @@
                         Did any of the following factors contribute to you not completing your apprenticeship?
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.ExitInterviewContext.IncompletionFactor
+                        @Model.ExitSurveyContext.IncompletionFactor
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link--no-visited-state" href="/exit/question3">
@@ -65,7 +65,7 @@
                         I would have remained on the apprenticeship if…
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.ExitInterviewContext.RemainedReason
+                        @Model.ExitSurveyContext.RemainedReason
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link--no-visited-state" href="/exit/question4">

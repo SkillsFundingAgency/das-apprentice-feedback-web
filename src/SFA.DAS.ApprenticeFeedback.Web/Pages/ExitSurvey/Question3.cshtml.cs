@@ -6,10 +6,10 @@ using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.ComponentModel.DataAnnotations;
 
-namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
+namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 {
     [HideNavigationBar]
-    public class Question3Model : ExitInterviewContextPageModel, IHasBackLink
+    public class Question3Model : ExitSurveyContextPageModel, IHasBackLink
     {
         [BindProperty]
         [Required(ErrorMessage = "Please select an answer")]
@@ -23,9 +23,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
             "None of the above"
         };
 
-        public string Backlink => (ExitInterviewContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question2";
+        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question2";
 
-        public Question3Model(IExitInterviewSessionService sessionService)
+        public Question3Model(IExitSurveySessionService sessionService)
             : base(sessionService)
         {
         }
@@ -36,7 +36,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
             // and hasn't filled in an exit survey, otherwise redirect,
             // will take in a feedback target guid in the Url as well.
 
-            IncompletionFactor = ExitInterviewContext.IncompletionFactor;
+            IncompletionFactor = ExitSurveyContext.IncompletionFactor;
 
             return Page();
         }
@@ -48,10 +48,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
                 return Page();
             }
 
-            ExitInterviewContext.IncompletionFactor = IncompletionFactor;
+            ExitSurveyContext.IncompletionFactor = IncompletionFactor;
             SaveContext();
 
-            if (ExitInterviewContext.CheckingAnswers)
+            if (ExitSurveyContext.CheckingAnswers)
             {
                 return RedirectToPage("./checkyouranswers");
             }

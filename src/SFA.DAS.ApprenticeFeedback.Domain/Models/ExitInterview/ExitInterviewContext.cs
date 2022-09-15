@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitInterview
+namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
 {
-    public class ExitInterviewContext
+    public class ExitSurveyContext
     {
         public Guid ApprenticeFeedbackTargetId { get; set; }
 
