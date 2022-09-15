@@ -6,10 +6,10 @@ using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.ComponentModel.DataAnnotations;
 
-namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
+namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 {
     [HideNavigationBar]
-    public class Question4Model : ExitInterviewContextPageModel, IHasBackLink
+    public class Question4Model : ExitSurveyContextPageModel, IHasBackLink
     {
         [BindProperty]
         [Required(ErrorMessage = "Please select an answer")]
@@ -27,9 +27,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
             "There was a mentor or learning coach within or outside of my organisation",
         };
 
-        public string Backlink => (ExitInterviewContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question3";
+        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question3";
 
-        public Question4Model(IExitInterviewSessionService sessionService)
+        public Question4Model(IExitSurveySessionService sessionService)
             : base(sessionService)
         {
         }
@@ -40,7 +40,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
             // and hasn't filled in an exit survey, otherwise redirect,
             // will take in a feedback target guid in the Url as well.
 
-            RemainedReason = ExitInterviewContext.RemainedReason;
+            RemainedReason = ExitSurveyContext.RemainedReason;
 
             return Page();
         }
@@ -52,7 +52,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
                 return Page();
             }
 
-            ExitInterviewContext.RemainedReason = RemainedReason;
+            ExitSurveyContext.RemainedReason = RemainedReason;
             SaveContext();
 
             return RedirectToPage("./checkyouranswers");

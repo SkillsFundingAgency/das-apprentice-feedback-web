@@ -4,12 +4,12 @@ using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 
-namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
+namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 {
     [HideNavigationBar]
-    public class StartModel : ExitInterviewContextPageModel
+    public class StartModel : ExitSurveyContextPageModel
     {
-        public StartModel(IExitInterviewSessionService sessionService)
+        public StartModel(IExitSurveySessionService sessionService)
             :base(sessionService)
         {
         }

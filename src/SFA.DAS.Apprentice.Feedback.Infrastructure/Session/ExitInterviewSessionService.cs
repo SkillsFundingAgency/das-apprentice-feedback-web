@@ -1,26 +1,26 @@
-﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitInterview;
+﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 
 namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
 {
-    public class ExitInterviewSessionService : IExitInterviewSessionService
+    public class ExitSurveySessionService : IExitSurveySessionService
     {
         private readonly ISessionService _sessionService;
 
         private const string _sessionKey = "Exit_Interview_Context";
 
-        public ExitInterviewSessionService(ISessionService sessionService)
+        public ExitSurveySessionService(ISessionService sessionService)
         {
             _sessionService = sessionService;
         }
 
-        public ExitInterviewContext GetExitInterviewContext()
+        public ExitSurveyContext GetExitSurveyContext()
         {
-            return _sessionService.Get<ExitInterviewContext>(_sessionKey);
+            return _sessionService.Get<ExitSurveyContext>(_sessionKey);
         }
 
-        public void SetExitInterviewContext(ExitInterviewContext exitInterviewContext)
+        public void SetExitSurveyContext(ExitSurveyContext ExitSurveyContext)
         {
-            _sessionService.Set(_sessionKey, exitInterviewContext);
+            _sessionService.Set(_sessionKey, ExitSurveyContext);
         }
     }
 }

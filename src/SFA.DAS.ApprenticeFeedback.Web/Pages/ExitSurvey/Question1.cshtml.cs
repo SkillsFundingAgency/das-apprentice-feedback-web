@@ -8,19 +8,19 @@ using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
-namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
+namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 {
     [HideNavigationBar]
-    public class Question1Model : ExitInterviewContextPageModel, IHasBackLink
+    public class Question1Model : ExitSurveyContextPageModel, IHasBackLink
     {
         [BindProperty]
         [Required(ErrorMessage = "Select if you completed your apprenticeship")]
         public bool? DidNotCompleteApprenticeship { get; set; }
 
-        public string Backlink => (ExitInterviewContext.CheckingAnswers) ? $"./checkyouranswers" : $"./start";
+        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./start";
 
 
-        public Question1Model(IExitInterviewSessionService sessionService)
+        public Question1Model(IExitSurveySessionService sessionService)
             :base(sessionService)
         {
         }
@@ -31,7 +31,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
             // and hasn't filled in an exit survey, otherwise redirect,
             // will take in a feedback target guid in the Url as well.
 
-            DidNotCompleteApprenticeship = ExitInterviewContext.DidNotCompleteApprenticeship;
+            DidNotCompleteApprenticeship = ExitSurveyContext.DidNotCompleteApprenticeship;
 
             return Page();
         }
@@ -44,17 +44,17 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitInterview
             }
 
             // If the user changed the existing answer then forget the rest of the answers.
-            if(ExitInterviewContext.DidNotCompleteApprenticeship.HasValue && ExitInterviewContext.DidNotCompleteApprenticeship != DidNotCompleteApprenticeship)
+            if(ExitSurveyContext.DidNotCompleteApprenticeship.HasValue && ExitSurveyContext.DidNotCompleteApprenticeship != DidNotCompleteApprenticeship)
             {
-                ExitInterviewContext.Reset();
+                ExitSurveyContext.Reset();
             }
 
-            ExitInterviewContext.DidNotCompleteApprenticeship = DidNotCompleteApprenticeship;
+            ExitSurveyContext.DidNotCompleteApprenticeship = DidNotCompleteApprenticeship;
             SaveContext();
 
-            if (ExitInterviewContext.DidNotCompleteApprenticeship.Equals(true))
+            if (ExitSurveyContext.DidNotCompleteApprenticeship.Equals(true))
             {
-                if(ExitInterviewContext.CheckingAnswers)
+                if(ExitSurveyContext.CheckingAnswers)
                 {
                     return RedirectToPage("./checkyouranswers");
                 }

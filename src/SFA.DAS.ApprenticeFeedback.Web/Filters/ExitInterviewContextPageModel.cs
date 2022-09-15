@@ -1,28 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitInterview;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
-using System.Collections.Generic;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Filters
 {
-    public class ExitInterviewContextPageModel : PageModel
+    public class ExitSurveyContextPageModel : PageModel
     {
-        private readonly IExitInterviewSessionService _sessionService;
-        private ExitInterviewContext _exitInterviewContext;
+        private readonly IExitSurveySessionService _sessionService;
+        private ExitSurveyContext _ExitSurveyContext;
 
-        public ExitInterviewContext ExitInterviewContext { get { return _exitInterviewContext; } }
+        public ExitSurveyContext ExitSurveyContext { get { return _ExitSurveyContext; } }
 
-        public ExitInterviewContextPageModel(IExitInterviewSessionService sessionService)
+        public ExitSurveyContextPageModel(IExitSurveySessionService sessionService)
         {
             _sessionService = sessionService;
         }
 
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
-            _exitInterviewContext = _sessionService.GetExitInterviewContext();
-            if (null == _exitInterviewContext)
+            _ExitSurveyContext = _sessionService.GetExitSurveyContext();
+            if (null == _ExitSurveyContext)
             {
                 if(!context.HttpContext.Request.Path.Equals("/exit/start"))
                 {
@@ -30,7 +28,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
                     return;
                 }
 
-                _exitInterviewContext = new ExitInterviewContext();
+                _ExitSurveyContext = new ExitSurveyContext();
                 SaveContext();
             }
 
@@ -39,7 +37,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
 
         public void SaveContext()
         {
-            _sessionService.SetExitInterviewContext(_exitInterviewContext);
+            _sessionService.SetExitSurveyContext(_ExitSurveyContext);
         }
     }
 }
