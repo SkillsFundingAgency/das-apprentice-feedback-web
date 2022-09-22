@@ -10,7 +10,7 @@
     "SFA.DAS.ApprenticeFeedback.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "exit/start",
+      "launchUrl": "exit/start/889AE4F8-D7DA-4A43-A127-0017DA2F5D2F",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
