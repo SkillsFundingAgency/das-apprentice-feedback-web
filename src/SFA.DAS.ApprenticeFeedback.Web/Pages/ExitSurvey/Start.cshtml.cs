@@ -3,6 +3,7 @@ using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using System;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 {
@@ -14,7 +15,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         {
         }
 
-        public IActionResult OnGet([FromServices] AuthenticatedUser user)
+        public IActionResult OnGet([FromServices] AuthenticatedUser user, Guid apprenticeFeedbackTargetId)
         {
             // Will need a model decorator that works out if the apprentice has withdrawn
             // and hasn't filled in an exit survey, otherwise redirect,
