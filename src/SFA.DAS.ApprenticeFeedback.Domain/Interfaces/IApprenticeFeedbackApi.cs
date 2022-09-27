@@ -24,7 +24,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
         [Get("/apprentice/{id}")]
         Task<Apprentice> GetApprentice([Path] Guid id);
 
-        [Post("apprenticefeedback/exitsurvey")]
+        [Post("/exitsurvey")]
         Task SubmitExitSurvey([Body] PostSubmitExitSurvey exitSurvey);
     }
 }

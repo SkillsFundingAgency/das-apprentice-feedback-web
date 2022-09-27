@@ -6,6 +6,7 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+        <partial name="ValidationSummary" />
         <form method="post">
             <div class="govuk-form-group" validation-row-status property-name="IncompletionReason">
                 <fieldset class="govuk-fieldset">
@@ -20,19 +21,23 @@
                         Please select one answer that is relevant to you.
                     </div>
 
-                    <span asp-validation-for="IncompletionReason" class="govuk-error-message"></span>
+                    <div asp-validation-summary="All" class="govuk-error-message"></div>
+
                     <div class="govuk-radios" data-module="govuk-radios">
 
-                        @foreach (var reason in Model.Reasons)
+                        @for (int i = 0; i < Model.Reasons.Length; i++)
                         {
+                            if(i == Model.Reasons.Length - 1) {
+                                <div class="govuk-radios__divider">or</div>
+                            }
+
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" asp-for="IncompletionReason" value="@reason" />
-                                <label class="govuk-label govuk-radios__label" for="IncompletionReason@(reason)">
-                                    @reason
+                                <input class="govuk-radios__input" type="radio" asp-for="IncompletionReason" value="@Model.Reasons[i]" />
+                                <label class="govuk-label govuk-radios__label" for="IncompletionReason@Model.Reasons[i]">
+                                    @Model.Reasons[i]
                                 </label>
                             </div>
                         }
-
                     </div>
 
                 </fieldset>

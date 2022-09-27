@@ -14,17 +14,17 @@
             <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        Our records show, you did not complete your apprenticeship.
+                        You did not complete your apprenticeship including your end-point assessment.
                         <br>Is this correct?
                     </dt>
                     <dd class="govuk-summary-list__value">
                         @if (Model.ExitSurveyContext.DidNotCompleteApprenticeship.Value)
                         {
-                            <text>I did not complete</text>
+                            <text>Yes, this is correct</text>
                         }
                         else
                         {
-                            <text>I did complete</text>
+                            <text>No, this is not correct.</text>
                         }
                     </dd>
                     <dd class="govuk-summary-list__actions">
@@ -51,7 +51,29 @@
                         Did any of the following factors contribute to you not completing your apprenticeship?
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.ExitSurveyContext.IncompletionFactor
+                        @if(Model.ExitSurveyContext.IncompletionFactor_Caring) {
+                            <text>Caring responsibilities<br /></text>
+                        }
+                        @if (Model.ExitSurveyContext.IncompletionFactor_Family)
+                        {
+                            <text>Family or relationship issues<br /></text>
+                        }
+                        @if (Model.ExitSurveyContext.IncompletionFactor_Financial)
+                        {
+                            <text>Financial issues<br /></text>
+                        }
+                        @if (Model.ExitSurveyContext.IncompletionFactor_Mental)
+                        {
+                            <text>Mental health<br /></text>
+                        }
+                        @if (Model.ExitSurveyContext.IncompletionFactor_Physical)
+                        {
+                            <text>Physical health issues</text>
+                        }
+                        @if (Model.ExitSurveyContext.IncompletionFactor_Other)
+                        {
+                            <text>None of the above</text>
+                        }
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link--no-visited-state" href="/exit/question3">

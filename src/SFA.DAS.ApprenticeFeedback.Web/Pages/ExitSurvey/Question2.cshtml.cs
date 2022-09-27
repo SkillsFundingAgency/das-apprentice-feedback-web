@@ -12,23 +12,23 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     public class Question2Model : ExitSurveyContextPageModel, IHasBackLink
     {
         [BindProperty]
-        [Required(ErrorMessage = "Please select an answer")]
+        [Required(ErrorMessage = "Select the reason why you did not complete the apprenticeship")]
         public string IncompletionReason { get; set; }
         public string[] Reasons = new[]
         {
+            "I did not want to remain",
             "I have already done something similar",
-            "I was offered another role within the organisation",
-            "I was offered another job outside of my organisation",
+            "I was offered another job",
             "I was released from employment or made redundant",
-            "It was not relevant to the job role",
-            "There was too much coursework",
-            "The training was difficult",
-            "The job was difficult",
-            "The quality of the training was poor",
-            "The training provider did not think I would pass the end point assessment",
-            "There was a delay in completing my end point assessment",
-            "There was no career progression",
-            "The salary did not meet my financial needs",
+            "it was not relevant to the job role",
+            "of personal or health reasons",
+            "my training provider is no longer delivering apprenticeships",
+            "the training was too difficult",
+            "the job was too difficult",
+            "the quality of the training was not what I expected",
+            "there were issues with my end point assessment",
+            "the salary did not meet my financial needs",
+            "None of the above"
         };   
 
         public string Backlink => (ExitSurveyContext.CheckingAnswers)? $"./checkyouranswers" : $"./question1";

@@ -6,47 +6,89 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+        <partial name="ValidationSummary" />
         <form method="post">
-            <div class="govuk-form-group" validation-row-status property-name="IncompletionFactor">
-                <fieldset class="govuk-fieldset">
 
+            <div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
+                <h2 class="govuk-error-summary__title" id="error-summary-title">
+                    There is a problem
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        <li>
+                            <a href="#IncompletionFactor_Caring">Select the factors relevant to you, or select 'None of the above'</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="factors" class="govuk-form-group govuk-form-group--error">
+                <fieldset class="govuk-fieldset" aria-describedby="nationality-hint nationality-error">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <h1 class="govuk-heading-l">
+                        <h1 class="govuk-fieldset__heading">
                             Did any of the following factors contribute to you not completing your apprenticeship?
                         </h1>
                     </legend>
-
-                    <div id="options-hint" class="govuk-hint">
-                        Please select one answer that is most relevant to you.
+                    <div id="factors-hint" class="govuk-hint">
+                        Please select any answers that are relevant to you.
                     </div>
-
-                    <span asp-validation-for="IncompletionFactor" class="govuk-error-message"></span>
-                    <div class="govuk-radios" data-module="govuk-radios">
-
-                        @foreach (var factor in Model.Factors)
-                        {
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" asp-for="IncompletionFactor" value="@factor" />
-                                <label class="govuk-label govuk-radios__label" for="IncompletionFactor@(factor)">
-                                    @factor
-                                </label>
-                            </div>
-                        }
-                        <div class="govuk-radios__divider">or</div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" type="radio" asp-for="IncompletionFactor" value="Prefer not to say" />
-                            <label class="govuk-label govuk-radios__label" for="IncompletionFactorPrefer not to say">
-                                Prefer not to say
+                    <p id="factors-error" class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span> Select the factors relevant to you, or select 'None of the above'
+                    </p>
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Caring" />
+                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Caring">
+                                @Model.Factors[0]
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Family" />
+                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Family">
+                                @Model.Factors[1]
                             </label>
                         </div>
 
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Financial" />
+                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Financial">
+                                @Model.Factors[2]
+                            </label>
+                        </div>
+
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Mental" />
+                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Mental">
+                                @Model.Factors[3]
+                            </label>
+                        </div>
+
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Physical" />
+                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Physical">
+                                @Model.Factors[4]
+                            </label>
+                        </div>
+
+                        <div class="govuk-checkboxes__divider">or</div>
+
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Other" />
+                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Other">
+                                @Model.Factors[5]
+                            </label>
+                        </div>
 
                     </div>
-
                 </fieldset>
             </div>
             <button class="govuk-button" type="submit"> Continue </button>
         </form>
-
     </div>
 </div>
+
+
+
+@section Scripts {
+    <script src="/assets/scripts/FactorsCheckboxValidation.js" no-cdn></script>
+}

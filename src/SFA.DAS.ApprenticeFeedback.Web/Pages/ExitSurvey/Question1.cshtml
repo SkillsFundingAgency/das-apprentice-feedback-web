@@ -6,36 +6,31 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+        <partial name="ValidationSummary" />
         <form method="post">
-            <div class="govuk-form-group" validation-row-status property-name="DidNotCompleteApprenticeship">                
-                <fieldset class="govuk-fieldset">
-                    
+            <div class="govuk-form-group" validation-row-status property-name="DidNotCompleteApprenticeship">
+                <fieldset class="govuk-fieldset">                    
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-heading-l">
-                            Our records show, you did not complete your apprenticeship.<br />Is this correct?
+                            According to our records, you did not complete your apprenticeship including your end-point assessment.<br />Is this correct?
                         </h1>
                     </legend>
 
-                    <div id="options-hint" class="govuk-hint">
-                        <div class="govuk-inset-text">
-                            You did not complete the apprenticeship and or your end point assessment.
-                        </div>
-                    </div>
-                    
                     <span asp-validation-for="DidNotCompleteApprenticeship" class="govuk-error-message"></span>
+
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="complete-apprenticeship" asp-for="DidNotCompleteApprenticeship" type="radio" value="true">
                             <label class="govuk-label govuk-radios__label" for="complete-apprenticeship">
-                                I did not complete
+                                Yes, this is correct
                             </label>
                         </div>
 
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="complete-apprenticeship-2" asp-for="DidNotCompleteApprenticeship" type="radio" value="false">
                             <label class="govuk-label govuk-radios__label" for="complete-apprenticeship-2">
-                                I did complete
+                                No, this is not correct
                             </label>
                         </div>
                     </div>

@@ -53,8 +53,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             {
                 ApprenticeFeedbackTargetId = ExitSurveyContext.ApprenticeFeedbackTargetId,
                 DidNotCompleteApprenticeship = ExitSurveyContext.DidNotCompleteApprenticeship.Value,
-                IncompletionReason = ExitSurveyContext.IncompletionReason,
-                IncompletionFactor = ExitSurveyContext.IncompletionFactor,
+                IncompletionReason = ExitSurveyContext.IncompletionReason,                
+                IncompletionFactor_Caring = ExitSurveyContext.IncompletionFactor_Caring,
+                IncompletionFactor_Family = ExitSurveyContext.IncompletionFactor_Family,
+                IncompletionFactor_Financial = ExitSurveyContext.IncompletionFactor_Financial,
+                IncompletionFactor_Mental = ExitSurveyContext.IncompletionFactor_Mental,
+                IncompletionFactor_Other = ExitSurveyContext.IncompletionFactor_Other,
+                IncompletionFactor_Physical = ExitSurveyContext.IncompletionFactor_Physical,                
                 ReasonForIncorrect = ExitSurveyContext.ReasonForIncorrect,
                 RemainedReason = ExitSurveyContext.RemainedReason,
                 AllowContact = ExitSurveyContext.AllowContact
