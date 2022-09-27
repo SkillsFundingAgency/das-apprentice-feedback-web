@@ -4,6 +4,8 @@ using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
@@ -14,7 +16,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         [BindProperty]
         [Required(ErrorMessage = "Select the reason why you did not complete the apprenticeship")]
         public string IncompletionReason { get; set; }
-        public string[] Reasons = new[]
+        public ReadOnlyCollection<string> Reasons { get { return _reasons.AsReadOnly(); } }
+
+        public string Backlink => (ExitSurveyContext.CheckingAnswers)? $"./checkyouranswers" : $"./question1";
+
+        private readonly List<string> _reasons = new List<string>
         {
             "I did not want to remain",
             "I have already done something similar",
@@ -29,9 +35,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             "there were issues with my end point assessment",
             "the salary did not meet my financial needs",
             "None of the above"
-        };   
-
-        public string Backlink => (ExitSurveyContext.CheckingAnswers)? $"./checkyouranswers" : $"./question1";
+        };
 
         public Question2Model(IExitSurveySessionService sessionService)
             : base(sessionService)

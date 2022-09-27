@@ -4,7 +4,8 @@ using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 {
@@ -24,7 +25,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         [BindProperty]
         public bool IncompletionFactor_Other { get; set; }
 
-        public string[] Factors = new[]
+        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question2";
+
+        public ReadOnlyCollection<string> Factors { get { return _factors.AsReadOnly(); } }
+        private readonly List<string> _factors = new List<string>
         {
             "Caring responsibilities",
             "Family or relationship issues",
@@ -33,8 +37,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             "Physical health issues",
             "None of the above"
         };
-
-        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question2";
 
         public Question3Model(IExitSurveySessionService sessionService)
             : base(sessionService)
@@ -60,10 +62,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public IActionResult OnPost()
         {
             bool factorSelected = IncompletionFactor_Caring
-                | IncompletionFactor_Family
-                | IncompletionFactor_Financial
-                | IncompletionFactor_Mental
-                | IncompletionFactor_Physical;
+                || IncompletionFactor_Family
+                || IncompletionFactor_Financial
+                || IncompletionFactor_Mental
+                || IncompletionFactor_Physical;
             bool otherSelected = IncompletionFactor_Other;
             if((!factorSelected && !otherSelected)
                 || factorSelected && otherSelected)

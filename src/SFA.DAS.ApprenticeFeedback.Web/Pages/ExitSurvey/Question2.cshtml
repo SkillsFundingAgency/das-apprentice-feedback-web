@@ -25,9 +25,10 @@
 
                     <div class="govuk-radios" data-module="govuk-radios">
 
-                        @for (int i = 0; i < Model.Reasons.Length; i++)
+                        @for (int i = 0; i < Model.Reasons.Count; i++)
                         {
-                            if(i == Model.Reasons.Length - 1) {
+                            if (i == Model.Reasons.Count - 1)
+                            {
                                 <div class="govuk-radios__divider">or</div>
                             }
 
