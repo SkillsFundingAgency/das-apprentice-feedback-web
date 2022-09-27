@@ -4,6 +4,7 @@ using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
@@ -14,7 +15,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         [BindProperty]
         [Required(ErrorMessage = "Please select an answer")]
         public string RemainedReason { get; set; }
-        public string[] Reasons = new[]
+        public IEnumerable<string> Reasons { get { return _reasons; } }
+        private readonly string[] _reasons = new[]
         {
             "I had more support and guidance from my employer",
             "I had more support and guidance from my training provider",

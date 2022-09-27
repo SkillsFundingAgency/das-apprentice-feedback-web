@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 
@@ -9,9 +10,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             : base(sessionService)
         {
         }
-
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return Page();
         }
     }
 }

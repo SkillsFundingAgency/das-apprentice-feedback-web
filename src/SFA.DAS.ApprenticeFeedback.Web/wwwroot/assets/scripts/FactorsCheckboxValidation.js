@@ -4,14 +4,14 @@
 
     $('input[type=checkbox]').on('change', function () {
         
-        var factorChosen = $('#IncompletionFactor_Caring').is(':checked')
+        let factorChosen = $('#IncompletionFactor_Caring').is(':checked')
             || $('#IncompletionFactor_Family').is(':checked')
             || $('#IncompletionFactor_Financial').is(':checked')
             || $('#IncompletionFactor_Mental').is(':checked')
             || $('#IncompletionFactor_Physical').is(':checked')
             ;
 
-        var noneChosen = $('#IncompletionFactor_Other').is(':checked');
+        let noneChosen = $('#IncompletionFactor_Other').is(':checked');
 
         if ((factorChosen && noneChosen) || (!factorChosen && !noneChosen)) {
             showError();

@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -18,14 +17,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         [BindProperty]
         [Required(ErrorMessage = "Select a reason")]
         public string ReasonForIncorrect { get; set; }
-        public string[] Reasons = new[]
-        {
-            "I am still doing my apprenticeship",
-            "I am waiting for my employer to appoint me a new training provider",
-            "I completed the apprenticeship and had my end-point assessment",
-            "I completed my training and I'm waiting for the end-point assessment",
-            "I never started an apprenticeship"
-        };
+        public IEnumerable<string> Reasons { get { return _reasons; } }
 
         [BindProperty]
         public bool AllowContact { get; set; }
@@ -34,6 +26,15 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
 
+        private readonly string[] _reasons = new[]
+        {
+            "I am still doing my apprenticeship",
+            "I am waiting for my employer to appoint me a new training provider",
+            "I completed the apprenticeship and had my end-point assessment",
+            "I completed my training and I'm waiting for the end-point assessment",
+            "I never started an apprenticeship"
+        };
+
         public IncorrectReasonModel(IExitSurveySessionService sessionService, 
             IApprenticeFeedbackService apprenticeFeedbackService)
             : base(sessionService)
@@ -41,8 +42,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             _apprenticeFeedbackService = apprenticeFeedbackService;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return Page();
         }
 
         public async Task<IActionResult> OnPost()
