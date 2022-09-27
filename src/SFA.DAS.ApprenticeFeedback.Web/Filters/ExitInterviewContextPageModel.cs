@@ -22,7 +22,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
             _ExitSurveyContext = _sessionService.GetExitSurveyContext();
             if (null == _ExitSurveyContext)
             {
-                if(!context.HttpContext.Request.Path.Equals("/exit/start"))
+                if(!context.HttpContext.Request.Path.StartsWithSegments("/exit/start"))
                 {
                     context.Result = Redirect("/");
                     return;

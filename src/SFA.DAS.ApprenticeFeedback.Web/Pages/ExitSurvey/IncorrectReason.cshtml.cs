@@ -21,8 +21,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public string[] Reasons = new[]
         {
             "I am still doing my apprenticeship",
-            "I completed the apprenticeship and had my end point assessment",
-            "I completed my training and I'm waiting for the end point assessment",
+            "I am waiting for my employer to appoint me a new training provider",
+            "I completed the apprenticeship and had my end-point assessment",
+            "I completed my training and I'm waiting for the end-point assessment",
             "I never started an apprenticeship"
         };
 
@@ -61,7 +62,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
                 ApprenticeFeedbackTargetId = ExitSurveyContext.ApprenticeFeedbackTargetId,
                 DidNotCompleteApprenticeship = ExitSurveyContext.DidNotCompleteApprenticeship.Value,
                 IncompletionReason = ExitSurveyContext.IncompletionReason,
-                IncompletionFactor = ExitSurveyContext.IncompletionFactor,
+                IncompletionFactor_Caring = ExitSurveyContext.IncompletionFactor_Caring,
+                IncompletionFactor_Family = ExitSurveyContext.IncompletionFactor_Family,
+                IncompletionFactor_Financial = ExitSurveyContext.IncompletionFactor_Financial,
+                IncompletionFactor_Mental = ExitSurveyContext.IncompletionFactor_Mental,
+                IncompletionFactor_Other = ExitSurveyContext.IncompletionFactor_Other,
+                IncompletionFactor_Physical = ExitSurveyContext.IncompletionFactor_Physical,
                 ReasonForIncorrect = ExitSurveyContext.ReasonForIncorrect,
                 RemainedReason = ExitSurveyContext.RemainedReason,
                 AllowContact = ExitSurveyContext.AllowContact

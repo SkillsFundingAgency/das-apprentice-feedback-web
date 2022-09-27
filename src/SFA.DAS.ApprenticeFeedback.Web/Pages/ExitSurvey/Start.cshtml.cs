@@ -20,6 +20,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             // Will need a model decorator that works out if the apprentice has withdrawn
             // and hasn't filled in an exit survey, otherwise redirect,
             // will take in a feedback target guid in the Url as well.
+
+            // Remember the apprentice feedback target id
+            ExitSurveyContext.ApprenticeFeedbackTargetId = apprenticeFeedbackTargetId;
+            SaveContext();
+
             return Page();
         }
     }
