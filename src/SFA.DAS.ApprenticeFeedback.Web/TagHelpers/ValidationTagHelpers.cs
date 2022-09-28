@@ -15,7 +15,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            if (PropertyIsInvalid())
+            if (PropertyName.Equals("MultipleErrorSummary") || PropertyIsInvalid())
                 output.Attributes.Add("class", "govuk-form-group--error");
         }
 
