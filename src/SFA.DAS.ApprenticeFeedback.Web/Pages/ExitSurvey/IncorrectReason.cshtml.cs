@@ -68,7 +68,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
                 IncompletionFactor_Family = ExitSurveyContext.IncompletionFactor_Family,
                 IncompletionFactor_Financial = ExitSurveyContext.IncompletionFactor_Financial,
                 IncompletionFactor_Mental = ExitSurveyContext.IncompletionFactor_Mental,
-                IncompletionFactor_Other = ExitSurveyContext.IncompletionFactor_Other,
+                IncompletionFactor_None = ExitSurveyContext.IncompletionFactor_None,
                 IncompletionFactor_Physical = ExitSurveyContext.IncompletionFactor_Physical,
                 ReasonForIncorrect = ExitSurveyContext.ReasonForIncorrect,
                 RemainedReason = ExitSurveyContext.RemainedReason,

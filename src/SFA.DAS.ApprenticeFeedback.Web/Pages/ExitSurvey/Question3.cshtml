@@ -9,20 +9,7 @@
         <partial name="ValidationSummary" />
         <form method="post">
 
-            <div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
-                <h2 class="govuk-error-summary__title" id="error-summary-title">
-                    There is a problem
-                </h2>
-                <div class="govuk-error-summary__body">
-                    <ul class="govuk-list govuk-error-summary__list">
-                        <li>
-                            <a href="#IncompletionFactor_Caring">Select the factors relevant to you, or select 'None of the above'</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div id="factors" class="govuk-form-group govuk-form-group--error">
+            <div id="factors" class="govuk-form-group" validation-row-status property-name="MultipleErrorSummary">
                 <fieldset class="govuk-fieldset" aria-describedby="nationality-hint nationality-error">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-fieldset__heading">
@@ -32,9 +19,6 @@
                     <div id="factors-hint" class="govuk-hint">
                         Please select any answers that are relevant to you.
                     </div>
-                    <p id="factors-error" class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span> Select the factors relevant to you, or select 'None of the above'
-                    </p>
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
                             <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Caring" />
@@ -73,8 +57,8 @@
                         <div class="govuk-checkboxes__divider">or</div>
 
                         <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Other" />
-                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Other">
+                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_None" />
+                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_None">
                                 @Model.Factors[5]
                             </label>
                         </div>

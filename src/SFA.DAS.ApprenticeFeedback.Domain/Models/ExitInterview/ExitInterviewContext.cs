@@ -18,7 +18,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
         public bool IncompletionFactor_Financial { get; set; }
         public bool IncompletionFactor_Mental { get; set; }
         public bool IncompletionFactor_Physical { get; set; }
-        public bool IncompletionFactor_Other { get; set; }
+        public bool IncompletionFactor_None { get; set; }
 
         public string RemainedReason { get; set; }
 
@@ -38,7 +38,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
             IncompletionFactor_Family = false;
             IncompletionFactor_Financial = false;
             IncompletionFactor_Mental = false;
-            IncompletionFactor_Other = false;
+            IncompletionFactor_None = false;
             IncompletionFactor_Physical = false;
             RemainedReason = null;
             ReasonForIncorrect = null;

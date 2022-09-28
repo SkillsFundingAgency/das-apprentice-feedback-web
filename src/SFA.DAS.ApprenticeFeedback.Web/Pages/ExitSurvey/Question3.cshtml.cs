@@ -23,7 +23,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         [BindProperty]
         public bool IncompletionFactor_Physical { get; set; }
         [BindProperty]
-        public bool IncompletionFactor_Other { get; set; }
+        public bool IncompletionFactor_None { get; set; }
 
         public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question2";
 
@@ -54,7 +54,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             IncompletionFactor_Financial = ExitSurveyContext.IncompletionFactor_Financial;
             IncompletionFactor_Mental = ExitSurveyContext.IncompletionFactor_Mental;
             IncompletionFactor_Physical = ExitSurveyContext.IncompletionFactor_Physical;
-            IncompletionFactor_Other = ExitSurveyContext.IncompletionFactor_Other;
+            IncompletionFactor_None = ExitSurveyContext.IncompletionFactor_None;
 
             return Page();
         }
@@ -66,7 +66,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
                 || IncompletionFactor_Financial
                 || IncompletionFactor_Mental
                 || IncompletionFactor_Physical;
-            bool otherSelected = IncompletionFactor_Other;
+            bool otherSelected = IncompletionFactor_None;
             if((!factorSelected && !otherSelected)
                 || factorSelected && otherSelected)
             {
@@ -82,7 +82,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             ExitSurveyContext.IncompletionFactor_Financial = IncompletionFactor_Financial;
             ExitSurveyContext.IncompletionFactor_Mental = IncompletionFactor_Mental;
             ExitSurveyContext.IncompletionFactor_Physical = IncompletionFactor_Physical;
-            ExitSurveyContext.IncompletionFactor_Other = IncompletionFactor_Other;
+            ExitSurveyContext.IncompletionFactor_None = IncompletionFactor_None;
             SaveContext();
 
             if (ExitSurveyContext.CheckingAnswers)
