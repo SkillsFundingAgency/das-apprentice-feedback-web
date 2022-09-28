@@ -1,35 +1,19 @@
 ﻿$(function () {
 
-    hideError();
-
     $('input[type=checkbox]').on('change', function () {
-        
-        let factorChosen = $('#IncompletionFactor_Caring').is(':checked')
-            || $('#IncompletionFactor_Family').is(':checked')
-            || $('#IncompletionFactor_Financial').is(':checked')
-            || $('#IncompletionFactor_Mental').is(':checked')
-            || $('#IncompletionFactor_Physical').is(':checked')
-            ;
 
-        let noneChosen = $('#IncompletionFactor_Other').is(':checked');
+        if (this.checked) {
 
-        if ((factorChosen && noneChosen) || (!factorChosen && !noneChosen)) {
-            showError();
-        }
-        else {
-            hideError();
+            if (this.id == 'IncompletionFactor_None') {
+                $('#IncompletionFactor_Caring').prop('checked', false);
+                $('#IncompletionFactor_Family').prop('checked', false);
+                $('#IncompletionFactor_Financial').prop('checked', false);
+                $('#IncompletionFactor_Mental').prop('checked', false);
+                $('#IncompletionFactor_Physical').prop('checked', false);
+            }
+            else {
+                $('#IncompletionFactor_None').prop('checked', false);
+            }
         }
     });
-
-    function hideError() {
-        $('#error-summary').hide();
-        $('#factors').removeClass("govuk-form-group--error");
-        $('#factors-error').hide();
-    }
-
-    function showError() {
-        $('#error-summary').show();
-        $('#factors').addClass("govuk-form-group--error");
-        $('#factors-error').show();
-    }
 });
