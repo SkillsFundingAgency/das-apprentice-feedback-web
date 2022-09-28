@@ -18,7 +18,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
         public static IServiceCollection RegisterServices(this IServiceCollection services, IWebHostEnvironment environment)
         {
             services.AddTransient<IApprenticeFeedbackService, ApprenticeFeedbackService>();
-            services.AddTransient<IMenuVisibility, MenuVisibility>();
             services.AddScoped<IApprenticeFeedbackService, ApprenticeFeedbackService>();
             services.AddScoped<IMenuVisibility, MenuVisibility>();
             services.AddScoped<IDateTimeProvider, SystemDateTimeProvider>();
