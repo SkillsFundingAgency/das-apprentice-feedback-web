@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.ComponentModel.DataAnnotations;
-using System.Net;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 {
@@ -14,7 +12,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     public class Question1Model : ExitSurveyContextPageModel, IHasBackLink
     {
         [BindProperty]
-        [Required(ErrorMessage = "Select if you completed your apprenticeship")]
+        [Required(ErrorMessage = "Confirm if our records are correct")]
         public bool? DidNotCompleteApprenticeship { get; set; }
 
         public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./start/{ExitSurveyContext.ApprenticeFeedbackTargetId}";

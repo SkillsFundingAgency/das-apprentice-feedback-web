@@ -15,7 +15,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     public class IncorrectReasonModel : ExitSurveyContextPageModel, IHasBackLink
     {
         [BindProperty]
-        [Required(ErrorMessage = "Select a reason")]
+        [Required(ErrorMessage = "Select a reason why our information about you is not correct")]
         public string ReasonForIncorrect { get; set; }
         public IEnumerable<string> Reasons { get { return _reasons; } }
 

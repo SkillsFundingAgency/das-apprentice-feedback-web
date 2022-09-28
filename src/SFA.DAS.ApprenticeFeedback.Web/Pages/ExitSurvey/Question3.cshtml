@@ -19,6 +19,10 @@
                     <div id="factors-hint" class="govuk-hint">
                         Please select any answers that are relevant to you.
                     </div>
+                    @if (!ModelState.IsValid)
+                    {
+                        <span class="govuk-error-message">@Html.ValidationMessage("MultipleErrorSummary")</span>
+                    }
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
                             <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Caring" />
