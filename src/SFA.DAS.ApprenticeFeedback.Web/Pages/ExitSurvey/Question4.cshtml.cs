@@ -13,7 +13,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     public class Question4Model : ExitSurveyContextPageModel, IHasBackLink
     {
         [BindProperty]
-        [Required(ErrorMessage = "Please select an answer")]
+        [Required(ErrorMessage = "Select a reason why you would have remained on the apprenticeship")]
         public string RemainedReason { get; set; }
         public IEnumerable<string> Reasons { get { return _reasons; } }
         private readonly string[] _reasons = new[]
