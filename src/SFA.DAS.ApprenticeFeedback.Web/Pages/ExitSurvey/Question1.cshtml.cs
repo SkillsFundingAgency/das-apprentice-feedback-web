@@ -17,7 +17,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         [Required(ErrorMessage = "Select if you completed your apprenticeship")]
         public bool? DidNotCompleteApprenticeship { get; set; }
 
-        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./start";
+        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./start/{ExitSurveyContext.ApprenticeFeedbackTargetId}";
 
 
         public Question1Model(IExitSurveySessionService sessionService)
