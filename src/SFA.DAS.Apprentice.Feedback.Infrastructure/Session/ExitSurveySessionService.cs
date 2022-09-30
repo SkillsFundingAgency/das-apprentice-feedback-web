@@ -6,7 +6,7 @@ namespace SFA.DAS.ApprenticeFeedback.Infrastructure.Session
     {
         private readonly ISessionService _sessionService;
 
-        private const string _sessionKey = "Exit_Interview_Context";
+        private const string _sessionKey = "Exit_Survey_Context";
 
         public ExitSurveySessionService(ISessionService sessionService)
         {
