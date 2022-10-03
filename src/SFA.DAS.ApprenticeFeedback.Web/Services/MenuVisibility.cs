@@ -8,5 +8,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Services
         public async Task<bool> ShowConfirmMyApprenticeship() => true;
 
         public async Task<bool> ShowApprenticeFeedback() => true;
+
+        public async Task<ConfirmMyApprenticeshipTitleStatus> ConfirmMyApprenticeshipTitleStatus() =>
+            ApprenticePortal.SharedUi.Services.ConfirmMyApprenticeshipTitleStatus.ShowAsConfirmed;
     }
 }
