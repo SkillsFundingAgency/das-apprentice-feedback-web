@@ -46,7 +46,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             }
 
             ExitSurveyContext.AllowContact = AllowContact;
-            SaveContext();
 
             // Save 
             var request = new PostSubmitExitSurvey
@@ -67,6 +66,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             await _apprenticeFeedbackService.SubmitExitSurvey(request);
 
             // Q. Do we need to somehow prevent a resubmit?
+            ExitSurveyContext.Reset();
+            SaveContext();
 
             return RedirectToPage("./complete");
         }

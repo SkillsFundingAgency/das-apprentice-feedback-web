@@ -1,6 +1,7 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System;
 using System.Collections.Generic;
@@ -87,6 +88,18 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
         public async Task SubmitExitSurvey(PostSubmitExitSurvey request)
         {
             await _apiClient.SubmitExitSurvey(request);
+        }
+
+        public async Task<IEnumerable<ApprenticeFeedbackTarget>> GetApprenticeFeedbackTargets(Guid apprenticeId)
+        {
+            var response = await _apiClient.GetApprenticeFeedbackTargets(apprenticeId);
+            return response.Select(aft => (ApprenticeFeedbackTarget)aft).ToList();
+        }
+
+        public async Task<ApprenticeExitSurvey> GetExitSurveyForFeedbackTarget(Guid feedbackTargetId)
+        {
+            var response = await _apiClient.GetExitSurveyForFeedbackTarget(feedbackTargetId);
+            return response;
         }
     }
 }

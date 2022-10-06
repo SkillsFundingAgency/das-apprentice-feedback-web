@@ -1,6 +1,7 @@
 ﻿using RestEase;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -26,5 +27,11 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 
         [Post("/exitsurvey")]
         Task SubmitExitSurvey([Body] PostSubmitExitSurvey exitSurvey);
+
+        [Get("apprenticefeedbacktarget/{apprenticeId}")]
+        Task<IEnumerable<ApprenticeFeedbackTarget>> GetApprenticeFeedbackTargets([Path]Guid apprenticeId);
+
+        [Get("apprenticefeedbacktarget/{apprenticeFeedbackTargetId}/exitsurvey")]
+        Task<ApprenticeExitSurvey> GetExitSurveyForFeedbackTarget([Path]Guid apprenticeFeedbackTargetId);
     }
 }

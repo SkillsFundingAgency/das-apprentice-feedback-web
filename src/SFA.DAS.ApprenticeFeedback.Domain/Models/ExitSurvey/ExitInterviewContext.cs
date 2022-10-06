@@ -25,6 +25,9 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
         // Unhappy path - yes I did complete the apprenticeship, your information about me is incorrect
         public string ReasonForIncorrect { get; set; }
 
+        // Timestamp of the previously completed exit survey if any
+        public DateTime? DateTimeCompleted { get; set; }
+
         // Common to happy and unhappy paths
         public bool AllowContact { get; set; }
 
