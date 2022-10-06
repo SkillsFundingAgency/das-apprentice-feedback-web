@@ -22,18 +22,22 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
         private readonly List<string> _reasons = new List<string>
         {
-            "I did not want to remain",
-            "I have already done something similar",
-            "I was offered another job",
-            "I was released from employment or made redundant",
-            "it was not relevant to the job role",
-            "of personal or health reasons",
-            "my training provider is no longer delivering apprenticeships",
-            "the training was too difficult",
-            "the job was too difficult",
-            "the quality of the training was not what I expected",
-            "there were issues with my end point assessment",
-            "the salary did not meet my financial needs",
+            "I did not enjoy it",
+            "I had personal or health reasons",
+            "I experienced discrimination or poor behaviour",
+            "I started another apprenticeship",
+            "I started another job",
+            "I was made redundant",
+            "The job was too difficult",
+            "The job was not what I expected",
+            "The salary did not meet my financial needs",
+            "The training was repetitive",
+            "The training was too difficult",
+            "The training was of poor quality",
+            "The training was not relevant to the job role",
+            "The training provider stopped delivering apprenticeships",
+            "The training provider ended my apprenticeship",
+            "There were issues with my end-point assessment",
             "None of the above"
         };
 

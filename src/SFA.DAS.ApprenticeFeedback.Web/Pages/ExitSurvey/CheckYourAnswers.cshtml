@@ -35,7 +35,7 @@
                 </div>
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        I did not complete my apprenticeship because...
+                        What was your main reason for not completing your apprenticeship?
                     </dt>
                     <dd class="govuk-summary-list__value">
                         @Model.ExitSurveyContext.IncompletionReason
@@ -48,7 +48,7 @@
                 </div>
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        Did any of the following factors contribute to you not completing your apprenticeship?
+                        Did any of the following factors contribute to your decision?
                     </dt>
                     <dd class="govuk-summary-list__value">
                         @if(Model.ExitSurveyContext.IncompletionFactor_Caring) {
@@ -84,7 +84,7 @@
 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        I would have remained on the apprenticeship if…
+                        Would any of the following have helped you to stay on?
                     </dt>
                     <dd class="govuk-summary-list__value">
                         @Model.ExitSurveyContext.RemainedReason

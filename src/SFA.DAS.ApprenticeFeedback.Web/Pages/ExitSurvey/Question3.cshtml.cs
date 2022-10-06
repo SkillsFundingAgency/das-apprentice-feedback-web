@@ -33,7 +33,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             "Caring responsibilities",
             "Family or relationship issues",
             "Financial issues",
-            "Mental health",
+            "Mental health issues",
             "Physical health issues",
             "None of the above"
         };
