@@ -17,7 +17,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
         public StartModel(IExitSurveySessionService sessionService, 
             IApprenticeFeedbackService apprenticeFeedbackService)
-            :base(sessionService)
+            :base(sessionService, Domain.Models.ExitSurvey.UserJourney.Start)
         {
             _apprenticeFeedbackService = apprenticeFeedbackService;
         }

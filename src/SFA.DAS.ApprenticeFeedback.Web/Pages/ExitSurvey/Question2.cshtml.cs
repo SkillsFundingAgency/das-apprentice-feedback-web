@@ -38,7 +38,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         };
 
         public Question2Model(IExitSurveySessionService sessionService)
-            : base(sessionService)
+            : base(sessionService, Domain.Models.ExitSurvey.UserJourney.DidNotComplete)
         {
         }
 
