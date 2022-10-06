@@ -2,8 +2,18 @@
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
 {
+    public enum UserJourney
+    {
+        Start,
+        DidNotComplete,
+        DidComplete,
+        Finished
+    }
+
     public class ExitSurveyContext
     {
+        public UserJourney UserJourney { get; set; }  // helps us police which pages can be accessed
+
         public Guid ApprenticeFeedbackTargetId { get; set; }
 
         public bool CheckingAnswers { get; set; }
@@ -34,6 +44,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
 
         public void Reset()
         {
+            //UserJourney = UserJourney.Common;
             CheckingAnswers = false;
             DidNotCompleteApprenticeship = null;
             IncompletionReason = null;

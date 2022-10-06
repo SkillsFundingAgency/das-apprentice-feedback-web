@@ -9,13 +9,15 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
     public class ExitSurveyContextPageModel : PageModel
     {
         private readonly IExitSurveySessionService _sessionService;
+        private readonly UserJourney _currentPageJourney;
         private ExitSurveyContext _ExitSurveyContext;
 
         public ExitSurveyContext ExitSurveyContext { get { return _ExitSurveyContext; } }
 
-        public ExitSurveyContextPageModel(IExitSurveySessionService sessionService)
+        public ExitSurveyContextPageModel(IExitSurveySessionService sessionService, UserJourney currentPageJourney)
         {
             _sessionService = sessionService;
+            _currentPageJourney = currentPageJourney;
         }
 
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
@@ -49,7 +51,29 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
                     context.Result = Redirect("/exit/complete");
                     return;
                 }
+
+                // If we are attempting to access a page that is on the opposite user journey
+                // then redirect to the journey decision page
+                if(_currentPageJourney != _ExitSurveyContext.UserJourney)
+                {
+                    if ( (_ExitSurveyContext.UserJourney != UserJourney.Start 
+                        && _ExitSurveyContext.UserJourney != UserJourney.Finished))
+                    {
+                        _ExitSurveyContext.UserJourney = UserJourney.Start;
+                        SaveContext();
+
+                        context.Result = Redirect("/exit/question1");
+                        return;
+                    }
+
+                    // @ToDo:
+                    // stop the user from jumping to the last page (happy or unhappy path)
+                    // without having answered all the questions
+                }
             }
+
+            _ExitSurveyContext.UserJourney = _currentPageJourney;
+            SaveContext();
 
             base.OnPageHandlerExecuting(context);
         }

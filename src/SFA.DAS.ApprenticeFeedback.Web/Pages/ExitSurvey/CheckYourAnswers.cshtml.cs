@@ -21,7 +21,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
 
         public CheckYourAnswersModel(IExitSurveySessionService sessionService, IApprenticeFeedbackService apprenticeFeedbackService)
-            : base(sessionService)
+            : base(sessionService, Domain.Models.ExitSurvey.UserJourney.DidNotComplete)
         {
             _apprenticeFeedbackService = apprenticeFeedbackService;
         }

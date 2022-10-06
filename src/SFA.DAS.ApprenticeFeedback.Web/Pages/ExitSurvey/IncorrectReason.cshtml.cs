@@ -37,7 +37,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
         public IncorrectReasonModel(IExitSurveySessionService sessionService, 
             IApprenticeFeedbackService apprenticeFeedbackService)
-            : base(sessionService)
+            : base(sessionService, Domain.Models.ExitSurvey.UserJourney.DidComplete)
         {
             _apprenticeFeedbackService = apprenticeFeedbackService;
         }

@@ -7,7 +7,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     public class CompleteModel : ExitSurveyContextPageModel
     {
         public CompleteModel(IExitSurveySessionService sessionService)
-            : base(sessionService)
+            : base(sessionService, Domain.Models.ExitSurvey.UserJourney.Finished)
         {
         }
         public IActionResult OnGet()

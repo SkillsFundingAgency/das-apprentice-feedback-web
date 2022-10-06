@@ -19,7 +19,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
 
         public Question1Model(IExitSurveySessionService sessionService)
-            :base(sessionService)
+            :base(sessionService, Domain.Models.ExitSurvey.UserJourney.Start)
         {
         }
 
