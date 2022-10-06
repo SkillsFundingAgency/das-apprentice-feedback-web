@@ -13,23 +13,22 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     public class Question4Model : ExitSurveyContextPageModel, IHasBackLink
     {
         [BindProperty]
-        [Required(ErrorMessage = "Select a reason why you would have remained on the apprenticeship")]
+        [Required(ErrorMessage = "Select a reason that would have helped you to stay on the apprenticeship")]
         public string RemainedReason { get; set; }
         public IEnumerable<string> Reasons { get { return _reasons; } }
         private readonly string[] _reasons = new[]
         {
-            "I had more support and guidance from my employer",
-            "I had more support and guidance from my training provider",
-            "I had more information on the end-point assessment process",
-            "I was not repeating training I had already done",
-            "I was offered a higher salary",
-            "my employer did not end my apprenticeship",
-            "my training provider did not end my apprenticeship",
-            "the apprenticeship was what I signed up for initially",
-            "the employer provided me with the training they were meant to",
-            "the training provider gave me more time to undertake learning and training",
-            "the training provider had put in place the reasonable adjustments I needed to complete my training",
-            "there was a mentor or learning coach within or outside of my organisation"
+            "A higher salary",
+            "A mentor or learning coach",
+            "Being able to skip training I have already done",
+            "Better training from my employer",
+            "Better training from my training provider",
+            "More support from my employer",
+            "More support from my training provider",
+            "More information on the end-point assessment process",
+            "More time to undertake learning and training with my training provider",
+            "Outside support to tackle discrimination or other problems",
+            "Reasonable adjustments from my training provider"
         };
 
         public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question3";
