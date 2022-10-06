@@ -54,10 +54,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
 
                 // If we are attempting to access a page that is on the opposite user journey
                 // then redirect to the journey decision page
-                if(_currentPageJourney != _ExitSurveyContext.UserJourney)
+                if(_currentPageJourney != _ExitSurveyContext.UserJourney &&
+                    _currentPageJourney != UserJourney.Finished)
                 {
                     if ( (_ExitSurveyContext.UserJourney != UserJourney.Start 
-                        && _ExitSurveyContext.UserJourney != UserJourney.Finished))
+                        ))
                     {
                         _ExitSurveyContext.UserJourney = UserJourney.Start;
                         SaveContext();
