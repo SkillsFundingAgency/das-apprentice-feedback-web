@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
+using System;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Filters
 {
@@ -30,6 +31,24 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
 
                 _ExitSurveyContext = new ExitSurveyContext();
                 SaveContext();
+            }
+            else
+            {
+                // No valid apprentice feedback target ID in the context so do not proceed.
+                if(Guid.Empty == _ExitSurveyContext.ApprenticeFeedbackTargetId)
+                {
+                    context.Result = Redirect("/");
+                    return;
+                }
+
+                // If the survey is completed and we are attempting to access any page other than
+                // the completed page, then redirect to completed
+                if (_ExitSurveyContext.DateTimeCompleted.HasValue 
+                    && !context.HttpContext.Request.Path.StartsWithSegments("/exit/complete"))
+                {
+                    context.Result = Redirect("/exit/complete");
+                    return;
+                }
             }
 
             base.OnPageHandlerExecuting(context);

@@ -4,6 +4,23 @@
     ViewData["Title"] = "Exit survey";
 }
 
+@if(Model.ExitSurveyContext.DateTimeCompleted.HasValue) {
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">You have already completed the exit survey</h1>
+
+            <p class="govuk-body">Thank you for your feedback, it is important to us and will help us improve and develop the service.</p>
+
+            <p class="govuk-body">Many thanks<br/>The Apprenticeship service</p>
+
+        </div>
+    </div>
+}
+else {
+
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <div class="govuk-panel govuk-panel--confirmation">
@@ -32,3 +49,4 @@
 
     </div>
 </div>
+}
