@@ -19,11 +19,15 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public string Backlink => $"./question4";
 
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
-        public CheckYourAnswersModel(IExitSurveySessionService sessionService, IApprenticeFeedbackService apprenticeFeedbackService)
+        public CheckYourAnswersModel(IExitSurveySessionService sessionService, 
+            IApprenticeFeedbackService apprenticeFeedbackService,
+            IDateTimeProvider dateTimeProvider)
             : base(sessionService, Domain.Models.ExitSurvey.UserJourney.DidNotComplete)
         {
             _apprenticeFeedbackService = apprenticeFeedbackService;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public IActionResult OnGet([FromServices] AuthenticatedUser user)
@@ -66,7 +70,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             await _apprenticeFeedbackService.SubmitExitSurvey(request);
 
             // Q. Do we need to somehow prevent a resubmit?
-            ExitSurveyContext.Reset();
+            ExitSurveyContext.DateTimeCompleted = _dateTimeProvider.UtcNow;
             SaveContext();
 
             return RedirectToPage("./complete");

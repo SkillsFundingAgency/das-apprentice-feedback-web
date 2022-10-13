@@ -26,19 +26,27 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         {
             // 1. Is the apprenticeFeedbackTargetId valid for this user.ApprenticeId ?
             var apprenticeFeedbackTargets = await _apprenticeFeedbackService.GetApprenticeFeedbackTargets(user.ApprenticeId);
-            if(null == apprenticeFeedbackTargets 
+            if (null == apprenticeFeedbackTargets
                 || !apprenticeFeedbackTargets.Any()
                 || null == apprenticeFeedbackTargets.FirstOrDefault(aft => aft.Id == apprenticeFeedbackTargetId)
                 )
             {
-                return RedirectToPage("Invalid");
+                return Redirect("/");
+            }
+
+            // 2. Has this apprentice withdrawn from the apprenticeship?
+
+            var aft = apprenticeFeedbackTargets.First(aft => aft.Id == apprenticeFeedbackTargetId);
+            if (aft.Withdrawn)
+            {
+                return Redirect("/");
             }
 
             // Remember the apprentice feedback target id
             ExitSurveyContext.ApprenticeFeedbackTargetId = apprenticeFeedbackTargetId;
             SaveContext();
 
-            // 2. Is there an exit survey for this apprenticeFeedbackTargetId?
+            // 3. Is there an exit survey for this apprenticeFeedbackTargetId?
             //    If not, then we can proceed.
             //    If there is, then redirect to a new "you have already completed the survey" page
 

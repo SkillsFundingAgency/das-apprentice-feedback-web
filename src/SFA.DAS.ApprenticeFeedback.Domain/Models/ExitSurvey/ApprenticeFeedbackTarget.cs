@@ -6,5 +6,6 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
     {
         public Guid Id { get; set; }
         public Guid ApprenticeId { get; set; }
+        public bool Withdrawn { get; set; }
     }
 }
