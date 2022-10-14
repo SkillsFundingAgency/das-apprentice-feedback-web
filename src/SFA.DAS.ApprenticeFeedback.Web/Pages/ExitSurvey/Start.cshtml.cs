@@ -34,10 +34,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
                 return Redirect("/");
             }
 
-            // 2. Has this apprentice withdrawn from the apprenticeship?
+            // 2. If the apprentice has not withdrawn from the apprenticeship then
+            //    redirect to the dashboard.
 
             var aft = apprenticeFeedbackTargets.First(aft => aft.Id == apprenticeFeedbackTargetId);
-            if (aft.Withdrawn)
+            if (!aft.Withdrawn)
             {
                 return Redirect("/");
             }

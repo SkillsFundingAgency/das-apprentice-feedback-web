@@ -60,7 +60,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         }
 
         [Test, MoqAutoData]
-        public async Task And_ApprenticeHasNotWithdrawn_Then_ShowStartPage(Guid apprenticeFeedbackTargetId)
+        public async Task And_ApprenticeHasNotWithdrawn_Then_ShowIndexPage(Guid apprenticeFeedbackTargetId)
         {
             _mockFeedbackService.Setup(m => m.GetApprenticeFeedbackTargets(It.IsAny<Guid>()))
                 .ReturnsAsync(new List<ApprenticeFeedbackTarget>()
@@ -75,11 +75,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
 
             var result = await _startPage.OnGet(_authenticatedUser, apprenticeFeedbackTargetId);
 
-            result.Should().BeOfType<PageResult>();
+            result.Should().BeOfType<RedirectResult>();
+            var redirectResult = result as RedirectResult;
+            redirectResult.Url.Should().Be("/");
         }
 
         [Test, MoqAutoData]
-        public async Task And_ApprenticeHasWithdrawn_Then_ShowIndexPage(Guid apprenticeFeedbackTargetId)
+        public async Task And_ApprenticeHasWithdrawn_Then_ShowStartPage(Guid apprenticeFeedbackTargetId)
         {
             _mockFeedbackService.Setup(m => m.GetApprenticeFeedbackTargets(It.IsAny<Guid>()))
                 .ReturnsAsync(new List<ApprenticeFeedbackTarget>()
@@ -94,9 +96,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
 
             var result = await _startPage.OnGet(_authenticatedUser, apprenticeFeedbackTargetId);
 
-            result.Should().BeOfType<RedirectResult>();
-            var redirectResult = result as RedirectResult;
-            redirectResult.Url.Should().Be("/");
+            result.Should().BeOfType<PageResult>();
         }
     }
 }
