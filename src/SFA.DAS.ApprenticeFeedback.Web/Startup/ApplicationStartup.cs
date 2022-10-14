@@ -69,12 +69,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 options.EnableGoogleAnalytics();
             });
 
-            // Insert page layout override path for Exit Surveys
-            services.Configure<RazorViewEngineOptions>(options =>
-            {
-                options.PageViewLocationFormats.Insert(0, "/Pages/ExitSurvey/Shared/{0}" + RazorViewEngine.ViewExtension);
-            });
-
             services.AddSession(options =>
             {
                 options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
