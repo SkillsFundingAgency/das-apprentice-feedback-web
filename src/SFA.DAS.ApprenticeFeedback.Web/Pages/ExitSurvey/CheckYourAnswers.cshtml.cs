@@ -69,7 +69,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             };
             await _apprenticeFeedbackService.SubmitExitSurvey(request);
 
-            // Q. Do we need to somehow prevent a resubmit?
+            // Prevent a resubmit.
             ExitSurveyContext.DateTimeCompleted = _dateTimeProvider.UtcNow;
             SaveContext();
 
