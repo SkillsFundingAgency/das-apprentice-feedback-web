@@ -71,6 +71,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
             // Prevent a resubmit.
             ExitSurveyContext.DateTimeCompleted = _dateTimeProvider.UtcNow;
+            ExitSurveyContext.Submitted = true;
             SaveContext();
 
             return RedirectToPage("./complete");

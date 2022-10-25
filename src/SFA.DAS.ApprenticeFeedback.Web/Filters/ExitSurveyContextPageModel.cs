@@ -46,9 +46,16 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
                 // If the survey is completed and we are attempting to access any page other than
                 // the completed page, then redirect to completed
                 if (_ExitSurveyContext.DateTimeCompleted.HasValue 
-                    && !context.HttpContext.Request.Path.StartsWithSegments("/exit/complete"))
+                    && !context.HttpContext.Request.Path.StartsWithSegments("/exit/complete")
+                    && !context.HttpContext.Request.Path.StartsWithSegments("/exit/incorrectcomplete"))
                 {
-                    context.Result = Redirect("/exit/complete");
+                    if(_ExitSurveyContext.DidNotCompleteApprenticeship.Value) {
+                        context.Result = Redirect("/exit/complete");
+                    }
+                    else
+                    {
+                        context.Result = Redirect("/exit/incorrectcomplete");
+                    }
                     return;
                 }
 

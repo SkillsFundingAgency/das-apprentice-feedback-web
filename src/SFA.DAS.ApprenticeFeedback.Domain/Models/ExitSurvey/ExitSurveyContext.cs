@@ -41,6 +41,8 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
         // Common to happy and unhappy paths
         public bool AllowContact { get; set; }
 
+        // Flag to show if the survey in this context has been submitted
+        public bool Submitted { get; set; }
 
         public void Reset()
         {
@@ -57,6 +59,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
             RemainedReason = null;
             ReasonForIncorrect = null;
             AllowContact = false;
+            Submitted = false;
         }
     }
 }

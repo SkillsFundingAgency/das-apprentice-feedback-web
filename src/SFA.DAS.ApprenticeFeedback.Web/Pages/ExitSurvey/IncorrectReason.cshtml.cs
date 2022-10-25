@@ -25,6 +25,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public string Backlink => $"./question1";
 
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
         private readonly string[] _reasons = new[]
         {
@@ -36,10 +37,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         };
 
         public IncorrectReasonModel(IExitSurveySessionService sessionService, 
-            IApprenticeFeedbackService apprenticeFeedbackService)
+            IApprenticeFeedbackService apprenticeFeedbackService,
+            IDateTimeProvider dateTimeProvider)
             : base(sessionService, Domain.Models.ExitSurvey.UserJourney.DidComplete)
         {
             _apprenticeFeedbackService = apprenticeFeedbackService;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public IActionResult OnGet()
@@ -76,7 +79,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             };
             await _apprenticeFeedbackService.SubmitExitSurvey(request);
 
-            // Q. Do we need to somehow prevent a resubmit?
+            // Prevent a resubmit.
+            ExitSurveyContext.DateTimeCompleted = _dateTimeProvider.UtcNow;
+            ExitSurveyContext.Submitted = true;
+            SaveContext();
 
             return RedirectToPage("./incorrectcomplete");
         }
