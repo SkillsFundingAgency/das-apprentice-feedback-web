@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
@@ -16,7 +17,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (PropertyIsInvalid())
-                output.Attributes.Add("class", "govuk-form-group--error");
+            {
+                output.Attributes.SetAttribute("class", $"{output.Attributes["class"]?.Value} govuk-form-group--error");
+            }
         }
 
         bool PropertyIsInvalid()

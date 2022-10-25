@@ -1,0 +1,44 @@
+﻿@page "/exit/question1"
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey.Question1Model
+@{
+    ViewData["Title"] = "Exit survey";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <partial name="ValidationSummary" />
+        <form method="post">
+            <div class="govuk-form-group" validation-row-status property-name="DidNotCompleteApprenticeship">
+                <fieldset class="govuk-fieldset">                    
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-heading-l">
+                            According to our records, you did not complete your apprenticeship including your end-point assessment.<br />Is this correct?
+                        </h1>
+                    </legend>
+
+                    <span asp-validation-for="DidNotCompleteApprenticeship" class="govuk-error-message"></span>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="complete-apprenticeship" asp-for="DidNotCompleteApprenticeship" type="radio" value="true">
+                            <label class="govuk-label govuk-radios__label" for="complete-apprenticeship">
+                                Yes, this is correct
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="complete-apprenticeship-2" asp-for="DidNotCompleteApprenticeship" type="radio" value="false">
+                            <label class="govuk-label govuk-radios__label" for="complete-apprenticeship-2">
+                                No, this is not correct
+                            </label>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <button class="govuk-button" type="submit"> Continue </button>
+        </form>
+
+    </div>
+</div>
