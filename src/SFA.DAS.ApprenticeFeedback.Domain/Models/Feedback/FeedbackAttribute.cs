@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
 {
+    /*
     public class FeedbackAttribute
     {
         public int Id { get; set; }
@@ -20,4 +21,5 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
             };
         }
     }
+    */
 }

@@ -1,0 +1,35 @@
+﻿@model SFA.DAS.ApprenticeFeedback.Web.Components.AttributeCheckboxes.AttributeCheckboxesModel
+
+@Html.Raw(Model.HeadingHtml)
+
+<div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+    @for (var i = 0; i < Model.Attributes.Count(); i++)
+    {
+        <input type="hidden" data-val="true" data-val-required="The Id field is required." id="@string.Format($"{Model.AttributesModelName}_{@i}__Id")" name="@string.Format($"{Model.AttributesModelName}[{@i}].Id")" value="@Model.Attributes[i].Id" />
+        <input type="hidden" id="@string.Format($"{Model.AttributesModelName}_{@i}__Name")" name="@string.Format($"{Model.AttributesModelName}[{@i}].Name")" value="@Model.Attributes[i].Name" />
+        <input type="hidden" id="@string.Format($"{Model.AttributesModelName}_{@i}__Category")" name="@string.Format($"{Model.AttributesModelName}[{@i}].Category")" value="@Model.Attributes[i].Category" />
+        <input type="hidden" data-val="true" data-val-required="The Ordering field is required." id="@string.Format($"{Model.AttributesModelName}_{@i}__Ordering")" name="@string.Format($"{Model.AttributesModelName}[{@i}].Ordering")" value="@Model.Attributes[i].Ordering" />
+
+        @if(i == Model.Attributes.Count() -1 && Model.LastIsExclusive) {
+            <div class="govuk-checkboxes__divider">or</div>
+        }
+          
+        <div class="govuk-checkboxes__item">
+            @{
+                if(i == Model.Attributes.Count() -1 && Model.LastIsExclusive) {
+                    <input class="govuk-checkboxes__input" type="checkbox" data-val="true" data-val-required="The Value field is required." id="@string.Format($"{Model.AttributesModelName}_{@i}__Value")" name="@string.Format($"{Model.AttributesModelName}[{@i}].Value")" value="true" checked="@Model.Attributes[i].Value" data-behaviour="exclusive" />
+                }
+                else {
+                        <input class="govuk-checkboxes__input" type="checkbox" data-val="true" data-val-required="The Value field is required." id="@string.Format($"{Model.AttributesModelName}_{@i}__Value")" name="@string.Format($"{Model.AttributesModelName}[{@i}].Value")" value="true" checked="@Model.Attributes[i].Value" />
+                }
+            }
+            <label class="govuk-label govuk-checkboxes__label" for="@string.Format($"{Model.AttributesModelName}_{@i}__Value")">
+                @Model.Attributes[i].Name
+            </label>
+        </div>
+    }
+
+</div>
+<br />
+

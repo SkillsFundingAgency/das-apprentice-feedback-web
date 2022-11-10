@@ -1,0 +1,19 @@
+﻿@model SFA.DAS.ApprenticeFeedback.Web.Components.AttributeRadios.AttributeRadiosModel
+
+@Html.Raw(Model.HeadingHtml)
+
+<div class="govuk-radios" data-module="govuk-radios">
+
+    @for (var i = 0; i < Model.Attributes.Count(); i++)
+    {
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="@($"attribute-{i}")" asp-for="SelectedAttributeId" type="radio" value="@Model.Attributes[i].Id">
+            <label class="govuk-label govuk-radios__label" for="@($"attribute-{i}")">
+                @Model.Attributes[i].Name
+            </label>
+        </div>
+    }
+
+</div>
+<br />
+

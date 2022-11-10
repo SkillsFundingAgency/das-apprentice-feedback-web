@@ -1,65 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
 {
-    public enum UserJourney
-    {
-        Start,
-        DidNotComplete,
-        DidComplete,
-        Finished
-    }
-
     public class ExitSurveyContext
     {
-        public UserJourney UserJourney { get; set; }  // helps us police which pages can be accessed
-
-        public Guid ApprenticeFeedbackTargetId { get; set; }
-
-        public bool CheckingAnswers { get; set; }
-
-        // Question 1 - did you NOT complete the apprenticeship?
+        // Exit Survey data payload
+        public Guid? ApprenticeFeedbackTargetId { get; set; }
+        public HashSet<FeedbackAttribute> Attributes { get; set; }
+        public bool? AllowContact { get; set; }
         public bool? DidNotCompleteApprenticeship { get; set; }
+        public int? PrimaryReason { get; set; }
 
-        // Happy path - no I did not complete the apprenticeship
-        public string IncompletionReason { get; set; }
-        public bool IncompletionFactor_Caring { get; set; }
-        public bool IncompletionFactor_Family { get; set; }
-        public bool IncompletionFactor_Financial { get; set; }
-        public bool IncompletionFactor_Mental { get; set; }
-        public bool IncompletionFactor_Physical { get; set; }
-        public bool IncompletionFactor_None { get; set; }
-
-        public string RemainedReason { get; set; }
-
-        // Unhappy path - yes I did complete the apprenticeship, your information about me is incorrect
-        public string ReasonForIncorrect { get; set; }
-
-        // Timestamp of the previously completed exit survey if any
+        // State management
+        public bool CheckingAnswers { get; set; }
+        public bool? SurveyCompleted { get; set; }
         public DateTime? DateTimeCompleted { get; set; }
 
-        // Common to happy and unhappy paths
-        public bool AllowContact { get; set; }
-
-        // Flag to show if the survey in this context has been submitted
-        public bool Submitted { get; set; }
+        public ExitSurveyContext()
+        {
+            Reset();
+        }
 
         public void Reset()
         {
-            //UserJourney = UserJourney.Common;
+            Attributes = new HashSet<FeedbackAttribute>();
             CheckingAnswers = false;
+            AllowContact = null;
             DidNotCompleteApprenticeship = null;
-            IncompletionReason = null;
-            IncompletionFactor_Caring = false;
-            IncompletionFactor_Family = false;
-            IncompletionFactor_Financial = false;
-            IncompletionFactor_Mental = false;
-            IncompletionFactor_None = false;
-            IncompletionFactor_Physical = false;
-            RemainedReason = null;
-            ReasonForIncorrect = null;
-            AllowContact = false;
-            Submitted = false;
+            PrimaryReason = null;
+        }
+
+        public void Clear(string category)
+        {
+            Attributes.RemoveWhere(a => a.Category == category);
         }
     }
 }

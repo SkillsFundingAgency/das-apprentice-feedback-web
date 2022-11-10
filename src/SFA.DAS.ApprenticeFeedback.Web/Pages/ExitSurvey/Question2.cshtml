@@ -8,38 +8,21 @@
     <div class="govuk-grid-column-two-thirds">
         <partial name="ValidationSummary" />
         <form method="post">
-            <div class="govuk-form-group" validation-row-status property-name="IncompletionReason">
+            <div class="govuk-form-group" validation-row-status property-name="MultipleErrorSummary">
                 <fieldset class="govuk-fieldset">
-
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-heading-l">
-                            What was your main reason for not completing your apprenticeship?
+                            Did any of the following factors contribute to you not finishing the apprenticeship?
                         </h1>
+                        <div id="options-hint" class="govuk-hint">
+                            Please select any answers that are relevant to you.
+                        </div>
                     </legend>
 
-                    <div id="options-hint" class="govuk-hint">
-                        Please select one answer that is most relevant to you.
-                    </div>
-
-                    <span asp-validation-for="IncompletionReason" class="govuk-error-message"></span>
-
-                    <div class="govuk-radios" data-module="govuk-radios">
-
-                        @for (int i = 0; i < Model.Reasons.Count; i++)
-                        {
-                            if (i == Model.Reasons.Count - 1)
-                            {
-                                <div class="govuk-radios__divider">or</div>
-                            }
-
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" asp-for="IncompletionReason" value="@Model.Reasons[i]" />
-                                <label class="govuk-label govuk-radios__label" for="IncompletionReason@Model.Reasons[i]">
-                                    @Model.Reasons[i]
-                                </label>
-                            </div>
-                        }
-                    </div>
+                    @Html.ValidationMessage("MultipleErrorSummary",new { @class = "govuk-error-message" })
+                    @await Component.InvokeAsync("AttributeCheckboxes", new { attributes = Model.PersonalCircumstancesAttributes, attributesModelName = "PersonalCircumstancesAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My personal circumstances</h2>"  })
+                    @await Component.InvokeAsync("AttributeCheckboxes", new { attributes = Model.EmployerAttributes, attributesModelName = "EmployerAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My employer</h2>"  })
+                    @await Component.InvokeAsync("AttributeCheckboxes", new { attributes = Model.TrainingProviderAttributes, attributesModelName = "TrainingProviderAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My training provider</h2>"  })
 
                 </fieldset>
             </div>

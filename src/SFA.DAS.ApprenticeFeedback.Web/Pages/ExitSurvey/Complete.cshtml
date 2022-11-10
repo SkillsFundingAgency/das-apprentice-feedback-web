@@ -4,7 +4,7 @@
     ViewData["Title"] = "Exit survey";
 }
 
-@if(Model.ExitSurveyContext.DateTimeCompleted.HasValue && !Model.ExitSurveyContext.Submitted) {
+@if(Model.ExitSurveyContext.DateTimeCompleted.HasValue) {
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
