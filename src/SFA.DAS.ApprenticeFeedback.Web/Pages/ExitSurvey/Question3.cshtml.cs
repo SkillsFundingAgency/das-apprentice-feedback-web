@@ -57,14 +57,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
             if (0 == selectedCount)
             {
-                ModelState.AddModelError("MultipleErrorSummary", "Select which of the following would have made you stay on the apprenticeship");
+                ModelState.AddModelError("MultipleErrorSummary", "Select the factors that would have made you stay or select 'None of these would have made me stay'");
             }
             if(selectedCount > 1)
             {
                 var exclusiveAttribute = selectedReasonAttributes.FirstOrDefault(a => a.Id == NoneAttributeId);
                 if(null != exclusiveAttribute)
                 {
-                    ModelState.AddModelError("MultipleErrorSummary", "Select which of the following would have made you stay on the apprenticeship");
+                    ModelState.AddModelError("MultipleErrorSummary", "Select the factors that would have made you stay or select 'None of these would have made me stay'");  // Select which of the following would have made you stay on the apprenticeship
                 }
             }
 

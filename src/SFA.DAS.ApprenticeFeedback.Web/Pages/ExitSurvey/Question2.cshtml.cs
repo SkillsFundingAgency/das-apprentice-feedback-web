@@ -131,7 +131,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
                     {
                         ExitSurveyContext.PrimaryReason = a.Id;
                         SaveContext();
-                        return RedirectToPage("./checkyouranswers");
+                        return RedirectToPage("./question3");
                     }
                     // shouldn't get here
                 }
