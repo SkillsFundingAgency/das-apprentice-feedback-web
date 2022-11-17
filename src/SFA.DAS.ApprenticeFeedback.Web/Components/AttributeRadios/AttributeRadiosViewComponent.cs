@@ -7,11 +7,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Components.AttributeRadios
 {
     public class AttributeRadiosViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<FeedbackAttribute> attributes)
+        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<FeedbackAttribute> attributes, string headingHtml)
         {
             var model = new AttributeRadiosModel()
             {
-                Attributes = new List<FeedbackAttribute>(attributes)
+                Attributes = new List<FeedbackAttribute>(attributes),
+                HeadingHtml = headingHtml
             };
             return View("~/Components/AttributeRadios/AttributeRadios.cshtml", model);
         }

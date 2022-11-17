@@ -74,6 +74,18 @@
                             Which of the following factors was the main reason why you did not finish your apprenticeship?
                         </dt>
                         <dd class="govuk-summary-list__value">
+                            @{
+                                var heading = "My personal circumstances";
+                                if (Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Id == Model.ExitSurveyContext.PrimaryReason)?.Category == SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey.ExitSurveyAttributeCategory.Employer)
+                                {
+                                    heading = "My employer";
+                                }
+                                else if (Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Id == Model.ExitSurveyContext.PrimaryReason)?.Category == SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey.ExitSurveyAttributeCategory.TrainingProvider)
+                                {
+                                    heading = "My training provider";
+                                }
+                            }
+                            <span class="govuk-heading-s" style="margin-bottom: 0px;">@heading</span>
                             @Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Id == Model.ExitSurveyContext.PrimaryReason)?.Name
                         </dd>
                         <dd class="govuk-summary-list__actions">
