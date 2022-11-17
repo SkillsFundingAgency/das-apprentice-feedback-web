@@ -27,76 +27,80 @@
                     </dd>
                 </div>
 
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        Did any of the following factors contribute to you not finishing the apprenticeship?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @{
-                            if(Model.PersonalCircumstancesAttributes.Any()) 
-                            {
-                                <span class="govuk-heading-s" style="margin-bottom: 0px;">My personal circumstances</span>
-                                foreach(var a in Model.PersonalCircumstancesAttributes) {
-                                    @a.Name
-                                    <br/>
-                                }
-                            }
-                            if(Model.EmployerAttributes.Any()) 
-                            {
-                                <span class="govuk-heading-s" style="margin-bottom: 0px;">My employer</span>
-                                foreach(var a in Model.EmployerAttributes) {
-                                    @a.Name
-                                    <br/>
-                                }
-                            }
-                            if(Model.TrainingProviderAttributes.Any()) 
-                            {
-                                <span class="govuk-heading-s" style="margin-bottom: 0px;">My training provider</span>
-                                foreach(var a in Model.TrainingProviderAttributes) {
-                                    @a.Name
-                                    <br/>
-                                }
-                            }
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link--no-visited-state" href="/exit/question2">
-                            Change<span class="govuk-visually-hidden"> question 2</span>
-                        </a>
-                    </dd>
-                </div>
+                @if (Model.ExitSurveyContext.DidNotCompleteApprenticeship.Value)
+                {
 
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        Which of the following factors was the main reason why you did not finish your apprenticeship?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Id == Model.ExitSurveyContext.PrimaryReason)?.Name
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link--no-visited-state" href="/exit/primaryreason">
-                            Change<span class="govuk-visually-hidden"> primary reason</span>
-                        </a>
-                    </dd>
-                </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Did any of the following factors contribute to you not finishing the apprenticeship?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @{
+                                if(Model.PersonalCircumstancesAttributes.Any()) 
+                                {
+                                    <span class="govuk-heading-s" style="margin-bottom: 0px;">My personal circumstances</span>
+                                    foreach(var a in Model.PersonalCircumstancesAttributes) {
+                                        @a.Name
+                                        <br/>
+                                    }
+                                }
+                                if(Model.EmployerAttributes.Any()) 
+                                {
+                                    <span class="govuk-heading-s" style="margin-bottom: 0px;">My employer</span>
+                                    foreach(var a in Model.EmployerAttributes) {
+                                        @a.Name
+                                        <br/>
+                                    }
+                                }
+                                if(Model.TrainingProviderAttributes.Any()) 
+                                {
+                                    <span class="govuk-heading-s" style="margin-bottom: 0px;">My training provider</span>
+                                    foreach(var a in Model.TrainingProviderAttributes) {
+                                        @a.Name
+                                        <br/>
+                                    }
+                                }
+                            }
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link--no-visited-state" href="/exit/question2">
+                                Change<span class="govuk-visually-hidden"> question 2</span>
+                            </a>
+                        </dd>
+                    </div>
 
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        Would any of the following have made you more likely to stay on the apprenticeship?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @foreach (var a in Model.RemainFactorAttributes)
-                        {
-                            @a.Name
-                            <br />
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link--no-visited-state" href="/exit/question3">
-                            Change<span class="govuk-visually-hidden"> question 3</span>
-                        </a>
-                    </dd>
-                </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Which of the following factors was the main reason why you did not finish your apprenticeship?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Id == Model.ExitSurveyContext.PrimaryReason)?.Name
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link--no-visited-state" href="/exit/primaryreason">
+                                Change<span class="govuk-visually-hidden"> primary reason</span>
+                            </a>
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Would any of the following have made you more likely to stay on the apprenticeship?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @foreach (var a in Model.RemainFactorAttributes)
+                            {
+                                @a.Name
+                                <br />
+                            }
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link--no-visited-state" href="/exit/question3">
+                                Change<span class="govuk-visually-hidden"> question 3</span>
+                            </a>
+                        </dd>
+                    </div>
+                }
 
             </dl>
 

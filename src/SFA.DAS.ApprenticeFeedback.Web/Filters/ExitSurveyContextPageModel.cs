@@ -99,19 +99,23 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
                 }
 
                 // If we're on check your answers and there are no answers or no primary reason has been set
+                // and the are not on the unhappy path
                 // then the user may have manipulated the URL directly in the browser
                 // so redirect to question 2 for safety.
                 if (context.HttpContext.Request.Path.StartsWithSegments("/exit/checkyouranswers"))
                 {
-                    if (ExitSurveyContext.Attributes.Count() < 2)
+                    if(ExitSurveyContext.DidNotCompleteApprenticeship.Value)
                     {
-                        context.Result = Redirect($"/exit/question2");
-                        return;
-                    }
-                    if (!ExitSurveyContext.PrimaryReason.HasValue)
-                    {
-                        context.Result = Redirect($"/exit/primaryreason");
-                        return;
+                        if (ExitSurveyContext.Attributes.Count() < 2)
+                        {
+                            context.Result = Redirect($"/exit/question2");
+                            return;
+                        }
+                        if (!ExitSurveyContext.PrimaryReason.HasValue)
+                        {
+                            context.Result = Redirect($"/exit/primaryreason");
+                            return;
+                        }
                     }
                 }
             }
