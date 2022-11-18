@@ -8,7 +8,7 @@
     <div class="govuk-grid-column-two-thirds">
         <partial name="ValidationSummary" />
         <form method="post">
-            <div class="govuk-form-group" validation-row-status property-name="MultipleErrorSummary">
+            <div class="govuk-form-group" validation-row-status property-name="SelectedAttributeId">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-heading-l">
@@ -18,6 +18,7 @@
                             Please select one answer that is most relevant to you.
                         </div>
                     </legend>
+                    @Html.ValidationMessage("SelectedAttributeId",new { @class = "govuk-error-message" })
                     @if (Model.PersonalCircumstancesAttributes.Count() > 0)
                     {
                         @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.PersonalCircumstancesAttributes, attributesModelName = "PersonalCircumstancesAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My personal circumstances</h2>" })
