@@ -52,6 +52,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             ExitSurveyContext.PrimaryReason = SelectedAttributeId;
             SaveContext();
 
+            if (ExitSurveyContext.CheckingAnswers)
+            {
+                return RedirectToPage("./checkyouranswers");
+            }
             return RedirectToPage("./question3");
         }
 
