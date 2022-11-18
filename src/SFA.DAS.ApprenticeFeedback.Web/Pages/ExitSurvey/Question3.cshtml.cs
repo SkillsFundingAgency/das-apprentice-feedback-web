@@ -18,7 +18,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     [HideNavigationBar]
     public class Question3Model : ExitSurveyContextPageModel, IHasBackLink
     {
-        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question2";
+        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./primaryreason";
 
         [BindProperty]
         [Required(ErrorMessage = "Select which of the following would have made you stay on the apprenticeship")]
