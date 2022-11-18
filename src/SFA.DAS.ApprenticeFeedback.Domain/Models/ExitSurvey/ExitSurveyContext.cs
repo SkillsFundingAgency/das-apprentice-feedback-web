@@ -29,6 +29,8 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
             AllowContact = null;
             DidNotCompleteApprenticeship = null;
             PrimaryReason = null;
+            SurveyCompleted = null;
+            DateTimeCompleted = null;
         }
 
         public void Clear(string category)

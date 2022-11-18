@@ -73,6 +73,21 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             {
                 return Page();
             }
+
+            // Are we on the check your answers journey and has the selection changed such that
+            // the user would be on a different journey?
+            if (ExitSurveyContext.CheckingAnswers)
+            {
+                if ((WithdrawnIds.Contains(selectedAttribute.Id) && !ExitSurveyContext.DidNotCompleteApprenticeship.Value)
+                    ||
+                    (NotWithdrawnIds.Contains(selectedAttribute.Id) && ExitSurveyContext.DidNotCompleteApprenticeship.Value)
+                    )
+                {
+                    // Clear all the session data - effectively cancelling the check your answers journey
+                    ExitSurveyContext.Reset();
+                }
+            }
+
             ExitSurveyContext.Clear(Category);
             ExitSurveyContext.Attributes.Add(selectedAttribute);
             SaveContext();
