@@ -85,6 +85,31 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             {
                 return Page();
             }
+
+            // Decide if something has changed
+            var changedAnswers = false;
+            if (ExitSurveyContext.Attributes.Any(a => a.Category == ExitSurveyAttributeCategory.PersonalCircumstances)
+                && selectedPersonalCircumstancesAttributes.Any())
+            {
+                var selected = selectedPersonalCircumstancesAttributes.Select(a => a.Id).Except(ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.PersonalCircumstances).Select(a => a.Id));
+                var deselected = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.PersonalCircumstances).Select(a => a.Id).Except(selectedPersonalCircumstancesAttributes.Select(a => a.Id));
+                changedAnswers |= (selected.Any() || deselected.Any());
+            }
+            if (ExitSurveyContext.Attributes.Any(a => a.Category == ExitSurveyAttributeCategory.Employer)
+                && selectedEmployerAttributes.Any())
+            {
+                var selected = selectedEmployerAttributes.Select(a => a.Id).Except(ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.Employer).Select(a => a.Id));
+                var deselected = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.Employer).Select(a => a.Id).Except(selectedEmployerAttributes.Select(a => a.Id));
+                changedAnswers |= (selected.Any() || deselected.Any());
+            }
+            if (ExitSurveyContext.Attributes.Any(a => a.Category == ExitSurveyAttributeCategory.TrainingProvider)
+                && selectedTrainingProviderAttributes.Any())
+            {
+                var selected = selectedTrainingProviderAttributes.Select(a => a.Id).Except(ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.TrainingProvider).Select(a => a.Id));
+                var deselected = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.TrainingProvider).Select(a => a.Id).Except(selectedTrainingProviderAttributes.Select(a => a.Id));
+                changedAnswers |= (selected.Any() || deselected.Any());
+            }
+
             // Reset any previously selected attributes in the session
             ExitSurveyContext.Clear(ExitSurveyAttributeCategory.PersonalCircumstances);
             ExitSurveyContext.Clear(ExitSurveyAttributeCategory.Employer);
@@ -106,6 +131,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
             if (ExitSurveyContext.CheckingAnswers)
             {
+                if(changedAnswers)
+                {
+                    ExitSurveyContext.PrimaryReason = null;
+                    SaveContext();
+                    return RedirectToPage("./primaryreason");
+                }
                 return RedirectToPage("./checkyouranswers");
             }
             else
