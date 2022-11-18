@@ -64,6 +64,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             PersonalCircumstancesAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.PersonalCircumstances).OrderBy(a => a.Ordering).ToList();
             EmployerAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.Employer).OrderBy(a => a.Ordering).ToList();
             TrainingProviderAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.TrainingProvider).OrderBy(a => a.Ordering).ToList();
+
+            SelectedAttributeId = ExitSurveyContext.PrimaryReason;
         }
     }
 }

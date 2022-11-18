@@ -21,15 +21,15 @@
                     @Html.ValidationMessage("SelectedAttributeId",new { @class = "govuk-error-message" })
                     @if (Model.PersonalCircumstancesAttributes.Count() > 0)
                     {
-                        @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.PersonalCircumstancesAttributes, attributesModelName = "PersonalCircumstancesAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My personal circumstances</h2>" })
+                        @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.PersonalCircumstancesAttributes, attributesModelName = "PersonalCircumstancesAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My personal circumstances</h2>", selectedAttributeId = Model.SelectedAttributeId })
                     }
 
                     @if (Model.EmployerAttributes.Count() > 0) {
-                        @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.EmployerAttributes, attributesModelName = "EmployerAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My employer</h2>" })
+                        @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.EmployerAttributes, attributesModelName = "EmployerAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My employer</h2>", selectedAttributeId = Model.SelectedAttributeId })
                     }
 
                     @if (Model.TrainingProviderAttributes.Count() > 0) {
-                        @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.TrainingProviderAttributes, attributesModelName = "TrainingProviderAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My training provider</h2>" })
+                        @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.TrainingProviderAttributes, attributesModelName = "TrainingProviderAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My training provider</h2>", selectedAttributeId = Model.SelectedAttributeId })
                     }
 
                 </fieldset>
