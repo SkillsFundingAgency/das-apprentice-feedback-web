@@ -20,7 +20,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         [BindProperty]
         public bool AllowContact { get; set; }
 
-        public string Backlink => $"./question3";
+        public string Backlink => (ExitSurveyContext.DidNotCompleteApprenticeship.Value) ? $"./question3" : $"./question1";
 
         [BindProperty]
         public List<FeedbackAttribute> PersonalCircumstancesAttributes { get; set; }
