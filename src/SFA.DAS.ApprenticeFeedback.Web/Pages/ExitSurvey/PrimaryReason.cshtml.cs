@@ -18,11 +18,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     {
         public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question2";
 
-        //[BindProperty]
         public List<FeedbackAttribute> PersonalCircumstancesAttributes { get; set; }
-        //[BindProperty]
         public List<FeedbackAttribute> EmployerAttributes { get; set; }
-        //[BindProperty]
         public List<FeedbackAttribute> TrainingProviderAttributes { get; set; }
 
         [BindProperty]
