@@ -14,10 +14,10 @@
                         <h1 class="govuk-heading-l">
                             Did any of the following factors contribute to you not finishing the apprenticeship?
                         </h1>
-                        <div id="options-hint" class="govuk-hint">
-                            Please select any answers that are relevant to you.
-                        </div>
                     </legend>
+                    <div id="options-hint" class="govuk-hint">
+                        Please select any answers that are relevant to you.
+                    </div>
 
                     @Html.ValidationMessage("MultipleErrorSummary",new { @class = "govuk-error-message" })
                     @await Component.InvokeAsync("AttributeCheckboxes", new { attributes = Model.PersonalCircumstancesAttributes, attributesModelName = "PersonalCircumstancesAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My personal circumstances</h2>"  })
