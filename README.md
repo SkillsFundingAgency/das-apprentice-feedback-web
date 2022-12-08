@@ -20,7 +20,7 @@ In order to run this solution locally you will need the following:
 * [SQL Server Express LocalDB](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb)
 * [Azurite](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite) (previously known as Azure Storage Emulator)
 
-###Environment Setup
+### Environment Setup
 
 * **appsettings.development.json** - ?
 * **Azure Table Storage Explorer** - ?
@@ -84,7 +84,7 @@ Data:
 ### Running
 
 * Start Azurite e.g. using a command `C:\Program Files (x86)\Microsoft SDKs\Azure\Storage Emulator>AzureStorageEmulator.exe start`
-* **NB: Solutions to run in conjunction** - To get this solution running successfully you will also need the following solutions running:
+* Solutions to run in conjunction - To get this solution running successfully you will also need the following solutions running:
     * `das-apprentice-feedback-api` and `das-apim-endpoints\ApprenticeFeedback` for the inner API and outer API in the Apprentice Feedback service
     * `das-apprentice-login-service` to get through the authentication for the frontend
     * `das-apprentice-accounts-api` for the login connected to the authentication on the frontend
