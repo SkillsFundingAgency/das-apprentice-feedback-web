@@ -85,9 +85,9 @@ Data:
 
 * Start Azurite e.g. using a command `C:\Program Files (x86)\Microsoft SDKs\Azure\Storage Emulator>AzureStorageEmulator.exe start`
 * Solutions to run in conjunction - To get this solution running successfully you will also need the following solutions running:
-    * `das-apprentice-feedback-api` and `das-apim-endpoints\ApprenticeFeedback` for the inner API and outer API in the Apprentice Feedback service
-    * `das-apprentice-login-service` to get through the authentication for the frontend
-    * `das-apprentice-accounts-api` for the login connected to the authentication on the frontend
+    * `das-apprentice-feedback-api` and `das-apim-endpoints\ApprenticeFeedback` for the inner API and outer API respectively in the Apprentice Feedback service.
+    * `das-apprentice-login-service` to get through the authentication for the frontend. 
+    * `das-apprentice-accounts-api` for the login connected to the authentication on the frontend. 
 * Run the solution 
 
 ### Tests
