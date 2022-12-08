@@ -96,7 +96,7 @@ This codebase includes unit tests and acceptance tests. These are all in seperat
 
 #### Unit Tests
 
-There are several unit test projects in the solutiob built using C#, .net 6.0, FluentAssertions, Moq, NUnit, and AutoFixture.
+There are several unit test projects in the solution built using C#, .net 6.0, FluentAssertions, Moq, NUnit, and AutoFixture.
 * `SFA.DAS.ApprenticeFeedback.Application.UnitTests`
 * `SFA.DAS.ApprenticeFeedback.Domain.UnitTests`
 * `SFA.DAS.ApprenticeFeedback.Infrastructure.UnitTests`
