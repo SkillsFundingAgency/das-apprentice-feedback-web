@@ -129,44 +129,54 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             }
             SaveContext();
 
+            FeedbackAttribute singularAttributeSelection = null;
+            if (1 == selectedCount)
+            {
+                if (selectedPersonalCircumstancesAttributes.Any())
+                {
+                    singularAttributeSelection = selectedPersonalCircumstancesAttributes[0];
+                }
+                else if (selectedEmployerAttributes.Any())
+                {
+                    singularAttributeSelection = selectedEmployerAttributes[0];
+                }
+                else if (selectedTrainingProviderAttributes.Any())
+                {
+                    singularAttributeSelection = selectedTrainingProviderAttributes[0];
+                }
+            }
+
             if (ExitSurveyContext.CheckingAnswers)
             {
-                if(changedAnswers)
+                string pageRedirect = "./checkyouranswers";
+                if (changedAnswers)
                 {
-                    ExitSurveyContext.PrimaryReason = null;
+                    if (singularAttributeSelection != null)
+                    {
+                        ExitSurveyContext.PrimaryReason = singularAttributeSelection.Id;
+                    }
+                    else
+                    {
+                        ExitSurveyContext.PrimaryReason = null;
+                        pageRedirect = "./primaryreason";
+                    }
                     SaveContext();
-                    return RedirectToPage("./primaryreason");
                 }
-                return RedirectToPage("./checkyouranswers");
+                //If changed answers, go to check answers if only one selection, as this auto selects primary reason
+                // or continue to primary reason to be selected if more than one option remains
+                return RedirectToPage(pageRedirect);
             }
             else
             {
                 // If there is only one attribute selected then
                 // set it as the primary reason and fast-forward to check your answers
-                if(1 == selectedCount)
+                if (null != singularAttributeSelection)
                 {
-                    FeedbackAttribute a = null;
-                    if (selectedPersonalCircumstancesAttributes.Any())
-                    {
-                        a = selectedPersonalCircumstancesAttributes[0];
-                    }
-                    else if (selectedEmployerAttributes.Any())
-                    {
-                        a = selectedEmployerAttributes[0];
-                    }
-                    else if (selectedTrainingProviderAttributes.Any())
-                    {
-                        a = selectedTrainingProviderAttributes[0];
-                    }
-                    if (null != a)
-                    {
-                        ExitSurveyContext.PrimaryReason = a.Id;
-                        SaveContext();
-                        return RedirectToPage("./question3");
-                    }
-                    // shouldn't get here
+                    ExitSurveyContext.PrimaryReason = singularAttributeSelection.Id;
+                    SaveContext();
+                    return RedirectToPage("./question3");
                 }
-
+                
                 return RedirectToPage("./primaryreason");
             }
         }
