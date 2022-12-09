@@ -1,4 +1,5 @@
 ﻿@page "/feedback-attributes"
+@using SFA.DAS.ApprenticeFeedback.Domain.Models
 @using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 @model SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback.FeedbackAttributesModel
 @{
@@ -32,13 +33,13 @@
                         <span asp-validation-for="FeedbackAttributes[i].Status" class="govuk-error-message"></span>       
                         <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="@($"feedback-attribute-{i}-agree")" asp-for="FeedbackAttributes[i].Status" type="radio" value="@Domain.Models.FeedbackAttributeStatus.Agree">
+                                <input class="govuk-radios__input" id="@($"feedback-attribute-{i}-agree")" asp-for="FeedbackAttributes[i].Status" type="radio" value="@FeedbackAttributeStatus.Agree">
                                 <label class="govuk-label govuk-radios__label" for="@($"feedback-attribute-{i}-agree")">
                                     Agree
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="@($"feedback-attribute-{i}-disagree")" asp-for="FeedbackAttributes[i].Status" type="radio" value="@Domain.Models.FeedbackAttributeStatus.Disagree">
+                                <input class="govuk-radios__input" id="@($"feedback-attribute-{i}-disagree")" asp-for="FeedbackAttributes[i].Status" type="radio" value="@FeedbackAttributeStatus.Disagree">
                                 <label class="govuk-label govuk-radios__label" for="@($"feedback-attribute-{i}-disagree")">
                                     Disagree
                                 </label>
