@@ -1,0 +1,41 @@
+﻿@page "/exit/primaryreason"
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey.PrimaryReasonModel
+@{
+    ViewData["Title"] = "Exit survey";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <partial name="ValidationSummary" />
+        <form method="post">
+            <div class="govuk-form-group" validation-row-status property-name="SelectedAttributeId">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-heading-l">
+                            Which of the following factors was the main reason why you did not finish your apprenticeship?
+                        </h1>
+                    </legend>
+                    <div id="options-hint" class="govuk-hint">
+                        Please select one answer that is most relevant to you.
+                    </div>
+                    @Html.ValidationMessage("SelectedAttributeId",new { @class = "govuk-error-message" })
+                    @if (Model.PersonalCircumstancesAttributes.Count() > 0)
+                    {
+                        @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.PersonalCircumstancesAttributes, attributesModelName = "PersonalCircumstancesAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My personal circumstances</h2>", selectedAttributeId = Model.SelectedAttributeId })
+                    }
+
+                    @if (Model.EmployerAttributes.Count() > 0) {
+                        @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.EmployerAttributes, attributesModelName = "EmployerAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My employer</h2>", selectedAttributeId = Model.SelectedAttributeId })
+                    }
+
+                    @if (Model.TrainingProviderAttributes.Count() > 0) {
+                        @await Component.InvokeAsync("AttributeRadios", new { attributes = Model.TrainingProviderAttributes, attributesModelName = "TrainingProviderAttributes", headingHtml = "<h2 class=\"govuk-heading-s\">My training provider</h2>", selectedAttributeId = Model.SelectedAttributeId })
+                    }
+
+                </fieldset>
+            </div>
+            <button class="govuk-button" type="submit"> Continue </button>
+        </form>
+
+    </div>
+</div>

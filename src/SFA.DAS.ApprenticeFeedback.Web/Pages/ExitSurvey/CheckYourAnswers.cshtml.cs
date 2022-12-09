@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
+using SFA.DAS.ApprenticeFeedback.Domain.Models;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
@@ -16,27 +20,37 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         [BindProperty]
         public bool AllowContact { get; set; }
 
-        public string Backlink => $"./question4";
+        public string Backlink => (ExitSurveyContext.DidNotCompleteApprenticeship.Value) ? $"./question3" : $"./question1";
 
-        private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
+        [BindProperty]
+        public List<FeedbackAttribute> PersonalCircumstancesAttributes { get; set; }
+        [BindProperty]
+        public List<FeedbackAttribute> EmployerAttributes { get; set; }
+        [BindProperty]
+        public List<FeedbackAttribute> TrainingProviderAttributes { get; set; }
+
+        [BindProperty]
+        public List<FeedbackAttribute> RemainFactorAttributes { get; set; }
+
         private readonly IDateTimeProvider _dateTimeProvider;
 
         public CheckYourAnswersModel(IExitSurveySessionService sessionService, 
             IApprenticeFeedbackService apprenticeFeedbackService,
             IDateTimeProvider dateTimeProvider)
-            : base(sessionService, Domain.Models.ExitSurvey.UserJourney.DidNotComplete)
+            : base(sessionService, apprenticeFeedbackService)
         {
-            _apprenticeFeedbackService = apprenticeFeedbackService;
             _dateTimeProvider = dateTimeProvider;
         }
 
         public IActionResult OnGet([FromServices] AuthenticatedUser user)
         {
-            // Will need a model decorator that works out if the apprentice has withdrawn
-            // and hasn't filled in an exit survey, otherwise redirect,
-            // will take in a feedback target guid in the Url as well.
-
             ExitSurveyContext.CheckingAnswers = true;
+            
+            PersonalCircumstancesAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.PersonalCircumstances).ToList();
+            EmployerAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.Employer).ToList();
+            TrainingProviderAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.TrainingProvider).ToList();
+            RemainFactorAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.RemainFactors).ToList();
+
             SaveContext();
 
             return Page();
@@ -54,27 +68,25 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             // Save 
             var request = new PostSubmitExitSurvey
             {
-                ApprenticeFeedbackTargetId = ExitSurveyContext.ApprenticeFeedbackTargetId,
+                ApprenticeFeedbackTargetId = ExitSurveyContext.ApprenticeFeedbackTargetId.Value,
+                AllowContact = ExitSurveyContext.AllowContact.Value,
                 DidNotCompleteApprenticeship = ExitSurveyContext.DidNotCompleteApprenticeship.Value,
-                IncompletionReason = ExitSurveyContext.IncompletionReason,                
-                IncompletionFactor_Caring = ExitSurveyContext.IncompletionFactor_Caring,
-                IncompletionFactor_Family = ExitSurveyContext.IncompletionFactor_Family,
-                IncompletionFactor_Financial = ExitSurveyContext.IncompletionFactor_Financial,
-                IncompletionFactor_Mental = ExitSurveyContext.IncompletionFactor_Mental,
-                IncompletionFactor_None = ExitSurveyContext.IncompletionFactor_None,
-                IncompletionFactor_Physical = ExitSurveyContext.IncompletionFactor_Physical,                
-                ReasonForIncorrect = ExitSurveyContext.ReasonForIncorrect,
-                RemainedReason = ExitSurveyContext.RemainedReason,
-                AllowContact = ExitSurveyContext.AllowContact
+                AttributeIds = ExitSurveyContext.Attributes.Select(a => a.Id).ToList(),
+                PrimaryReason = ExitSurveyContext.PrimaryReason.Value,
             };
-            await _apprenticeFeedbackService.SubmitExitSurvey(request);
+            await ApprenticeFeedbackService.SubmitExitSurvey(request);
 
             // Prevent a resubmit.
-            ExitSurveyContext.DateTimeCompleted = _dateTimeProvider.UtcNow;
-            ExitSurveyContext.Submitted = true;
+            ExitSurveyContext.SurveyCompleted = true;
+            ExitSurveyContext.CheckingAnswers = false;
             SaveContext();
 
-            return RedirectToPage("./complete");
+            if(ExitSurveyContext.DidNotCompleteApprenticeship.Value)
+            {
+                return RedirectToPage("./complete");
+            }
+
+            return RedirectToPage("./incorrectcomplete");
         }
     }
 }

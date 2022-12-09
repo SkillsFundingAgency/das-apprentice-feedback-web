@@ -13,19 +13,16 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     [HideNavigationBar]
     public class StartModel : ExitSurveyContextPageModel
     {
-        private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
-
         public StartModel(IExitSurveySessionService sessionService, 
             IApprenticeFeedbackService apprenticeFeedbackService)
-            :base(sessionService, Domain.Models.ExitSurvey.UserJourney.Start)
+            :base(sessionService, apprenticeFeedbackService)
         {
-            _apprenticeFeedbackService = apprenticeFeedbackService;
         }
 
         public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user, Guid apprenticeFeedbackTargetId)
         {
             // 1. Is the apprenticeFeedbackTargetId valid for this user.ApprenticeId ?
-            var apprenticeFeedbackTargets = await _apprenticeFeedbackService.GetApprenticeFeedbackTargets(user.ApprenticeId);
+            var apprenticeFeedbackTargets = await ApprenticeFeedbackService.GetApprenticeFeedbackTargets(user.ApprenticeId);
             if (null == apprenticeFeedbackTargets
                 || !apprenticeFeedbackTargets.Any()
                 || null == apprenticeFeedbackTargets.FirstOrDefault(aft => aft.Id == apprenticeFeedbackTargetId)
@@ -51,13 +48,20 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             //    If not, then we can proceed.
             //    If there is, then redirect to a new "you have already completed the survey" page
 
-            var exitSurvey = await _apprenticeFeedbackService.GetExitSurveyForFeedbackTarget(apprenticeFeedbackTargetId);
+            var exitSurvey = await ApprenticeFeedbackService.GetExitSurveyForFeedbackTarget(apprenticeFeedbackTargetId);
             if (null != exitSurvey)
             {
                 // User has already completed a survey for this feedback target.
+                ExitSurveyContext.SurveyCompleted = true;
                 ExitSurveyContext.DateTimeCompleted = exitSurvey.DateTimeCompleted;
+                ExitSurveyContext.DidNotCompleteApprenticeship = exitSurvey.DidNotCompleteApprenticeship;
                 SaveContext();
                 return RedirectToPage("Complete");
+            }
+            else
+            {
+                ExitSurveyContext.SurveyCompleted = false;
+                SaveContext();
             }
 
             return Page();

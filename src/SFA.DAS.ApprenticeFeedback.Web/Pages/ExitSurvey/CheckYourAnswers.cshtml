@@ -12,20 +12,13 @@
             <h1 class="govuk-heading-l">Check your answers</h1><br>
 
             <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        You did not complete your apprenticeship including your end-point assessment.
-                        <br>Is this correct?
+                        Where are you with your apprenticeship?
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @if (Model.ExitSurveyContext.DidNotCompleteApprenticeship.Value)
-                        {
-                            <text>Yes, this is correct</text>
-                        }
-                        else
-                        {
-                            <text>No, this is not correct.</text>
-                        }
+                        @Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Category == SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey.ExitSurveyAttributeCategory.ApprenticeshipStatus)?.Name
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link--no-visited-state" href="/exit/question1">
@@ -33,87 +26,106 @@
                         </a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        What was your main reason for not completing your apprenticeship?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @Model.ExitSurveyContext.IncompletionReason
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link--no-visited-state" href="/exit/question2">
-                            Change<span class="govuk-visually-hidden"> question 2</span>
-                        </a>
-                    </dd>
-                </div>
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        Did any of the following factors contribute to your decision?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @if(Model.ExitSurveyContext.IncompletionFactor_Caring) {
-                            <text>Caring responsibilities<br /></text>
-                        }
-                        @if (Model.ExitSurveyContext.IncompletionFactor_Family)
-                        {
-                            <text>Family or relationship issues<br /></text>
-                        }
-                        @if (Model.ExitSurveyContext.IncompletionFactor_Financial)
-                        {
-                            <text>Financial issues<br /></text>
-                        }
-                        @if (Model.ExitSurveyContext.IncompletionFactor_Mental)
-                        {
-                            <text>Mental health<br /></text>
-                        }
-                        @if (Model.ExitSurveyContext.IncompletionFactor_Physical)
-                        {
-                            <text>Physical health issues</text>
-                        }
-                        @if (Model.ExitSurveyContext.IncompletionFactor_None)
-                        {
-                            <text>None of the above</text>
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link--no-visited-state" href="/exit/question3">
-                            Change<span class="govuk-visually-hidden"> question 3</span>
-                        </a>
-                    </dd>
-                </div>
 
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                        Would any of the following have helped you to stay on?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @Model.ExitSurveyContext.RemainedReason
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link--no-visited-state" href="/exit/question4">
-                            Change<span class="govuk-visually-hidden"> question 4</span>
-                        </a>
-                    </dd>
-                </div>
+                @if (Model.ExitSurveyContext.DidNotCompleteApprenticeship.Value)
+                {
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Did any of the following factors contribute to you not finishing the apprenticeship?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @{
+                                if(Model.PersonalCircumstancesAttributes.Any()) 
+                                {
+                                    <span class="govuk-heading-s" style="margin-bottom: 0px;">My personal circumstances</span>
+                                    foreach(var a in Model.PersonalCircumstancesAttributes) {
+                                        @a.Name
+                                        <br/>
+                                    }
+                                }
+                                if(Model.EmployerAttributes.Any()) 
+                                {
+                                    <span class="govuk-heading-s" style="margin-bottom: 0px;">My employer</span>
+                                    foreach(var a in Model.EmployerAttributes) {
+                                        @a.Name
+                                        <br/>
+                                    }
+                                }
+                                if(Model.TrainingProviderAttributes.Any()) 
+                                {
+                                    <span class="govuk-heading-s" style="margin-bottom: 0px;">My training provider</span>
+                                    foreach(var a in Model.TrainingProviderAttributes) {
+                                        @a.Name
+                                        <br/>
+                                    }
+                                }
+                            }
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link--no-visited-state" href="/exit/question2">
+                                Change<span class="govuk-visually-hidden"> question 2</span>
+                            </a>
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Which of the following factors was the main reason why you did not finish your apprenticeship?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @{
+                                var heading = "My personal circumstances";
+                                if (Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Id == Model.ExitSurveyContext.PrimaryReason)?.Category == SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey.ExitSurveyAttributeCategory.Employer)
+                                {
+                                    heading = "My employer";
+                                }
+                                else if (Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Id == Model.ExitSurveyContext.PrimaryReason)?.Category == SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey.ExitSurveyAttributeCategory.TrainingProvider)
+                                {
+                                    heading = "My training provider";
+                                }
+                            }
+                            <span class="govuk-heading-s" style="margin-bottom: 0px;">@heading</span>
+                            @Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Id == Model.ExitSurveyContext.PrimaryReason)?.Name
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link--no-visited-state" href="/exit/primaryreason">
+                                Change<span class="govuk-visually-hidden"> primary reason</span>
+                            </a>
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Would any of the following have made you more likely to stay on the apprenticeship?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @foreach (var a in Model.RemainFactorAttributes)
+                            {
+                                @a.Name
+                                <br />
+                            }
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link--no-visited-state" href="/exit/question3">
+                                Change<span class="govuk-visually-hidden"> question 3</span>
+                            </a>
+                        </dd>
+                    </div>
+                }
+
             </dl>
 
             <div class="govuk-form-group">
-
-                <fieldset class="govuk-fieldset">
-
                     <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-
                         <div class="govuk-checkboxes__item">
                             <input class="govuk-checkboxes__input" asp-for="AllowContact">
-                            <label class="govuk-label govuk-checkboxes__label" for="ContactMe">
+                            <label class="govuk-label govuk-checkboxes__label" for="AllowContact">
                                 I'm happy to be contacted by the Apprenticeship service about my answers
                             </label>
                         </div>
 
                     </div>
-
-                </fieldset>
-
             </div>
 
             <div class="govuk-button-group">

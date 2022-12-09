@@ -4,7 +4,7 @@
     ViewData["Title"] = "Exit survey";
 }
 
-@if(Model.ExitSurveyContext.DateTimeCompleted.HasValue && !Model.ExitSurveyContext.Submitted) {
+@if(Model.ExitSurveyContext.DateTimeCompleted.HasValue) {
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -34,7 +34,7 @@ else {
         </div>
 
         <p class="govuk-body">
-                Your feedback is important to us and will give us valuable information on why you did not complete your apprenticeship, it will also help us support future apprentices.
+                Your feedback is important to us and will give us valuable information on why you did not complete your apprenticeship, it will also help us improve the service to support future apprentices.
             <br><br>
             If you require any further information or advice on your next career steps or are looking for a new apprenticeship, please visit the links below.
         </p>

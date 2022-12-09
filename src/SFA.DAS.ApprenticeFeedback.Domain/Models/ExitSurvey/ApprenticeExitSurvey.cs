@@ -6,5 +6,6 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
     {
         public Guid Id { get; set; }
         public DateTime DateTimeCompleted { get; set; }
+        public bool DidNotCompleteApprenticeship { get; set; }
     }
 }

@@ -8,32 +8,38 @@
     <div class="govuk-grid-column-two-thirds">
         <partial name="ValidationSummary" />
         <form method="post">
-            <div class="govuk-form-group" validation-row-status property-name="DidNotCompleteApprenticeship">
+            <div class="govuk-form-group" validation-row-status property-name="SelectedAttributeId">
                 <fieldset class="govuk-fieldset">                    
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-heading-l">
-                            According to our records, you did not complete your apprenticeship including your end-point assessment.<br />Is this correct?
+                            Where are you with your apprenticeship?
                         </h1>
                     </legend>
+                    <div id="options-hint" class="govuk-hint">
+                        Please select one answer that is most relevant to you.
+                    </div>
 
-                    <span asp-validation-for="DidNotCompleteApprenticeship" class="govuk-error-message"></span>
+                    <span asp-validation-for="SelectedAttributeId" class="govuk-error-message"></span>
 
                     <div class="govuk-radios" data-module="govuk-radios">
 
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="complete-apprenticeship" asp-for="DidNotCompleteApprenticeship" type="radio" value="true">
-                            <label class="govuk-label govuk-radios__label" for="complete-apprenticeship">
-                                Yes, this is correct
-                            </label>
-                        </div>
+                        @for (var i = 0; i < Model.Attributes.Count(); i++)
+                        {
+                            <input type="hidden" asp-for="Attributes[i].Id" />
+                            <input type="hidden" asp-for="Attributes[i].Name" />
+                            <input type="hidden" asp-for="Attributes[i].Category" />
+                            <input type="hidden" asp-for="Attributes[i].Ordering" />
 
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="complete-apprenticeship-2" asp-for="DidNotCompleteApprenticeship" type="radio" value="false">
-                            <label class="govuk-label govuk-radios__label" for="complete-apprenticeship-2">
-                                No, this is not correct
-                            </label>
-                        </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="@($"attribute-{i}")" asp-for="SelectedAttributeId" type="radio" value="@Model.Attributes[i].Id">
+                                <label class="govuk-label govuk-radios__label" for="@($"attribute-{i}")">
+                                    @Model.Attributes[i].Name
+                                </label>
+                            </div>
+                        }
+
                     </div>
+
 
                 </fieldset>
             </div>

@@ -8,70 +8,27 @@
     <div class="govuk-grid-column-two-thirds">
         <partial name="ValidationSummary" />
         <form method="post">
-
-            <div id="factors" class="govuk-form-group" validation-row-status property-name="MultipleErrorSummary">
-                <fieldset class="govuk-fieldset" aria-describedby="nationality-hint nationality-error">
+            <div class="govuk-form-group" validation-row-status property-name="MultipleErrorSummary">
+                <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <h1 class="govuk-fieldset__heading">
-                            Did any of the following factors contribute to your decision?
+                        <h1 class="govuk-heading-l">
+                            Would any of the following have made you more likely to stay on the apprenticeship?
                         </h1>
                     </legend>
-                    <div id="factors-hint" class="govuk-hint">
-                        Please select any answers that are relevant to you.
+                    <div id="options-hint" class="govuk-hint">
+                        Please select any of the answers that are relevant to you.
                     </div>
-                    @if (!ModelState.IsValid)
-                    {
-                        <span class="govuk-error-message">@Html.ValidationMessage("MultipleErrorSummary")</span>
-                    }
-                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Caring" />
-                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Caring">
-                                @Model.Factors[0]
-                            </label>
-                        </div>
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Family" />
-                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Family">
-                                @Model.Factors[1]
-                            </label>
-                        </div>
 
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Financial" />
-                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Financial">
-                                @Model.Factors[2]
-                            </label>
-                        </div>
+                    <span asp-validation-for="ReasonAttributes" class="govuk-error-message"></span>
 
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Mental" />
-                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Mental">
-                                @Model.Factors[3]
-                            </label>
-                        </div>
+                    @Html.ValidationMessage("MultipleErrorSummary",new { @class = "govuk-error-message" })
+                    @await Component.InvokeAsync("AttributeCheckboxes", new { attributes = Model.ReasonAttributes, attributesModelName = "ReasonAttributes", lastIsExclusive = true })
 
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_Physical" />
-                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_Physical">
-                                @Model.Factors[4]
-                            </label>
-                        </div>
-
-                        <div class="govuk-checkboxes__divider">or</div>
-
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" type="checkbox" asp-for="IncompletionFactor_None" />
-                            <label class="govuk-label govuk-checkboxes__label" for="IncompletionFactor_None">
-                                @Model.Factors[5]
-                            </label>
-                        </div>
-
-                    </div>
                 </fieldset>
             </div>
             <button class="govuk-button" type="submit"> Continue </button>
         </form>
+
     </div>
 </div>
 
