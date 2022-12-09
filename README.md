@@ -22,65 +22,50 @@ In order to run this solution locally you will need the following:
 
 ### Environment Setup
 
-* **appsettings.development.json** - ?
-* **Azure Table Storage Explorer** - ?
-
-AppSettings.Development.json file
+* **appsettings.development.json** - add the following to your local appsettings.development.json file.
 ```json
 {
-    "Logging": {
-      "LogLevel": {
-        "Default": "Information",
-        "Microsoft": "Warning",
-        "Microsoft.Hosting.Lifetime": "Information"
-      }
-    },
-    "ConfigurationStorageConnectionString": "UseDevelopmentStorage=true;",
-    "ConfigNames": "SFA.DAS.Tools.Servicebus.Support,SFA.DAS.AuditApiClient",
-    "EnvironmentName": "LOCAL",
-    "Version": "1.0",
-    "APPINSIGHTS_INSTRUMENTATIONKEY": ""
-  }  
-```
-
-Azure Table Storage config
-
-Row Key: SFA.DAS.Tools.Servicebus.Support_1.0
-
-Partition Key: LOCAL
-
-Data:
-
-```json
-{
-  "BaseUrl": "localhost:5001",
-  "UserIdentitySettings":{
-    "RequiredRole": "Servicebus Admin", 
-    "UserSessionExpiryHours": 24,
-    "UserRefreshSessionIntervalMinutes": 5,
-    "NameClaim": "name"
+  "Authentication": {
+    "MetadataAddress": "https://login.at-aas.apprenticeships.education.gov.uk/" 
   },
-  "ServiceBusSettings":{
-    "ServiceBusConnectionString": "",
-    "QueueSelectionRegex": "[-,_]+error",
-    "PeekMessageBatchSize": 10,
-    "MaxRetrievalSize": 250,
-    "ErrorQueueRegex": "[-,_]error[s]*$",
-    "RedactPatterns": [
-      "(.*SharedAccessKey=)([\\s\\S]+=)(.*)"
-    ]
+  "ApplicationUrls": {
+    "ApprenticeHomeUrl": "https://localhost:5001",
+    "ApprenticeAccountsUrl": "https://localhost:7080",
+    "ApprenticeCommitmentsUrl": "https://localhost:7070",
+    "ApprenticeLoginUrl": "https://localhost:9999",
+    "ApprenticeFeedbackUrl":"https://localhost:7090"
   },
-  "CosmosDbSettings":{
-    "Url": "",
-    "AuthKey": "",
-    "DatabaseName": "QueueExplorer",
-    "CollectionName": "Session",
-    "Throughput": 400,
-    "DefaultCosmosOperationTimeout": 55,
-    "DefaultCosmosInterimRequestTimeout": 2
-  }
+  "ApprenticeFeedbackOuterApi": {
+    "ApiBaseUrl": "https://localhost:44307/",
+    "SubscriptionKey": "secret",
+    "ApiVersion": "1.0"
+  },
+  "Zendesk" : {
+    "ZendeskSectionId": "",
+    "ZendeskSnippetKey": "",
+    "ZendeskCobrowsingSnippetKey": ""
+  },
+  "AppSettings":{
+    "FindApprenticeshipTrainingBaseUrl": "https://findapprenticeshiptraining.apprenticeships.education.gov.uk/"
+  },
+  "ConnectionStrings": {
+    "RedisConnectionString": "localhost",
+    "DataProtectionKeysDatabase": "DefaultDatabase=3"
+  },
+  "GoogleAnalytics": {
+    "GoogleTagManagerId": "GTM-MP5RSWL"
+  },
 }
 ```
+
+* **Azure Table Storage Explorer** - There is a choice on whether to add the row key and data to the Azure Table Storage Explorer or have that config in the appsettings.development.json file. Either will work. 
+
+    Azure Table Storage config
+
+    Row Key: SFA.DAS.ApprenticeFeedback.Web_1.0
+
+    Partition Key: LOCAL
+
 ### Running
 
 * Start Azurite e.g. using a command `C:\Program Files (x86)\Microsoft SDKs\Azure\Storage Emulator>AzureStorageEmulator.exe start`
