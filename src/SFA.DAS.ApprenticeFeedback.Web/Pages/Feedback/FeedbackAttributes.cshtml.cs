@@ -27,7 +27,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 
         public IActionResult OnGet(bool? edit)
         {
-            // make required item dynamic
             FeedbackAttributes = FeedbackContext.FeedbackAttributes;
             Editing = edit;
             return Page();
