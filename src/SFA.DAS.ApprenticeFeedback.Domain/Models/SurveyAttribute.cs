@@ -1,7 +1,7 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 namespace SFA.DAS.ApprenticeFeedback.Domain.Models
 {
-    public class SurveyAttribute
+    public abstract class SurveyAttribute
     {
         public int Id { get; set; }
         public string Name { get; set; }
