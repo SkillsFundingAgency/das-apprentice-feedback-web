@@ -9,7 +9,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
         public long UkPrn { get; set; }
         public int LarsCode { get; set; }
         public Guid ApprenticeFeedbackTargetId { get; set; }
-        public List<FeedbackAttribute> FeedbackAttributes { get; set; }
+        public List<FeedbackSurveyAttribute> FeedbackAttributes { get; set; }
         public OverallRating? OverallRating { get; set; }
 
         public FeedbackEligibility FeedbackEligibility { get; set; }

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
@@ -23,14 +23,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public string Backlink => (ExitSurveyContext.DidNotCompleteApprenticeship.Value) ? $"./question3" : $"./question1";
 
         [BindProperty]
-        public List<FeedbackAttribute> PersonalCircumstancesAttributes { get; set; }
+        public List<ExitSurveyAttribute> PersonalCircumstancesAttributes { get; set; }
         [BindProperty]
-        public List<FeedbackAttribute> EmployerAttributes { get; set; }
+        public List<ExitSurveyAttribute> EmployerAttributes { get; set; }
         [BindProperty]
-        public List<FeedbackAttribute> TrainingProviderAttributes { get; set; }
+        public List<ExitSurveyAttribute> TrainingProviderAttributes { get; set; }
 
         [BindProperty]
-        public List<FeedbackAttribute> RemainFactorAttributes { get; set; }
+        public List<ExitSurveyAttribute> RemainFactorAttributes { get; set; }
 
         private readonly IDateTimeProvider _dateTimeProvider;
 

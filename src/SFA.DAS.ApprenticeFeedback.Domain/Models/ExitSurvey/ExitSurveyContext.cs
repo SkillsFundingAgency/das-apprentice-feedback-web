@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
 {
@@ -7,7 +8,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
     {
         // Exit Survey data payload
         public Guid? ApprenticeFeedbackTargetId { get; set; }
-        public HashSet<FeedbackAttribute> Attributes { get; set; }
+        public HashSet<ExitSurveyAttribute> Attributes { get; set; }
         public bool? AllowContact { get; set; }
         public bool? DidNotCompleteApprenticeship { get; set; }
         public int? PrimaryReason { get; set; }
@@ -24,7 +25,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
 
         public void Reset()
         {
-            Attributes = new HashSet<FeedbackAttribute>();
+            Attributes = new HashSet<ExitSurveyAttribute>();
             CheckingAnswers = false;
             AllowContact = null;
             DidNotCompleteApprenticeship = null;

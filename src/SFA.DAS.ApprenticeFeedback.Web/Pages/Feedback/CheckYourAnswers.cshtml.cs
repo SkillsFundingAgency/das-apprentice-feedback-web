@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
@@ -13,7 +12,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
     public class CheckYourAnswersModel : FeedbackContextPageModel, IHasBackLink
     {
-        public List<FeedbackAttribute> FeedbackAttributes { get; set; }
+        public List<FeedbackSurveyAttribute> FeedbackAttributes { get; set; }
         public OverallRating? OverallRating { get; set; }
 
         [BindProperty]

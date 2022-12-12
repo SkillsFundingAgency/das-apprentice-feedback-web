@@ -1,6 +1,7 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,11 +17,11 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
         
         Task<IEnumerable<TrainingProvider>> GetTrainingProviders(Guid apprenticeId);
         Task<TrainingProvider> GetTrainingProvider(Guid apprenticeId, long ukprn);
-        Task<IEnumerable<FeedbackAttribute>> GetFeedbackAttributes();
+        Task<IEnumerable<FeedbackSurveyAttribute>> GetFeedbackAttributes();
         Task SubmitFeedback(PostSubmitFeedback request);
         Task SubmitExitSurvey(PostSubmitExitSurvey request);
         Task<IEnumerable<ApprenticeFeedbackTarget>> GetApprenticeFeedbackTargets(Guid apprenticeId);
         Task<ApprenticeExitSurvey> GetExitSurveyForFeedbackTarget(Guid feedbackTargetId);
-        Task<IEnumerable<FeedbackAttribute>> GetExitSurveyAttributes(string category);
+        Task<IEnumerable<ExitSurveyAttribute>> GetExitSurveyAttributes(string category);
     }
 }

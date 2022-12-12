@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback;
@@ -27,7 +25,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
 
         [Ignore("Needs to be moved to start page or confirmed here using the FeedbackContext")]
         [Test, MoqAutoData]
-        public async Task And_FeedbackAttributesIsNull_FeedbackAttributesIsPopulatedCorrectly(List<FeedbackAttribute> attributes)
+        public async Task And_FeedbackAttributesIsNull_FeedbackAttributesIsPopulatedCorrectly(List<FeedbackSurveyAttribute> attributes)
         {
             //_mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
             //request.FeedbackAttributes = null;
@@ -41,7 +39,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
 
         [Ignore("Needs to be moved to start page or confirmed here using the FeedbackContext")]
         [Test, MoqAutoData]
-        public async Task And_FeedbackAttributesIsPopulated_FeedbackAttributesIsPopulatedCorrectly(List<FeedbackAttribute> feedbackAttributes)
+        public async Task And_FeedbackAttributesIsPopulated_FeedbackAttributesIsPopulatedCorrectly(List<FeedbackSurveyAttribute> feedbackAttributes)
         {
             //_mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
             //feedbackAttributes = request.FeedbackAttributes;

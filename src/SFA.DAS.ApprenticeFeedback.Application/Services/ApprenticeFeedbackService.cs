@@ -3,6 +3,7 @@ using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,15 +75,15 @@ namespace SFA.DAS.ApprenticeFeedback.Application.Services
             };
         }
 
-        public async Task<IEnumerable<Domain.Models.FeedbackAttribute>> GetFeedbackAttributes()
+        public async Task<IEnumerable<FeedbackSurveyAttribute>> GetFeedbackAttributes()
         {
             var response = await _apiClient.GetFeedbackAttributes();
-            return response.Select(attribute => (Domain.Models.FeedbackAttribute)attribute).ToList();
+            return response.Select(attribute => FeedbackSurveyAttribute.Create(attribute)).ToList();
         }
-        public async Task<IEnumerable<Domain.Models.FeedbackAttribute>> GetExitSurveyAttributes(string category)
+        public async Task<IEnumerable<ExitSurveyAttribute>> GetExitSurveyAttributes(string category)
         {
             var response = await _apiClient.GetExitSurveyAttributes();
-            return response.Select(attribute => (Domain.Models.FeedbackAttribute)attribute).Where(a => a.Category == category).ToList();
+            return response.Select(attribute => ExitSurveyAttribute.Create(attribute)).Where(a => a.Category == category).ToList();
         }
 
         public async Task SubmitFeedback(PostSubmitFeedback request)

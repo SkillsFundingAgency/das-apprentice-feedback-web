@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
@@ -22,7 +22,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
         [BindProperty]
         [Required(ErrorMessage = "Select which of the following would have made you stay on the apprenticeship")]
-        public List<FeedbackAttribute> ReasonAttributes { get; set; }
+        public List<ExitSurveyAttribute> ReasonAttributes { get; set; }
 
         // This ID is set by the post deployment script in the inner API database project
         private const int NoneAttributeId = 59;
@@ -36,7 +36,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
         {
             // Get the attributes for this page.
-            ReasonAttributes = new List<FeedbackAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(ExitSurveyAttributeCategory.RemainFactors));
+            ReasonAttributes = new List<ExitSurveyAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(ExitSurveyAttributeCategory.RemainFactors));
 
             // Load the data from the session
 

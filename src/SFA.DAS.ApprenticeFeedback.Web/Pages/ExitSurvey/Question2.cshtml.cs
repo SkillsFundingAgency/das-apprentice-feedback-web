@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
@@ -20,11 +21,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public string Backlink => (ExitSurveyContext.CheckingAnswers)? $"./checkyouranswers" : $"./question1";
 
         [BindProperty]
-        public List<FeedbackAttribute> PersonalCircumstancesAttributes { get; set; }
+        public List<ExitSurveyAttribute> PersonalCircumstancesAttributes { get; set; }
         [BindProperty]
-        public List<FeedbackAttribute> EmployerAttributes { get; set; }
+        public List<ExitSurveyAttribute> EmployerAttributes { get; set; }
         [BindProperty]
-        public List<FeedbackAttribute> TrainingProviderAttributes { get; set; }
+        public List<ExitSurveyAttribute> TrainingProviderAttributes { get; set; }
 
         public Question2Model(IExitSurveySessionService sessionService
             , IApprenticeFeedbackService apprenticeFeedbackService)
@@ -35,9 +36,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
         {
             // Get the questions (attributes) for this page.
-            PersonalCircumstancesAttributes = new List<FeedbackAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(ExitSurveyAttributeCategory.PersonalCircumstances));
-            EmployerAttributes = new List<FeedbackAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(ExitSurveyAttributeCategory.Employer));
-            TrainingProviderAttributes = new List<FeedbackAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(ExitSurveyAttributeCategory.TrainingProvider));
+            PersonalCircumstancesAttributes = new List<ExitSurveyAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(ExitSurveyAttributeCategory.PersonalCircumstances));
+            EmployerAttributes = new List<ExitSurveyAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(ExitSurveyAttributeCategory.Employer));
+            TrainingProviderAttributes = new List<ExitSurveyAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(ExitSurveyAttributeCategory.TrainingProvider));
 
             // Load session state if it exists
 
@@ -129,7 +130,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             }
             SaveContext();
 
-            FeedbackAttribute singularAttributeSelection = null;
+            ExitSurveyAttribute singularAttributeSelection = null;
             if (1 == selectedCount)
             {
                 if (selectedPersonalCircumstancesAttributes.Any())
