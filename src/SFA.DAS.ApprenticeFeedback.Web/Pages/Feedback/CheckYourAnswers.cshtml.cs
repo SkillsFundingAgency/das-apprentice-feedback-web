@@ -12,7 +12,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
 {
     public class CheckYourAnswersModel : FeedbackContextPageModel, IHasBackLink
     {
-        public List<FeedbackAttribute> FeedbackAttributes { get; set; }
+        public List<FeedbackSurveyAttribute> FeedbackAttributes { get; set; }
         public OverallRating? OverallRating { get; set; }
 
         [BindProperty]

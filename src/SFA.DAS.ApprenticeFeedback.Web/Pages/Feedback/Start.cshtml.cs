@@ -69,7 +69,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             }
 
             var feedbackContext = FeedbackContext.CreateFrom(provider);
-            feedbackContext.FeedbackAttributes = new List<FeedbackAttribute>(await _apprenticeFeedbackService.GetFeedbackAttributes());
+            feedbackContext.FeedbackAttributes = new List<FeedbackSurveyAttribute>(await _apprenticeFeedbackService.GetFeedbackAttributes());
             _sessionService.SetFeedbackContext(feedbackContext);
 
             ProviderName = feedbackContext.ProviderName;

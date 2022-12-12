@@ -17,7 +17,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
         
         Task<IEnumerable<TrainingProvider>> GetTrainingProviders(Guid apprenticeId);
         Task<TrainingProvider> GetTrainingProvider(Guid apprenticeId, long ukprn);
-        Task<IEnumerable<FeedbackAttribute>> GetFeedbackAttributes();
+        Task<IEnumerable<FeedbackSurveyAttribute>> GetFeedbackAttributes();
         Task SubmitFeedback(PostSubmitFeedback request);
         Task SubmitExitSurvey(PostSubmitExitSurvey request);
         Task<IEnumerable<ApprenticeFeedbackTarget>> GetApprenticeFeedbackTargets(Guid apprenticeId);

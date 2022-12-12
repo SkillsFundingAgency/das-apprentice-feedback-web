@@ -1,14 +1,13 @@
-﻿namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
-{
-    public class ExitSurveyAttribute
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Category { get; set; }
-        public int Ordering { get; set; }
-        public bool Value { get; set; }  // value for checkboxes
+﻿using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
+using System.Runtime.InteropServices;
 
-        public static implicit operator ExitSurveyAttribute(Api.Responses.FeedbackAttribute source)
+namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
+{
+    public class ExitSurveyAttribute : SurveyAttribute
+    {
+        public bool Value { get; set; }  // value for checkboxes
+        
+        public static ExitSurveyAttribute Create(FeedbackAttribute source)
         {
             return new ExitSurveyAttribute
             {

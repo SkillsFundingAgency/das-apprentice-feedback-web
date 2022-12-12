@@ -18,7 +18,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         }
 
         [BindProperty]
-        public List<FeedbackAttribute> FeedbackAttributes { get; set; }
+        public List<FeedbackSurveyAttribute> FeedbackAttributes { get; set; }
 
         [BindProperty]
         public bool? Editing { get; set; }
@@ -38,7 +38,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             {
                 if (ModelState.ErrorCount > 1)
                 {
-                    ModelState.AddModelError("MultipleErrorSummary", "Select Agree or Disagree");
+                    ModelState.AddModelError("MultipleErrorSummary", FeedbackSurveyAttribute.ErrorMessage);
                 }
 
                 return Page();
