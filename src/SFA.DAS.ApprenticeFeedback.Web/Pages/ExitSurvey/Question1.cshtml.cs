@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
@@ -33,7 +34,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         [Required(ErrorMessage = "Select where you are with your apprenticeship")]
         public int? SelectedAttributeId { get; set; }
         [BindProperty]
-        public List<FeedbackAttribute> Attributes { get; set; }
+        public List<ExitSurveyAttribute> Attributes { get; set; }
 
 
         public Question1Model(IExitSurveySessionService sessionService,
@@ -45,7 +46,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public async Task<IActionResult> OnGet([FromServices] AuthenticatedUser user)
         {
             // Get the questions (attributes) for this page.
-            Attributes = new List<FeedbackAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(Category));
+            Attributes = new List<ExitSurveyAttribute>(await ApprenticeFeedbackService.GetExitSurveyAttributes(Category));
 
             // Get the selected attribute from the session if there is one.
             var selectedAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == Category).ToList();

@@ -1,4 +1,4 @@
-﻿using SFA.DAS.ApprenticeFeedback.Domain.Models;
+﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System.Collections.Generic;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Components.AttributeRadios

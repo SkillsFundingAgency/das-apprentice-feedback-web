@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
@@ -17,9 +18,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     {
         public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question2";
 
-        public List<FeedbackAttribute> PersonalCircumstancesAttributes { get; set; }
-        public List<FeedbackAttribute> EmployerAttributes { get; set; }
-        public List<FeedbackAttribute> TrainingProviderAttributes { get; set; }
+        public List<ExitSurveyAttribute> PersonalCircumstancesAttributes { get; set; }
+        public List<ExitSurveyAttribute> EmployerAttributes { get; set; }
+        public List<ExitSurveyAttribute> TrainingProviderAttributes { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Select the main reason why you did not finish your apprenticeship")]

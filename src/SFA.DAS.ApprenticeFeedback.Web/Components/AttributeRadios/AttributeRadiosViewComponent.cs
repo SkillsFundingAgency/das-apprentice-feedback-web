@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.ApprenticeFeedback.Domain.Models;
+using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

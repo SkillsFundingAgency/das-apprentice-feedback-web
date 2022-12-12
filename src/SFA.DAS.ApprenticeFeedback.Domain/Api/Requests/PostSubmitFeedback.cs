@@ -1,5 +1,4 @@
-﻿using SFA.DAS.ApprenticeFeedback.Domain.Models;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
+﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System;
 using System.Collections.Generic;
 
