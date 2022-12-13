@@ -7,6 +7,7 @@ using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,7 +19,24 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     [HideNavigationBar]
     public class Question3Model : ExitSurveyContextPageModel, IHasBackLink
     {
-        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./primaryreason";
+        public string Backlink => GenerateBackLink();
+
+        private string GenerateBackLink()
+        {
+            if (ExitSurveyContext.CheckingAnswers)
+            {
+                return "./checkyouranswers";
+            }
+            // If only one element of the attributes that are reasons
+            else if (ExitSurveyContext.Attributes.Count(a => a.Category == ExitSurveyAttributeCategory.PersonalCircumstances ||
+                a.Category == ExitSurveyAttributeCategory.Employer || a.Category == ExitSurveyAttributeCategory.TrainingProvider) == 1)
+            {
+                return "./question2";
+            }
+
+
+            return "./primaryreason";
+        }
 
         [BindProperty]
         [Required(ErrorMessage = "Select which of the following would have made you stay on the apprenticeship")]
@@ -59,10 +77,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             {
                 ModelState.AddModelError("MultipleErrorSummary", "Select the factors that would have made you stay or select 'None of these would have made me stay'");
             }
-            if(selectedCount > 1)
+            if (selectedCount > 1)
             {
                 var exclusiveAttribute = selectedReasonAttributes.FirstOrDefault(a => a.Id == NoneAttributeId);
-                if(null != exclusiveAttribute)
+                if (null != exclusiveAttribute)
                 {
                     ModelState.AddModelError("MultipleErrorSummary", "Select the factors that would have made you stay or select 'None of these would have made me stay'");  // Select which of the following would have made you stay on the apprenticeship
                 }
