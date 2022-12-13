@@ -23,15 +23,18 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
         private string GenerateBackLink()
         {
-            if(ExitSurveyContext.CheckingAnswers)
+            if (ExitSurveyContext.CheckingAnswers)
             {
                 return "./checkyouranswers";
             }
-            else if(ExitSurveyContext.Attributes.Count == 1)
+            // If only one element of the attributes that are reasons
+            else if (ExitSurveyContext.Attributes.Count(a => a.Category == ExitSurveyAttributeCategory.PersonalCircumstances ||
+                a.Category == ExitSurveyAttributeCategory.Employer || a.Category == ExitSurveyAttributeCategory.TrainingProvider) == 1)
             {
                 return "./question2";
             }
-            
+
+
             return "./primaryreason";
         }
 
@@ -74,10 +77,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             {
                 ModelState.AddModelError("MultipleErrorSummary", "Select the factors that would have made you stay or select 'None of these would have made me stay'");
             }
-            if(selectedCount > 1)
+            if (selectedCount > 1)
             {
                 var exclusiveAttribute = selectedReasonAttributes.FirstOrDefault(a => a.Id == NoneAttributeId);
-                if(null != exclusiveAttribute)
+                if (null != exclusiveAttribute)
                 {
                     ModelState.AddModelError("MultipleErrorSummary", "Select the factors that would have made you stay or select 'None of these would have made me stay'");  // Select which of the following would have made you stay on the apprenticeship
                 }
