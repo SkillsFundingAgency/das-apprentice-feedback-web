@@ -7,6 +7,7 @@ using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,7 +19,21 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     [HideNavigationBar]
     public class Question3Model : ExitSurveyContextPageModel, IHasBackLink
     {
-        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./primaryreason";
+        public string Backlink => GenerateBackLink();
+
+        private string GenerateBackLink()
+        {
+            if(ExitSurveyContext.CheckingAnswers)
+            {
+                return "./checkyouranswers";
+            }
+            else if(ExitSurveyContext.Attributes.Count == 1)
+            {
+                return "./question2";
+            }
+            
+            return "./primaryreason";
+        }
 
         [BindProperty]
         [Required(ErrorMessage = "Select which of the following would have made you stay on the apprenticeship")]
