@@ -10,7 +10,6 @@ using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages;
 using SFA.DAS.ApprenticeFeedback.Web.UnitTests.Helpers;
 using SFA.DAS.ApprenticePortal.Authentication;
-using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,7 +29,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         {
             _mockFeedbackService = new Mock<IApprenticeFeedbackService>();
             _mockSession = new Mock<IApprenticeFeedbackSessionService>();
-            
+
             _authenticatedUser = AuthenticatedUserHelper.CreateAuthenticatedUser(Guid.NewGuid());
 
             IndexPage = new IndexModel(Mock.Of<ILogger<IndexModel>>(), _mockFeedbackService.Object, _mockSession.Object);
@@ -65,10 +64,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         public async Task And_SingleProviderReturned_And_FeedbackAllowed_Then_RedirectToStartPage()
         {
             _mockFeedbackService.Setup(m => m.GetTrainingProviders(It.IsAny<Guid>()))
-                .ReturnsAsync(new List<TrainingProvider>() 
-                { 
-                    new TrainingProvider() 
-                    { 
+                .ReturnsAsync(new List<TrainingProvider>()
+                {
+                    new TrainingProvider()
+                    {
                         Ukprn = 12345678,
                         Name = "Single Training Provider",
                         FeedbackEligibility = FeedbackEligibility.Allow

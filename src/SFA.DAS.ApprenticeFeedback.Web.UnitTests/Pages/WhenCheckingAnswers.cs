@@ -42,8 +42,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         public void And_Feedback_Not_Allowed_Then_Redirect_To_Home()
         {
             _mockSession.Setup(m => m.GetFeedbackContext()).Returns(
-                new FeedbackContext() 
-                { 
+                new FeedbackContext()
+                {
                     FeedbackEligibility = FeedbackEligibility.Deny_HasGivenFeedbackRecently
                 });
             var model = new CheckYourAnswersModel(_mockSession.Object, _mockFeedbackService.Object);

@@ -7,7 +7,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Components.AttributeRadios
 {
     public class AttributeRadiosViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<ExitSurveyAttribute> attributes, string headingHtml, int? selectedAttributeId )
+        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<ExitSurveyAttribute> attributes, string headingHtml, int? selectedAttributeId)
         {
             var model = new AttributeRadiosModel()
             {

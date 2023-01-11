@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Routing;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback;
@@ -21,7 +20,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
 {
     public class WhenInFeedbackJourney
     {
-        private static Mock<IApprenticeFeedbackSessionService> _mockSession 
+        private static Mock<IApprenticeFeedbackSessionService> _mockSession
             = new Mock<IApprenticeFeedbackSessionService>();
         private static Mock<IApprenticeFeedbackService> _mockFeedbackService
             = new Mock<IApprenticeFeedbackService>();

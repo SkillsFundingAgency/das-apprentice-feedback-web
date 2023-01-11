@@ -22,7 +22,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
         public static FeedbackContext CreateFrom(TrainingProvider provider)
         {
             var feedbackContext = new FeedbackContext();
-            if(null != provider)
+            if (null != provider)
             {
                 feedbackContext.ProviderName = provider.Name;
                 feedbackContext.UkPrn = provider.Ukprn;

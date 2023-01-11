@@ -50,7 +50,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Steps
 
             indexPageResponse.EnsureSuccessStatusCode();
 
-            _context.TestActionResultContent = await indexPageResponse.Content.ReadAsStringAsync();           
+            _context.TestActionResultContent = await indexPageResponse.Content.ReadAsStringAsync();
         }
 
         private List<TrainingProvider> GetSingleProvider()

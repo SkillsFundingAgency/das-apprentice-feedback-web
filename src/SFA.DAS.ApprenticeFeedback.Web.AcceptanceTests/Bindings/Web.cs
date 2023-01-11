@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc.Testing.Handlers;
 using SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Hooks;
 using SFA.DAS.ApprenticeFeedback.Web.Startup;
 using SFA.DAS.ApprenticePortal.Authentication.TestHelpers;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using TechTalk.SpecFlow;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Bindings

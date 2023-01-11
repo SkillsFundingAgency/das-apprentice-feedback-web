@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
@@ -34,7 +33,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public CheckYourAnswersModel(IExitSurveySessionService sessionService, 
+        public CheckYourAnswersModel(IExitSurveySessionService sessionService,
             IApprenticeFeedbackService apprenticeFeedbackService,
             IDateTimeProvider dateTimeProvider)
             : base(sessionService, apprenticeFeedbackService)
@@ -45,7 +44,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public IActionResult OnGet([FromServices] AuthenticatedUser user)
         {
             ExitSurveyContext.CheckingAnswers = true;
-            
+
             PersonalCircumstancesAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.PersonalCircumstances).ToList();
             EmployerAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.Employer).ToList();
             TrainingProviderAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.TrainingProvider).ToList();
@@ -81,7 +80,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             ExitSurveyContext.CheckingAnswers = false;
             SaveContext();
 
-            if(ExitSurveyContext.DidNotCompleteApprenticeship.Value)
+            if (ExitSurveyContext.DidNotCompleteApprenticeship.Value)
             {
                 return RedirectToPage("./complete");
             }

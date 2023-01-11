@@ -30,7 +30,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
             //_mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
             //request.FeedbackAttributes = null;
             //_mockFeedbackService.Setup(s => s.GetTrainingProviderAttributes()).ReturnsAsync(attributes);
-            
+
             FeedbackAttributesPage.OnGet(true);
 
             FeedbackAttributesPage.FeedbackAttributes.Should().BeEquivalentTo(attributes);

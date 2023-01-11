@@ -6,9 +6,7 @@ using SFA.DAS.ApprenticeFeedback.Domain.Extensions;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
-using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
-using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +19,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
         private readonly IApprenticeFeedbackSessionService _sessionService;
-                
+
         // Textual descriptions of the feedback time periods.
         public string FeedbackRate { get; set; }
         public string FeedbackInitialDenyPeriod { get; set; }
@@ -77,7 +75,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
             FeedbackRate = _apprenticeFeedbackService.RecentDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
             FeedbackInitialDenyPeriod = _apprenticeFeedbackService.InitialDenyPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
             FeedbackFinalAllowPeriod = _apprenticeFeedbackService.FinalAllowPeriod.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month);
-            return Page();                
+            return Page();
         }
     }
 }

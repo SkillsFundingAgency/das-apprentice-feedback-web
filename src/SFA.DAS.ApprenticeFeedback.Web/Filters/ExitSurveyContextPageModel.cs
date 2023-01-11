@@ -31,19 +31,19 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
             _ExitSurveyContext = _sessionService.GetExitSurveyContext();
             if (null == _ExitSurveyContext)
             {
-                if(!context.HttpContext.Request.Path.StartsWithSegments("/exit/start"))
+                if (!context.HttpContext.Request.Path.StartsWithSegments("/exit/start"))
                 {
                     context.Result = Redirect("/");
                     return;
                 }
-                
+
                 _ExitSurveyContext = new ExitSurveyContext();
                 SaveContext();
             }
             else
             {
                 // No valid apprentice feedback target ID in the context so do not proceed.
-                if(Guid.Empty == _ExitSurveyContext.ApprenticeFeedbackTargetId)
+                if (Guid.Empty == _ExitSurveyContext.ApprenticeFeedbackTargetId)
                 {
                     context.Result = Redirect("/");
                     return;
@@ -54,7 +54,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
                 if (!ExitSurveyContext.SurveyCompleted.HasValue)
                 {
                     var exitSurvey = Task.Run(async () => await _apprenticeFeedbackService.GetExitSurveyForFeedbackTarget(ExitSurveyContext.ApprenticeFeedbackTargetId.Value)).GetAwaiter().GetResult();
-                    if(null != exitSurvey)
+                    if (null != exitSurvey)
                     {
                         ExitSurveyContext.SurveyCompleted = true;
                         ExitSurveyContext.DateTimeCompleted = exitSurvey.DateTimeCompleted;
@@ -67,13 +67,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
                         SaveContext();
                     }
                 }
-                if(ExitSurveyContext.SurveyCompleted.Value)
+                if (ExitSurveyContext.SurveyCompleted.Value)
                 {
                     // Redirect if we're not on the completed page
                     if (!context.HttpContext.Request.Path.StartsWithSegments("/exit/complete") &&
                         !context.HttpContext.Request.Path.StartsWithSegments("/exit/incorrectcomplete"))
                     {
-                        if(ExitSurveyContext.DidNotCompleteApprenticeship.Value)
+                        if (ExitSurveyContext.DidNotCompleteApprenticeship.Value)
                         {
                             context.Result = Redirect("/exit/complete");
                         }
@@ -91,7 +91,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
                 if (!context.HttpContext.Request.Path.StartsWithSegments("/exit/start")
                     && !context.HttpContext.Request.Path.StartsWithSegments("/exit/question1"))
                 {
-                    if(!ExitSurveyContext.Attributes.Any())
+                    if (!ExitSurveyContext.Attributes.Any())
                     {
                         context.Result = Redirect($"/exit/start/{ExitSurveyContext.ApprenticeFeedbackTargetId}");
                         return;
@@ -104,7 +104,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
                 // so redirect to question 2 for safety.
                 if (context.HttpContext.Request.Path.StartsWithSegments("/exit/checkyouranswers"))
                 {
-                    if(ExitSurveyContext.DidNotCompleteApprenticeship.Value)
+                    if (ExitSurveyContext.DidNotCompleteApprenticeship.Value)
                     {
                         if (ExitSurveyContext.Attributes.Count() < 2)
                         {

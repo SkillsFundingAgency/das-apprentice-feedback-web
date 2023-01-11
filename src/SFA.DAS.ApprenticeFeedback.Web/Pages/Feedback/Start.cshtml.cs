@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
-using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,10 +17,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         private readonly Domain.Interfaces.IUrlHelper _urlHelper;
 
         public string Backlink { get; set; }
-        public string ProviderName { get; set;  }
+        public string ProviderName { get; set; }
         public string FindApprenticeshipUrl { get; set; }
 
-        public StartModel(IApprenticeFeedbackSessionService sessionService, 
+        public StartModel(IApprenticeFeedbackSessionService sessionService,
         IApprenticeFeedbackService apprenticeFeedbackService,
         Domain.Interfaces.IUrlHelper urlHelper)
         {
@@ -40,7 +38,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             }
 
             // Safety check incase the URL has been manipulated with a valid but ineligible ukprn
-            if(provider.FeedbackEligibility != FeedbackEligibility.Allow)
+            if (provider.FeedbackEligibility != FeedbackEligibility.Allow)
             {
                 var errorFeedbackContext = new FeedbackContext()
                 {
@@ -60,9 +58,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
             // (ie. the user only has one training provider).
             Backlink = "/";
             var existingContext = _sessionService.GetFeedbackContext();
-            if(null != existingContext)
+            if (null != existingContext)
             {
-                if(1 == existingContext.ProviderCount)
+                if (1 == existingContext.ProviderCount)
                 {
                     Backlink = "";
                 }

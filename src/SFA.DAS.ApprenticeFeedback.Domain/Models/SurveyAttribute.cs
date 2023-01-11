@@ -1,5 +1,4 @@
-﻿using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
-namespace SFA.DAS.ApprenticeFeedback.Domain.Models
+﻿namespace SFA.DAS.ApprenticeFeedback.Domain.Models
 {
     public abstract class SurveyAttribute
     {

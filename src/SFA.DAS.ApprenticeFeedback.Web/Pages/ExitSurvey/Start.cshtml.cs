@@ -13,9 +13,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     [HideNavigationBar]
     public class StartModel : ExitSurveyContextPageModel
     {
-        public StartModel(IExitSurveySessionService sessionService, 
+        public StartModel(IExitSurveySessionService sessionService,
             IApprenticeFeedbackService apprenticeFeedbackService)
-            :base(sessionService, apprenticeFeedbackService)
+            : base(sessionService, apprenticeFeedbackService)
         {
         }
 

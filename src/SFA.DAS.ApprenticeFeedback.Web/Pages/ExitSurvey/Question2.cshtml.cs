@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
@@ -18,7 +16,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
     [HideNavigationBar]
     public class Question2Model : ExitSurveyContextPageModel, IHasBackLink
     {
-        public string Backlink => (ExitSurveyContext.CheckingAnswers)? $"./checkyouranswers" : $"./question1";
+        public string Backlink => (ExitSurveyContext.CheckingAnswers) ? $"./checkyouranswers" : $"./question1";
 
         [BindProperty]
         public List<ExitSurveyAttribute> PersonalCircumstancesAttributes { get; set; }
@@ -43,7 +41,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             // Load session state if it exists
 
             var selectedPersonalCircumstancesAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == ExitSurveyAttributeCategory.PersonalCircumstances);
-            foreach(var sessionAttribute in selectedPersonalCircumstancesAttributes)
+            foreach (var sessionAttribute in selectedPersonalCircumstancesAttributes)
             {
                 var a = PersonalCircumstancesAttributes.Find(a => a.Id == sessionAttribute.Id);
                 a.Value = true;
@@ -177,7 +175,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
                     SaveContext();
                     return RedirectToPage("./question3");
                 }
-                
+
                 return RedirectToPage("./primaryreason");
             }
         }
