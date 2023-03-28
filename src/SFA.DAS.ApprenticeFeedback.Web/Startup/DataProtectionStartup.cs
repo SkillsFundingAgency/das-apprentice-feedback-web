@@ -17,7 +17,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             {
                 services.AddDistributedMemoryCache();
                 services.AddDataProtection()
-                    .SetApplicationName("apprentice-feedback");
+                    .SetApplicationName("portal");
             }
             else if (configuration != null)
             {
@@ -33,7 +33,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                     .Connect($"{redisConnectionString},{dataProtectionKeysDatabase}");
 
                 services.AddDataProtection()
-                    .SetApplicationName("apprentice-feedback")
+                    .SetApplicationName("portal")
                     .PersistKeysToStackExchangeRedis(redis, "DataProtection-Keys");
             }
 
