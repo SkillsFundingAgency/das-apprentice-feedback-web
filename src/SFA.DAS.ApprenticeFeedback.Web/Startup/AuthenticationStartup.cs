@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,8 @@ using SFA.DAS.ApprenticeFeedback.Web.Services;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.Authentication.Filters;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Reflection;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
@@ -47,18 +50,25 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
         {
             services.AddAuthorization();
             services.AddHttpContextAccessor();
-            services.AddRazorPages(o => o.Conventions
-                .AuthorizeFolder("/")
-                .AllowAnonymousToPage("/ping"));
 
             services.AddRazorPages(options =>
             {
-                options.Conventions.ConfigureFilter(factory =>
+                options.Conventions
+                    .AuthorizeFolder("/")
+                    .AllowAnonymousToPage("/ping")
+                    .AllowAnonymousToPage("/links");
+
+                options.Conventions.ConfigureFilter(context =>
                 {
-                    var typeFilterAttribute = new TypeFilterAttribute(typeof(RequiresIdentityConfirmedFilter));
-                    return typeFilterAttribute;
+                    if (context.DeclaredModelType.GetCustomAttributes<AllowAnonymousAttribute>(true).Any())
+                    {
+                        return new DoesNotRequireIdentityConfirmedFilter();
+                    }
+
+                    return new TypeFilterAttribute(typeof(RequiresIdentityConfirmedFilter));
                 });
             });
+
             services.AddAntiforgery(options =>
             {
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
