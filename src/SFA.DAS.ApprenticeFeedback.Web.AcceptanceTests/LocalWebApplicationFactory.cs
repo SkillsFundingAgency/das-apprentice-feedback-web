@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Hooks;
 using SFA.DAS.ApprenticeFeedback.Web.Startup;
 using SFA.DAS.ApprenticePortal.Authentication.TestHelpers;
+using SFA.DAS.NServiceBus.Configuration.MicrosoftDependencyInjection;
 using System.Collections.Generic;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests
@@ -27,7 +28,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests
         protected override IHostBuilder CreateHostBuilder()
         {
             var builder = Host.CreateDefaultBuilder()
-                .ConfigureWebHostDefaults(x => x.UseStartup<TEntryPoint>());
+                .ConfigureWebHostDefaults(x => x.UseStartup<TEntryPoint>())
+                .UseNServiceBusContainer();
             return builder;
         }
 
