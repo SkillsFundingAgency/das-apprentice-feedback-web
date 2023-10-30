@@ -1,7 +1,5 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
-using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System;

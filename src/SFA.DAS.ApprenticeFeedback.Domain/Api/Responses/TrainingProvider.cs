@@ -24,7 +24,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Api.Responses
         public long UkPrn { get; set; }
         public int LarsCode { get; set; }
         public DateTime? LastFeedbackSubmittedDate { get; set; }
-        public FeedbackEligibility FeedbackEligibility { get; set; } 
+        public FeedbackEligibility FeedbackEligibility { get; set; }
         public TimeSpan? TimeWindow { get; set; }
         public DateTime? SignificantDate { get; set; }
     }

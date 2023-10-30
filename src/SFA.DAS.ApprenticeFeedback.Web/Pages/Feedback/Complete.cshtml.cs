@@ -12,7 +12,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         private const string _mentalHealthAndSupportUrl = "https://www.remploy.co.uk/individuals/finding-work-and-support-work/workplace/support-apprentices/";
 
         public CompleteModel(IApprenticeFeedbackSessionService sessionService, Domain.Interfaces.IUrlHelper urlHelper, NavigationUrlHelper navigationUrlHelper)
-            :base(sessionService) 
+            : base(sessionService)
         {
             _urlHelper = urlHelper;
             _navigationUrlHelper = navigationUrlHelper;
@@ -29,8 +29,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         {
             FindApprenticeshipUrl = _urlHelper.FindApprenticeshipTrainingFeedbackUrl(FeedbackContext.UkPrn, FeedbackContext.LarsCode);
             OverallRating = FeedbackContext.OverallRating.Value;
-            ReturnToDashboardUrl = _navigationUrlHelper.Generate(NavigationSection.Home, page:"Home");
-            HelpAndSupportUrl = _navigationUrlHelper.Generate(NavigationSection.HelpAndSupport, page:"HelpAndSupport");
+            ReturnToDashboardUrl = _navigationUrlHelper.Generate(NavigationSection.Home, page: "Home");
+            HelpAndSupportUrl = _navigationUrlHelper.Generate(NavigationSection.HelpAndSupport, page: "HelpAndSupport");
             MentalHealthSupportUrl = _mentalHealthAndSupportUrl;
         }
     }

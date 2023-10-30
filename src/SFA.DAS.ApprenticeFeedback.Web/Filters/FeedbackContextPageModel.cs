@@ -22,7 +22,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Filters
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
             _feedbackContext = _sessionService.GetFeedbackContext();
-            if(null == _feedbackContext)
+            if (null == _feedbackContext)
             {
                 context.Result = Redirect("/");
                 return;

@@ -10,7 +10,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
     public class OverallRatingModel : FeedbackContextPageModel, IHasBackLink
     {
         public OverallRatingModel(IApprenticeFeedbackSessionService sessionService)
-            :base(sessionService)
+            : base(sessionService)
         {
         }
 
@@ -24,7 +24,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         public string Backlink => Editing.HasValue && Editing.Value == true ? "/check-answers" : "feedback-attributes";
 
         public IActionResult OnGet(bool? edit)
-        { 
+        {
             Editing = edit;
             OverallRating = FeedbackContext.OverallRating;
 

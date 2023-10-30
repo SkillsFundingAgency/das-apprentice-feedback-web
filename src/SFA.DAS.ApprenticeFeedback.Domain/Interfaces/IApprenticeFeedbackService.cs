@@ -1,5 +1,4 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
-using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using System;
@@ -14,7 +13,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
         TimeSpan InitialDenyPeriod { get; }
         TimeSpan RecentDenyPeriod { get; }
         TimeSpan FinalAllowPeriod { get; }
-        
+
         Task<IEnumerable<TrainingProvider>> GetTrainingProviders(Guid apprenticeId);
         Task<TrainingProvider> GetTrainingProvider(Guid apprenticeId, long ukprn);
         Task<IEnumerable<FeedbackSurveyAttribute>> GetFeedbackAttributes();

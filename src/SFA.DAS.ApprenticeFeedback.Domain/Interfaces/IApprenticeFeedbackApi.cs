@@ -18,7 +18,7 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 
         [Get("provider-attributes")]
         Task<List<FeedbackAttribute>> GetFeedbackAttributes();
-        
+
         [Get("exitsurvey-attributes")]
         Task<List<FeedbackAttribute>> GetExitSurveyAttributes();
 
@@ -32,9 +32,9 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
         Task SubmitExitSurvey([Body] PostSubmitExitSurvey exitSurvey);
 
         [Get("apprenticefeedbacktarget/{apprenticeId}")]
-        Task<IEnumerable<ApprenticeFeedbackTarget>> GetApprenticeFeedbackTargets([Path]Guid apprenticeId);
+        Task<IEnumerable<ApprenticeFeedbackTarget>> GetApprenticeFeedbackTargets([Path] Guid apprenticeId);
 
         [Get("apprenticefeedbacktarget/{apprenticeFeedbackTargetId}/exitsurvey")]
-        Task<ApprenticeExitSurvey> GetExitSurveyForFeedbackTarget([Path]Guid apprenticeFeedbackTargetId);
+        Task<ApprenticeExitSurvey> GetExitSurveyForFeedbackTarget([Path] Guid apprenticeFeedbackTargetId);
     }
 }

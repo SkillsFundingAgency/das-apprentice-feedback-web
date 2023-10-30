@@ -18,6 +18,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<ApplicationStartup>()
                 .UseNLog();
-               
+
     }
 }

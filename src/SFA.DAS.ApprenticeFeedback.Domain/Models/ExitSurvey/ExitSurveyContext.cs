@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey
 {

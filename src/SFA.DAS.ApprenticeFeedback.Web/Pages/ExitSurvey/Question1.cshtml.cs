@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Filters;
 using SFA.DAS.ApprenticeFeedback.Web.Services;
@@ -39,7 +37,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
         public Question1Model(IExitSurveySessionService sessionService,
             IApprenticeFeedbackService apprenticeFeedbackService)
-            :base(sessionService, apprenticeFeedbackService)
+            : base(sessionService, apprenticeFeedbackService)
         {
         }
 
@@ -50,7 +48,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
             // Get the selected attribute from the session if there is one.
             var selectedAttributes = ExitSurveyContext.Attributes.Where(a => a.Category == Category).ToList();
-            if(null != selectedAttributes && selectedAttributes.Count == 1)
+            if (null != selectedAttributes && selectedAttributes.Count == 1)
             {
                 SelectedAttributeId = selectedAttributes[0].Id;
             }
@@ -70,7 +68,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             // Save the selected attribute
 
             var selectedAttribute = Attributes.FirstOrDefault(a => a.Id == SelectedAttributeId.Value);
-            if(null == selectedAttribute)
+            if (null == selectedAttribute)
             {
                 return Page();
             }
@@ -94,7 +92,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             SaveContext();
 
             // If the apprentice has withdrawn then continue with the survey
-            if(WithdrawnIds.Contains(selectedAttribute.Id))
+            if (WithdrawnIds.Contains(selectedAttribute.Id))
             {
                 ExitSurveyContext.DidNotCompleteApprenticeship = true;
                 SaveContext();

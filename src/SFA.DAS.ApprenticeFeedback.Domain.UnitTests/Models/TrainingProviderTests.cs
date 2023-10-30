@@ -1,9 +1,4 @@
-﻿using FluentAssertions;
-using NUnit.Framework;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using NUnit.Framework;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.UnitTests.Models
 {

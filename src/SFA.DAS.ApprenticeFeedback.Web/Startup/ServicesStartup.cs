@@ -38,8 +38,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 .AddRestEaseClient<IApprenticeFeedbackApi>(configuration.ApiBaseUrl)
                 .AddHttpMessageHandler<Http.MessageHandlers.DefaultHeadersHandler>()
                 .AddHttpMessageHandler<Http.MessageHandlers.ApimHeadersHandler>()
-                .AddHttpMessageHandler<Http.MessageHandlers.LoggingMessageHandler>(); 
-            
+                .AddHttpMessageHandler<Http.MessageHandlers.LoggingMessageHandler>();
+
             services.AddTransient<IApimClientConfiguration>((_) => configuration);
 
             return services;

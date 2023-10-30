@@ -23,7 +23,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         private readonly IApprenticeFeedbackService _apprenticeFeedbackService;
 
         public CheckYourAnswersModel(IApprenticeFeedbackSessionService sessionService, IApprenticeFeedbackService apprenticeFeedbackService)
-            :base(sessionService)
+            : base(sessionService)
         {
             _apprenticeFeedbackService = apprenticeFeedbackService;
         }
@@ -31,7 +31,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
         public IActionResult OnGet()
         {
             // Prevent a user from resubmitting feedback.
-            if(FeedbackContext.FeedbackEligibility != FeedbackEligibility.Allow)
+            if (FeedbackContext.FeedbackEligibility != FeedbackEligibility.Allow)
             {
                 return Redirect("/index");
             }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
+﻿namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 {
     public interface IUrlHelper
     {

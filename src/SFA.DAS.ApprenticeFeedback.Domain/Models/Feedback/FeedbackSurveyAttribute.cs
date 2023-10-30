@@ -1,5 +1,4 @@
 ﻿using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 using System.ComponentModel.DataAnnotations;
 
 namespace SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback
