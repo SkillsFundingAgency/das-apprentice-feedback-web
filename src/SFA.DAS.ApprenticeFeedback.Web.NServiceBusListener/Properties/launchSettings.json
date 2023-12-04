@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SFA.DAS.ApprenticeFeedback.Web.NServiceBusListener": {
+      "commandName": "Project",
+      "commandLineArgs": "NServiceBusConnectionString=UseLearningEndpoint"
+    }
+  }
+}

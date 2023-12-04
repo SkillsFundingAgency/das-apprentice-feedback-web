@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NServiceBus.ObjectBuilder.MSDependencyInjection;
 using SFA.DAS.ApprenticeFeedback.Web.Configuration;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using SFA.DAS.ApprenticePortal.SharedUi.Startup;
-using SFA.DAS.ApprenticePortal.SharedUi.Zendesk;
 using SFA.DAS.Configuration.AzureTableStorage;
 using System.IO;
 
@@ -102,6 +101,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             {
                 endpoints.MapRazorPages();
             });
+        }
+
+        public void ConfigureContainer(UpdateableServiceProvider serviceProvider)
+        {
+            serviceProvider.StartNServiceBus(Configuration).GetAwaiter().GetResult();
         }
     }
 }
