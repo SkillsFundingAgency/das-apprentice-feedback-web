@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -32,23 +31,29 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             {
                 EngagementLinks = new List<EngagementLink> 
                 {
-                        new EngagementLink { Name = "TestLinkA", Url = "http://exampleA.com" },
-                        new EngagementLink { Name = "TestLinkB", Url = "http://exampleB.com" }
+                        new EngagementLink { Name = "TestLinkA", Url = "http://example-a.com/page1" },
+                        new EngagementLink { Name = "TestLinkB", Url = "http://example-b.com/page1/page2" },
+                        new EngagementLink { Name = "TestLinkE", Url = "http://example-e.com/page3?someParameter=someValue" },
+                        new EngagementLink { Name = "TestLinkF", Url = "http://example-f.com?someParameter=someValue" },
+                        new EngagementLink { Name = "TestLinkG", Url = "http://example-g.com" }
                 }
             };
             
             _linksModel = new LinksModel(_mockEventPublisher.Object, _mockLogger.Object, _appSettings);
         }
 
-        [TestCase("TestLinkA", "http://exampleA.com", 101)]
-        [TestCase("TestLinkB", "http://exampleB.com", 202)]
-        public async Task WhenValidLinkNamePassed_EventIsPublished(string linkName, string linkUrl, long feedbackTransactionId)
+        [TestCase("TestLinkA", "template1", "http://example-a.com/page1", 101)]
+        [TestCase("TestLinkB", "template2", "http://example-b.com/page1/page2", 202)]
+        [TestCase("TestLinkE", "template1", "http://example-e.com/page3?someParameter=someValue", 303)]
+        [TestCase("TestLinkF", "template1", "http://example-f.com?someParameter=someValue", 404)]
+        [TestCase("TestLinkG", "template2", "http://example-g.com", 505)]
+        public async Task WhenValidLinkNamePassed_EventIsPublished(string linkName, string templateName, string linkUrl, long feedbackTransactionId)
         {
             // Arrange
             var apprenticeFeedbackTargetId = Guid.NewGuid();
 
             // Act
-            var result = await _linksModel.OnGet(linkName, feedbackTransactionId, apprenticeFeedbackTargetId);
+            var result = await _linksModel.OnGet(linkName, templateName, feedbackTransactionId, apprenticeFeedbackTargetId);
 
             // Assert
             _mockEventPublisher.Verify(p => p.Publish(It.Is<ApprenticeEmailClickEvent>(
@@ -59,15 +64,18 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
                 It.IsAny<PublishOptions>()), Times.Once);
         }
 
-        [TestCase("TestLinkA", "http://exampleA.com", 101)]
-        [TestCase("TestLinkB", "http://exampleB.com", 202)]
-        public async Task WhenValidLinkNamePassed_RedirectToLinkUrlOccurs(string linkName, string expectedUrl, long feedbackTransactionId)
+        [TestCase("TestLinkA", "template1", "http://example-a.com/page1?templateName=template1", 101)]
+        [TestCase("TestLinkB", "template2", "http://example-b.com/page1/page2?templateName=template2", 202)]
+        [TestCase("TestLinkE", "template3", "http://example-e.com/page3?someParameter=someValue&templateName=template3", 303)]
+        [TestCase("TestLinkF", "template1", "http://example-f.com?someParameter=someValue&templateName=template1", 404)]
+        [TestCase("TestLinkG", "template2", "http://example-g.com?templateName=template2", 505)]
+        public async Task WhenValidLinkNamePassed_RedirectToLinkUrlOccurs(string linkName, string templateName, string expectedUrl, long feedbackTransactionId)
         {
             // Arrange
             var apprenticeFeedbackTargetId = Guid.NewGuid();
 
             // Act
-            var result = await _linksModel.OnGet(linkName, feedbackTransactionId, apprenticeFeedbackTargetId);
+            var result = await _linksModel.OnGet(linkName, templateName, feedbackTransactionId, apprenticeFeedbackTargetId);
 
             // Assert
             Assert.That(result, Is.TypeOf<RedirectResult>());
@@ -75,12 +83,12 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             Assert.AreEqual(expectedUrl, redirectResult.Url);
         }
 
-        [TestCase("TestLinkC")]
-        [TestCase("TestLinkD")]
-        public async Task WhenInvalidLinkNamePassedWarningIsLogged(string linkName)
+        [TestCase("TestLinkC", "templateName1")]
+        [TestCase("TestLinkD", "templateName2")]
+        public async Task WhenInvalidLinkNamePassedWarningIsLogged(string linkName, string templateName)
         {
             // Act
-            var result = await _linksModel.OnGet(linkName, 1, Guid.NewGuid());
+            var result = await _linksModel.OnGet(linkName, templateName, 1, Guid.NewGuid());
 
             // Assert
             _mockLogger.Verify(l => l.Log(LogLevel.Warning, 
@@ -91,27 +99,27 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
                 Times.Once);
         }
 
-        [TestCase("TestLinkC")]
-        [TestCase("TestLinkD")]
-        public async Task WhenInvalidLinkNamePassedPageReturned(string linkName)
+        [TestCase("TestLinkC", "templateName1")]
+        [TestCase("TestLinkD", "templateName2")]
+        public async Task WhenInvalidLinkNamePassedPageReturned(string linkName, string templateName)
         {
             // Act
-            var result = await _linksModel.OnGet(linkName, 1, Guid.NewGuid());
+            var result = await _linksModel.OnGet(linkName, templateName, 1, Guid.NewGuid());
 
             // Assert
             Assert.That(result, Is.TypeOf<PageResult>());
         }
 
 
-        [TestCase("TestLinkA", 101)]
-        [TestCase("TestLinkB", 202)]
-        public void WhenExceptionOccurs_ErrorIsLogged(string linkName, long feedbackTransactionId)
+        [TestCase("TestLinkA", "templateName1", 101)]
+        [TestCase("TestLinkB", "templateName2", 202)]
+        public void WhenExceptionOccurs_ErrorIsLogged(string linkName, string templateName, long feedbackTransactionId)
         {
             // Arrange
             _mockEventPublisher.Setup(p => p.Publish(It.IsAny<ApprenticeEmailClickEvent>(), It.IsAny<PublishOptions>())).ThrowsAsync(new Exception("Test exception"));
 
             // Act & Assert
-            Assert.ThrowsAsync<Exception>(async () => await _linksModel.OnGet(linkName, feedbackTransactionId, Guid.NewGuid()));
+            Assert.ThrowsAsync<Exception>(async () => await _linksModel.OnGet(linkName, templateName, feedbackTransactionId, Guid.NewGuid()));
             _mockLogger.Verify(l => l.Log(LogLevel.Error,
                 It.IsAny<EventId>(),
                 It.Is<object>(o => o != null),
