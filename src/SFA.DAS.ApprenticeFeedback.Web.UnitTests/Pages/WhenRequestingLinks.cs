@@ -42,11 +42,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             _linksModel = new LinksModel(_mockEventPublisher.Object, _mockLogger.Object, _appSettings);
         }
 
-        [TestCase("TestLinkA", "template1", "http://example-a.com/page1", 101)]
-        [TestCase("TestLinkB", "template2", "http://example-b.com/page1/page2", 202)]
-        [TestCase("TestLinkE", "template1", "http://example-e.com/page3?someParameter=someValue", 303)]
-        [TestCase("TestLinkF", "template1", "http://example-f.com?someParameter=someValue", 404)]
-        [TestCase("TestLinkG", "template2", "http://example-g.com", 505)]
+        [TestCase("TestLinkA", "appStart", "http://example-a.com/page1", 101)]
+        [TestCase("TestLinkB", "appWelcome", "http://example-b.com/page1/page2", 202)]
+        [TestCase("TestLinkE", "appStart", "http://example-e.com/page3?someParameter=someValue", 303)]
+        [TestCase("TestLinkF", "appStart", "http://example-f.com?someParameter=someValue", 404)]
+        [TestCase("TestLinkG", "appWelcome", "http://example-g.com", 505)]
         public async Task WhenValidLinkNamePassed_EventIsPublished(string linkName, string templateName, string linkUrl, long feedbackTransactionId)
         {
             // Arrange
@@ -64,11 +64,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
                 It.IsAny<PublishOptions>()), Times.Once);
         }
 
-        [TestCase("TestLinkA", "template1", "http://example-a.com/page1?templateName=template1", 101)]
-        [TestCase("TestLinkB", "template2", "http://example-b.com/page1/page2?templateName=template2", 202)]
-        [TestCase("TestLinkE", "template3", "http://example-e.com/page3?someParameter=someValue&templateName=template3", 303)]
-        [TestCase("TestLinkF", "template1", "http://example-f.com?someParameter=someValue&templateName=template1", 404)]
-        [TestCase("TestLinkG", "template2", "http://example-g.com?templateName=template2", 505)]
+        [TestCase("TestLinkA", "appStart", "http://example-a.com/page1?utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appStart", 101)]
+        [TestCase("TestLinkB", "appWelcome", "http://example-b.com/page1/page2?utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appWelcome", 202)]
+        [TestCase("TestLinkE", "appMonth3", "http://example-e.com/page3?someParameter=someValue&utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appMonth3", 303)]
+        [TestCase("TestLinkF", "appStart", "http://example-f.com?someParameter=someValue&utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appStart", 404)]
+        [TestCase("TestLinkG", "appWelcome", "http://example-g.com?utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appWelcome", 505)]
         public async Task WhenValidLinkNamePassed_RedirectToLinkUrlOccurs(string linkName, string templateName, string expectedUrl, long feedbackTransactionId)
         {
             // Arrange
@@ -83,8 +83,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             Assert.AreEqual(expectedUrl, redirectResult.Url);
         }
 
-        [TestCase("TestLinkC", "templateName1")]
-        [TestCase("TestLinkD", "templateName2")]
+        [TestCase("TestLinkC", "appStart")]
+        [TestCase("TestLinkD", "appWelcome")]
         public async Task WhenInvalidLinkNamePassedWarningIsLogged(string linkName, string templateName)
         {
             // Act
@@ -99,8 +99,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
                 Times.Once);
         }
 
-        [TestCase("TestLinkC", "templateName1")]
-        [TestCase("TestLinkD", "templateName2")]
+        [TestCase("TestLinkC", "appStart")]
+        [TestCase("TestLinkD", "appWelcome")]
         public async Task WhenInvalidLinkNamePassedPageReturned(string linkName, string templateName)
         {
             // Act
@@ -111,8 +111,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         }
 
 
-        [TestCase("TestLinkA", "templateName1", 101)]
-        [TestCase("TestLinkB", "templateName2", 202)]
+        [TestCase("TestLinkA", "appStart", 101)]
+        [TestCase("TestLinkB", "appWelcome", 202)]
         public void WhenExceptionOccurs_ErrorIsLogged(string linkName, string templateName, long feedbackTransactionId)
         {
             // Arrange
