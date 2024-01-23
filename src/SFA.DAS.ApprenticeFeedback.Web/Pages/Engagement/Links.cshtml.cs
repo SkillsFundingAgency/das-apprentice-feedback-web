@@ -65,10 +65,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Engagement
             var uriBuilder = new UriBuilder(new Uri(engagementLink.Url));
 
             NameValueCollection queryParameters = HttpUtility.ParseQueryString(uriBuilder.Query);
-            queryParameters.Add("utm_source", "apprentice_feedback");
-            queryParameters.Add("utm_medium", "email");
-            queryParameters.Add("utm_campaign", "engagement");
-            queryParameters.Add("utm_content", $"template_{templateName}");
+            if (!string.IsNullOrEmpty(templateName))
+            {
+                queryParameters.Add("utm_source", "apprentice_feedback");
+                queryParameters.Add("utm_medium", "email");
+                queryParameters.Add("utm_campaign", "engagement");
+                queryParameters.Add("utm_content", $"template_{templateName}");
+            }
             uriBuilder.Query = queryParameters.ToString();
 
             string path = uriBuilder.Path != "/" ? uriBuilder.Path : string.Empty;

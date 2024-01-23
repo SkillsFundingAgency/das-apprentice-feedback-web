@@ -65,10 +65,20 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         }
 
         [TestCase("TestLinkA", "appStart", "http://example-a.com/page1?utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appStart", 101)]
+        [TestCase("TestLinkA", "", "http://example-a.com/page1", 101)]
+        [TestCase("TestLinkA", null, "http://example-a.com/page1", 101)]
         [TestCase("TestLinkB", "appWelcome", "http://example-b.com/page1/page2?utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appWelcome", 202)]
+        [TestCase("TestLinkB", "", "http://example-b.com/page1/page2", 202)]
+        [TestCase("TestLinkB", null, "http://example-b.com/page1/page2", 202)]
         [TestCase("TestLinkE", "appMonth3", "http://example-e.com/page3?someParameter=someValue&utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appMonth3", 303)]
+        [TestCase("TestLinkE", "", "http://example-e.com/page3?someParameter=someValue", 303)]
+        [TestCase("TestLinkE", null, "http://example-e.com/page3?someParameter=someValue", 303)]
         [TestCase("TestLinkF", "appStart", "http://example-f.com?someParameter=someValue&utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appStart", 404)]
+        [TestCase("TestLinkF", "", "http://example-f.com?someParameter=someValue", 404)]
+        [TestCase("TestLinkF", null, "http://example-f.com?someParameter=someValue", 404)]
         [TestCase("TestLinkG", "appWelcome", "http://example-g.com?utm_source=apprentice_feedback&utm_medium=email&utm_campaign=engagement&utm_content=template_appWelcome", 505)]
+        [TestCase("TestLinkG", "", "http://example-g.com", 505)]
+        [TestCase("TestLinkG", null, "http://example-g.com", 505)]
         public async Task WhenValidLinkNamePassed_RedirectToLinkUrlOccurs(string linkName, string templateName, string expectedUrl, long feedbackTransactionId)
         {
             // Arrange
