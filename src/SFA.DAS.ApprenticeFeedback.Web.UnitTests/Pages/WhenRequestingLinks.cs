@@ -53,7 +53,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             var apprenticeFeedbackTargetId = Guid.NewGuid();
 
             // Act
-            var result = await _linksModel.OnGet(linkName, templateName, feedbackTransactionId, apprenticeFeedbackTargetId);
+            _linksModel.TemplateName = templateName;
+            var result = await _linksModel.OnGet(linkName, feedbackTransactionId, apprenticeFeedbackTargetId);
 
             // Assert
             _mockEventPublisher.Verify(p => p.Publish(It.Is<ApprenticeEmailClickEvent>(
@@ -85,7 +86,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             var apprenticeFeedbackTargetId = Guid.NewGuid();
 
             // Act
-            var result = await _linksModel.OnGet(linkName, templateName, feedbackTransactionId, apprenticeFeedbackTargetId);
+            _linksModel.TemplateName = templateName;
+            var result = await _linksModel.OnGet(linkName, feedbackTransactionId, apprenticeFeedbackTargetId);
 
             // Assert
             Assert.That(result, Is.TypeOf<RedirectResult>());
@@ -98,7 +100,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         public async Task WhenInvalidLinkNamePassedWarningIsLogged(string linkName, string templateName)
         {
             // Act
-            var result = await _linksModel.OnGet(linkName, templateName, 1, Guid.NewGuid());
+            _linksModel.TemplateName = templateName;
+            var result = await _linksModel.OnGet(linkName, 1, Guid.NewGuid());
 
             // Assert
             _mockLogger.Verify(l => l.Log(LogLevel.Warning, 
@@ -114,7 +117,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         public async Task WhenInvalidLinkNamePassedPageReturned(string linkName, string templateName)
         {
             // Act
-            var result = await _linksModel.OnGet(linkName, templateName, 1, Guid.NewGuid());
+            _linksModel.TemplateName = templateName;
+            var result = await _linksModel.OnGet(linkName, 1, Guid.NewGuid());
 
             // Assert
             Assert.That(result, Is.TypeOf<PageResult>());
@@ -129,7 +133,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             _mockEventPublisher.Setup(p => p.Publish(It.IsAny<ApprenticeEmailClickEvent>(), It.IsAny<PublishOptions>())).ThrowsAsync(new Exception("Test exception"));
 
             // Act & Assert
-            Assert.ThrowsAsync<Exception>(async () => await _linksModel.OnGet(linkName, templateName, feedbackTransactionId, Guid.NewGuid()));
+            _linksModel.TemplateName = templateName;
+            Assert.ThrowsAsync<Exception>(async () => await _linksModel.OnGet(linkName, feedbackTransactionId, Guid.NewGuid()));
             _mockLogger.Verify(l => l.Log(LogLevel.Error,
                 It.IsAny<EventId>(),
                 It.Is<object>(o => o != null),

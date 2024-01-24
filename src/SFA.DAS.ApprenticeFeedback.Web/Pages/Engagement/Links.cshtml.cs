@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using NServiceBus;
 using SFA.DAS.ApprenticeFeedback.Application.Settings;
 using SFA.DAS.ApprenticeFeedback.Messages.Events;
+using SFA.DAS.ApprenticeFeedback.Web.Startup;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
@@ -21,6 +21,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Engagement
         private readonly ILogger<LinksModel> _logger;
         private readonly AppSettings _appSettings;
 
+        [FromQuery(Name = "templateName")]
+        public string TemplateName { get; set; }
+
         public LinksModel(IMessageSession eventPublisher, ILogger<LinksModel> logger, AppSettings appSettings)
         {
             _eventPublisher = eventPublisher;
@@ -28,7 +31,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Engagement
             _appSettings = appSettings;
         }
 
-        public async Task<IActionResult> OnGet(string linkName, string templateName, long feedbackTransactionId, Guid apprenticeFeedbackTargetId)
+        public async Task<IActionResult> OnGet(string linkName, long feedbackTransactionId, Guid apprenticeFeedbackTargetId)
         {
             try
             {
@@ -45,7 +48,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Engagement
                         ClickedOn = DateTime.UtcNow
                     });
 
-                    return Redirect(GetUrlWithTemplateNameQueryParameter(matchingLink, templateName));
+                    return Redirect(GetUrlWithTemplateNameQueryParameter(matchingLink, TemplateName));
                 }
                 else
                 {
