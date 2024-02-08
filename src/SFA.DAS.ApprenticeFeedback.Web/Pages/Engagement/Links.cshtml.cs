@@ -5,9 +5,12 @@ using Microsoft.Extensions.Logging;
 using NServiceBus;
 using SFA.DAS.ApprenticeFeedback.Application.Settings;
 using SFA.DAS.ApprenticeFeedback.Messages.Events;
+using SFA.DAS.ApprenticeFeedback.Web.Startup;
 using System;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Engagement
 {
@@ -17,6 +20,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Engagement
         private readonly IMessageSession _eventPublisher;
         private readonly ILogger<LinksModel> _logger;
         private readonly AppSettings _appSettings;
+
+        [FromQuery(Name = "templateName")]
+        public string TemplateName { get; set; }
 
         public LinksModel(IMessageSession eventPublisher, ILogger<LinksModel> logger, AppSettings appSettings)
         {
@@ -42,7 +48,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Engagement
                         ClickedOn = DateTime.UtcNow
                     });
 
-                    return Redirect(matchingLink.Url);
+                    return Redirect(GetUrlWithTemplateNameQueryParameter(matchingLink, TemplateName));
                 }
                 else
                 {
@@ -55,6 +61,26 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Engagement
                 _logger.LogError(ex, $"Unable to publish apprentice email click event for engagement link '{linkName}'.");
                 throw;
             }
+        }
+
+        private string GetUrlWithTemplateNameQueryParameter(EngagementLink engagementLink, string templateName)
+        {
+            var uriBuilder = new UriBuilder(new Uri(engagementLink.Url));
+
+            NameValueCollection queryParameters = HttpUtility.ParseQueryString(uriBuilder.Query);
+            if (!string.IsNullOrEmpty(templateName))
+            {
+                queryParameters.Add("utm_source", "apprentice_feedback");
+                queryParameters.Add("utm_medium", "email");
+                queryParameters.Add("utm_campaign", "engagement");
+                queryParameters.Add("utm_content", $"template_{templateName}");
+            }
+            uriBuilder.Query = queryParameters.ToString();
+
+            string path = uriBuilder.Path != "/" ? uriBuilder.Path : string.Empty;
+            string query = queryParameters.Count > 0 ? $"?{queryParameters}" : string.Empty;
+
+            return $"{uriBuilder.Scheme}://{uriBuilder.Host}{path}{query}";
         }
     }
 }
