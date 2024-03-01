@@ -5,11 +5,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Services
 {
     internal class MenuVisibility : IMenuVisibility
     {
-        public async Task<bool> ShowConfirmMyApprenticeship() => true;
+        public async Task<bool> ShowConfirmMyApprenticeship() => await Task.FromResult(true);
 
-        public async Task<bool> ShowApprenticeFeedback() => true;
+        public async Task<bool> ShowApprenticeFeedback() => await Task.FromResult(true);
+
+        public async Task<bool> ShowApprenticeAan() => await Task.FromResult(true);
 
         public async Task<ConfirmMyApprenticeshipTitleStatus> ConfirmMyApprenticeshipTitleStatus() =>
-            ApprenticePortal.SharedUi.Services.ConfirmMyApprenticeshipTitleStatus.ShowAsConfirmed;
+            await Task.FromResult(ApprenticePortal.SharedUi.Services.ConfirmMyApprenticeshipTitleStatus.ShowAsConfirmed);
     }
 }
