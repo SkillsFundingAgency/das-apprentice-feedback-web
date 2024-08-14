@@ -16,5 +16,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Configuration
         public GoogleAnalyticsConfiguration GoogleAnalytics { get; set; }
         public ZenDeskConfiguration Zendesk { get; set; }
         public AppSettings AppSettings { get; set; }
+        public bool UseGovSignIn { get; set; }
+        public bool UseStubAuth { get; set; }
     }
 }

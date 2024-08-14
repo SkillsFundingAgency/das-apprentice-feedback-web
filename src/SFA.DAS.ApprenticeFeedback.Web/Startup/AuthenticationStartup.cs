@@ -12,6 +12,8 @@ using SFA.DAS.ApprenticePortal.Authentication.Filters;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
+using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
@@ -29,6 +31,17 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services.AddTransient((_) => config);
 
             return services;
+        }
+        
+        public static void AddGovLoginAuthentication(
+            this IServiceCollection services,
+            NavigationSectionUrls config,
+            IConfiguration configuration)
+        {
+            services.AddGovLoginAuthentication(configuration);
+            services.AddApplicationAuthorisation();
+            services.AddTransient<IApprenticeAccountProvider, ApprenticeAccountProvider>();
+            services.AddTransient((_) => config);
         }
 
         private static IServiceCollection AddApplicationAuthentication(
