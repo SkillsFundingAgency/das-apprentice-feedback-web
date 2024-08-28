@@ -92,7 +92,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             // Assert
             Assert.That(result, Is.TypeOf<RedirectResult>());
             var redirectResult = result as RedirectResult;
-            Assert.AreEqual(expectedUrl, redirectResult.Url);
+            Assert.That(expectedUrl, Is.EqualTo(redirectResult.Url));
         }
 
         [TestCase("TestLinkC", "appStart")]
