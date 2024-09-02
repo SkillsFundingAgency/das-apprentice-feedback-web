@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
     <PackageReference Include="SFA.DAS.ApprenticeFeedback.Messages" Version="0.1.40" />
     <PackageReference Include="SFA.DAS.NServiceBus" Version="17.0.49" />
   </ItemGroup>
