@@ -62,6 +62,9 @@
         },
         "sharedApimName": {
             "type": "string"
+        },
+        "cdnUrl": {
+            "type": "string"
         }
     },
     "variables": {
@@ -234,6 +237,10 @@
                                 {
                                     "name": "LoggingRedisKey",
                                     "value": "[parameters('loggingRedisKey')]"
+                                },
+                                {
+                                    "name": "Cdn:Url",
+                                    "value": "[parameters('cdnUrl')]"
                                 }
                             ]
                         }
