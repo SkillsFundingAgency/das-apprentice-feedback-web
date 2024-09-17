@@ -9,6 +9,8 @@ using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using SFA.DAS.ApprenticePortal.SharedUi.Startup;
 using SFA.DAS.Configuration.AzureTableStorage;
 using System.IO;
+using SFA.DAS.ApprenticePortal.Authentication;
+using SFA.DAS.GovUK.Auth.Services;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
@@ -54,10 +56,19 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             services
                 .AddApplicationInsightsTelemetry()
                 .AddDataProtection(appConfig.ConnectionStrings, Environment)
-                .AddAuthentication(appConfig.Authentication, Environment)
                 .AddOuterApi(appConfig.ApprenticeFeedbackOuterApi)
                 .AddSessionService(Environment)
                 .RegisterServices(Environment);
+            
+            services.AddTransient<ICustomClaims, ApprenticeAccountPostAuthenticationClaimsHandler>();
+            if (appConfig.UseGovSignIn)
+            {
+                services.AddGovLoginAuthentication(appConfig.ApplicationUrls,Configuration);
+            }
+            else
+            {
+                services.AddAuthentication(appConfig!.Authentication, Environment);    
+            }
 
             services.AddSingleton((_) => appConfig.AppSettings);
 
@@ -66,6 +77,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 options.SetCurrentNavigationSection(NavigationSection.ApprenticeFeedback);
                 options.EnableZendesk();
                 options.EnableGoogleAnalytics();
+                options.SetUseGovSignIn(appConfig.UseGovSignIn);
             });
 
             services.AddSession(options =>
