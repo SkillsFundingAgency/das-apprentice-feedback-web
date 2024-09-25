@@ -36,5 +36,8 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
 
         [Get("apprenticefeedbacktarget/{apprenticeFeedbackTargetId}/exitsurvey")]
         Task<ApprenticeExitSurvey> GetExitSurveyForFeedbackTarget([Path]Guid apprenticeFeedbackTargetId);
+
+        [Put("/apprentices")]
+        Task<Apprentice> PutApprentice([Body] PutApprenticeRequest request);
     }
 }
