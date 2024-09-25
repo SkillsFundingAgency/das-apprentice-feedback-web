@@ -1,4 +1,7 @@
-﻿using FluentAssertions;
+﻿using AutoFixture.AutoMoq;
+using AutoFixture;
+using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -8,7 +11,6 @@ using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages;
-using SFA.DAS.ApprenticeFeedback.Web.UnitTests.Helpers;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using System;
@@ -23,6 +25,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
 
         private Mock<IApprenticeFeedbackService> _mockFeedbackService;
         private Mock<IApprenticeFeedbackSessionService> _mockSession;
+        private Mock<IHttpContextAccessor> _contextAccessor;
         private AuthenticatedUser _authenticatedUser;
 
         [SetUp]
@@ -30,8 +33,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
         {
             _mockFeedbackService = new Mock<IApprenticeFeedbackService>();
             _mockSession = new Mock<IApprenticeFeedbackSessionService>();
-            
-            _authenticatedUser = AuthenticatedUserHelper.CreateAuthenticatedUser(Guid.NewGuid());
+            _contextAccessor = new Mock<IHttpContextAccessor>();
+            _authenticatedUser = new AuthenticatedUser(_contextAccessor.Object);
 
             IndexPage = new IndexModel(Mock.Of<ILogger<IndexModel>>(), _mockFeedbackService.Object, _mockSession.Object);
         }

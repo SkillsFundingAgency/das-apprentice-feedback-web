@@ -1,4 +1,5 @@
 ﻿using RestEase;
+using SFA.DAS.ApprenticeFeedback.Domain.Api.Requests;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticePortal.Authentication;
 using System;
@@ -26,7 +27,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Services
             }
         }
 
-        public Task<IApprenticeAccount> PutApprenticeAccount(string email, string govIdentifier)
+        public async Task<IApprenticeAccount> PutApprenticeAccount(string email, string govIdentifier)
         {
             return await _client.PutApprentice(new PutApprenticeRequest(email, govIdentifier));
         }

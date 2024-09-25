@@ -11,7 +11,6 @@ using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey;
-using SFA.DAS.ApprenticeFeedback.Web.UnitTests.Helpers;
 using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.Testing.AutoFixture;
 using System;
@@ -25,9 +24,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
     {
         private Mock<IExitSurveySessionService> _mockSession;
         private Mock<IApprenticeFeedbackService> _mockFeedbackService;
-        private StartModel _startPage;
-
+        private Mock<IHttpContextAccessor> _contextAccessor;
         private AuthenticatedUser _authenticatedUser;
+
+        private StartModel _startPage;
 
         [SetUp]
         public void Arrange()
@@ -36,8 +36,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             _mockFeedbackService = new Mock<IApprenticeFeedbackService>();
             _startPage = new StartModel(_mockSession.Object, _mockFeedbackService.Object);
             _startPage.OnPageHandlerExecuting(CreatePageHandlerExecutingContext("/exit/start"));
+            _contextAccessor = new Mock<IHttpContextAccessor>();
+            _authenticatedUser = new AuthenticatedUser(_contextAccessor.Object);
 
-            _authenticatedUser = AuthenticatedUserHelper.CreateAuthenticatedUser(Guid.NewGuid());
         }
 
         private PageHandlerExecutingContext CreatePageHandlerExecutingContext(string contextUrlPath)

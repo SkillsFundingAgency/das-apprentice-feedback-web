@@ -26,6 +26,7 @@
     <PackageReference Include="RestEase.HttpClientFactory" Version="1.6.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.8" />
     <PackageReference Include="SFA.DAS.ApprenticeFeedback.Messages" Version="0.1.40" />
+    <PackageReference Include="SFA.DAS.ApprenticePortal.Authentication" Version="1.1.82" />
     <PackageReference Include="SFA.DAS.ApprenticePortal.SharedUi" Version="1.1.82" />
     <PackageReference Include="SFA.DAS.Configuration.AzureTableStorage" Version="3.0.84" />
     <PackageReference Include="SFA.DAS.Http" Version="3.2.69" />
