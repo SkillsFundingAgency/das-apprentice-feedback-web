@@ -34,6 +34,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
             _mockFeedbackService = new Mock<IApprenticeFeedbackService>();
             _mockSession = new Mock<IApprenticeFeedbackSessionService>();
             _contextAccessor = new Mock<IHttpContextAccessor>();
+            _contextAccessor.Setup(x => x.HttpContext).Returns(new DefaultHttpContext());
             _authenticatedUser = new AuthenticatedUser(_contextAccessor.Object);
 
             IndexPage = new IndexModel(Mock.Of<ILogger<IndexModel>>(), _mockFeedbackService.Object, _mockSession.Object);

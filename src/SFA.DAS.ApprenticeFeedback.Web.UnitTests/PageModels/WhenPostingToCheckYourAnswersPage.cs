@@ -30,6 +30,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
             _mockSessionService = new Mock<IApprenticeFeedbackSessionService>();
             _mockFeedbackService = new Mock<IApprenticeFeedbackService>();
             _contextAccessor = new Mock<IHttpContextAccessor>();
+            _contextAccessor.Setup(x => x.HttpContext).Returns(new DefaultHttpContext());
             _authenticatedUser = new AuthenticatedUser(_contextAccessor.Object);
             CheckYourAnswersPage = new CheckYourAnswersModel(_mockSessionService.Object, _mockFeedbackService.Object);
         }
