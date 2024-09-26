@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -7,7 +8,7 @@ using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
 using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback;
-using SFA.DAS.ApprenticeFeedback.Web.UnitTests.Helpers;
+using SFA.DAS.ApprenticePortal.Authentication;
 using SFA.DAS.Testing.AutoFixture;
 using System;
 using System.Threading.Tasks;
@@ -20,12 +21,17 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
 
         private Mock<IApprenticeFeedbackSessionService> _mockSessionService;
         private Mock<IApprenticeFeedbackService> _mockFeedbackService;
+        private Mock<IHttpContextAccessor> _contextAccessor;
+        private AuthenticatedUser _authenticatedUser;
 
         [SetUp]
         public void Arrange()
         {
             _mockSessionService = new Mock<IApprenticeFeedbackSessionService>();
             _mockFeedbackService = new Mock<IApprenticeFeedbackService>();
+            _contextAccessor = new Mock<IHttpContextAccessor>();
+            _contextAccessor.Setup(x => x.HttpContext).Returns(new DefaultHttpContext());
+            _authenticatedUser = new AuthenticatedUser(_contextAccessor.Object);
             CheckYourAnswersPage = new CheckYourAnswersModel(_mockSessionService.Object, _mockFeedbackService.Object);
         }
 
@@ -35,7 +41,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         {
             PostSubmitFeedback postSubmitFeedback = null;
             CheckYourAnswersPage.ContactConsent = true;
-            var user = AuthenticatedUserHelper.CreateAuthenticatedUser(apprenticeId);
             _mockSessionService.Setup(s => s.GetFeedbackContext()).Returns(context);
             _mockFeedbackService.Setup(s => s.SubmitFeedback(It.IsAny<PostSubmitFeedback>())).Callback<PostSubmitFeedback>(x => postSubmitFeedback = x);
 
