@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="RestEase" Version="1.6.4" />
-    <PackageReference Include="SFA.DAS.ApprenticePortal.SharedUi" Version="1.1.82-prerelease-4" />
+    <PackageReference Include="SFA.DAS.ApprenticePortal.SharedUi" Version="1.1.83-prerelease-2" />
   </ItemGroup>
 
 </Project>
