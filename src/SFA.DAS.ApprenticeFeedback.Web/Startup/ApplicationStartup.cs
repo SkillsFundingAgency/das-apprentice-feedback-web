@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NServiceBus.ObjectBuilder.MSDependencyInjection;
 using SFA.DAS.ApprenticeFeedback.Web.Configuration;
 using SFA.DAS.ApprenticePortal.SharedUi.Menu;
 using SFA.DAS.ApprenticePortal.SharedUi.Startup;
@@ -55,6 +54,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 
             services
                 .AddApplicationInsightsTelemetry()
+                .AddNServiceBus(Configuration)
                 .AddDataProtection(appConfig.ConnectionStrings, Environment)
                 .AddOuterApi(appConfig.ApprenticeFeedbackOuterApi)
                 .AddSessionService(Environment)
@@ -113,11 +113,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             {
                 endpoints.MapRazorPages();
             });
-        }
-
-        public void ConfigureContainer(UpdateableServiceProvider serviceProvider)
-        {
-            serviceProvider.StartNServiceBus(Configuration).GetAwaiter().GetResult();
         }
     }
 }

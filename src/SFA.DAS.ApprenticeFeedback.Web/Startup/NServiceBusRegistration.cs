@@ -1,30 +1,21 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
-using NServiceBus.Configuration.AdvancedExtensibility;
-using NServiceBus.ObjectBuilder.MSDependencyInjection;
 using SFA.DAS.ApprenticeFeedback.Application.Settings;
-using SFA.DAS.NServiceBus.Configuration;
-using SFA.DAS.NServiceBus.Configuration.AzureServiceBus;
-using SFA.DAS.NServiceBus.Configuration.MicrosoftDependencyInjection;
-using SFA.DAS.NServiceBus.Configuration.NewtonsoftJsonSerializer;
-using SFA.DAS.NServiceBus.Hosting;
 using System;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.Startup
 {
+    [ExcludeFromCodeCoverage]
     public static class NServiceBusRegistration
     {
-        public static async Task<UpdateableServiceProvider> StartNServiceBus(this UpdateableServiceProvider serviceProvider, IConfiguration configuration)
+        public static IServiceCollection AddNServiceBus(this IServiceCollection services, IConfiguration configuration)
         {
             var appSettings = configuration.GetSection("AppSettings").Get<AppSettings>();
 
-            var endpointConfiguration = new EndpointConfiguration("SFA.DAS.ApprenticeFeedback.Web")
-                .UseMessageConventions()
-                .UseNewtonsoftJsonSerializer()
-                .UseServicesBuilder(serviceProvider)
-                .UseSendOnly();
+            var endpointConfiguration = new EndpointConfiguration("SFA.DAS.ApprenticeFeedback.Web");
 
             if (appSettings.NServiceBusConnectionString.Equals("UseLearningEndpoint=true", StringComparison.CurrentCultureIgnoreCase))
             {
@@ -32,7 +23,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             }
             else
             {
-                endpointConfiguration.UseAzureServiceBusTransport(appSettings.NServiceBusConnectionString);
+                var transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+                transport.ConnectionString(appSettings.NServiceBusConnectionString);
             }
 
             if (!string.IsNullOrEmpty(appSettings.NServiceBusLicense))
@@ -40,13 +32,18 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 endpointConfiguration.License(appSettings.NServiceBusLicense);
             }
 
-            var endpoint = await Endpoint.Start(endpointConfiguration);
+            endpointConfiguration.SendOnly();
+            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
+            endpointConfiguration.Conventions()
+                .DefiningCommandsAs(t => Regex.IsMatch(t.Name, "Command(V\\d+)?$"))
+                .DefiningEventsAs(t => Regex.IsMatch(t.Name, "Event(V\\d+)?$"));
 
-            serviceProvider.AddSingleton(p => endpoint)
-                .AddSingleton<IMessageSession>(p => p.GetService<IEndpointInstance>())
-                .AddHostedService<NServiceBusHostedService>();
+            var endpointInstance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
 
-            return serviceProvider;
+            services.AddSingleton(endpointInstance);
+            services.AddSingleton<IMessageSession>(endpointInstance);
+
+            return services;
         }
     }
 }
