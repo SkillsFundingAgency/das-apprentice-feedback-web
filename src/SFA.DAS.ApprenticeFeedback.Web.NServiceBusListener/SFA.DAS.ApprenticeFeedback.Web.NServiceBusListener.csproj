@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,8 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="NServiceBus" Version="9.2.2" />
+	<PackageReference Include="NServiceBus.Heartbeat" Version="5.0.0" />
+	<PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="5.0.0" />
+	<PackageReference Include="NServiceBus.Newtonsoft.Json" Version="4.0.0" />
+	<PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="4.2.3" />
     <PackageReference Include="SFA.DAS.ApprenticeFeedback.Messages" Version="0.1.40" />
-    <PackageReference Include="SFA.DAS.NServiceBus" Version="17.0.49" />
   </ItemGroup>
 
 </Project>

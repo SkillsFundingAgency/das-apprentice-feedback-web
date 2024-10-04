@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using NServiceBus;
 using SFA.DAS.ApprenticeFeedback.Messages.Events;
-using SFA.DAS.NServiceBus.Configuration;
-using SFA.DAS.NServiceBus.Configuration.AzureServiceBus;
-using SFA.DAS.NServiceBus.Configuration.NewtonsoftJsonSerializer;
+using SFA.DAS.ApprenticeFeedback.Web.NServiceBusListener.Extensions;
 using System.Reflection;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.NServiceBusListener
