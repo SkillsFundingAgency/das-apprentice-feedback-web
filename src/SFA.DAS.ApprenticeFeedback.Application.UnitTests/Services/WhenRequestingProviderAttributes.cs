@@ -1,33 +1,45 @@
-﻿using AutoFixture.NUnit3;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.ApprenticeFeedback.Application.Services;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.Testing.AutoFixture;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.Pages
 {
-    public class WhenRequestingProviderAttributes
-    {
-        /*
-        [Test, MoqAutoData]
-        public async Task Then_Provider_Attributes_Are_Correctly_Returned
-            (
-            [Frozen] Mock<IApprenticeFeedbackApi> client,
-            [Greedy] ApprenticeFeedbackService service,
-            List<ProviderAttribute> response
-            )
-        {
-            client.Setup(x => x.GetProviderAttributes()).ReturnsAsync(response);
+    //public class WhenRequestingProviderAttributes
+    //{
 
-            var result = await service.GetFeedbackAttributes();
-            
-            result.Should().BeEquivalentTo(response);
-        }
-        */
-    }
+    //    private Mock<IApprenticeFeedbackApi> _clientMock;
+    //    private ApprenticeFeedbackService _service;
+
+    //    [SetUp]
+    //    public void SetUp()
+    //    {
+    //        _clientMock = new Mock<IApprenticeFeedbackApi>();
+    //        _service = new ApprenticeFeedbackService(_clientMock.Object);
+    //    }
+
+    //    [Test]
+    //    public async Task Then_Provider_Attributes_Are_Correctly_Returned()
+    //    {
+    //        // Arrange
+    //        var response = new List<ProviderAttribute>
+    //    {
+    //        // Populate with test data
+    //        new ProviderAttribute { /* Set properties */ },
+    //        new ProviderAttribute { /* Set properties */ }
+    //    };
+
+    //        _clientMock.Setup(x => x.GetProviderAttributes()).ReturnsAsync(response);
+
+    //        // Act
+    //        var result = await _service.GetFeedbackAttributes();
+
+    //        // Assert
+    //        result.Should().BeEquivalentTo(response);
+    //    }
+    //}
 }
