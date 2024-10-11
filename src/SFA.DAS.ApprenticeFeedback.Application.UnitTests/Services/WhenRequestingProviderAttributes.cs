@@ -1,11 +1,9 @@
-﻿using AutoFixture.NUnit3;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.ApprenticeFeedback.Application.Services;
 using SFA.DAS.ApprenticeFeedback.Domain.Api.Responses;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.Testing.AutoFixture;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

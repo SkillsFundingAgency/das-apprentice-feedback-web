@@ -2,10 +2,10 @@
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.ApprenticeFeedback.Domain.Interfaces;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback;
-using SFA.DAS.Testing.AutoFixture;
+using SFA.DAS.ApprenticeFeedback.Web.UnitTests.Helpers;
+using System;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
 {
@@ -25,9 +25,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         }
 
         [Ignore("Temporarily ignire in order to get Azure Build running")]
-        [Test, MoqAutoData]
-        public void And_FeedbackRequestIsAvailable_SetsModelCorrectly(FeedbackContext context)
+        [Test]
+        public void And_FeedbackRequestIsAvailable_SetsModelCorrectly()
         {
+            var apprenticeId = Guid.NewGuid();
+            var context = TestDataHelper.CreateFeedbackContextWithAttributes(apprenticeId);
             _mockSessionService.Setup(s => s.GetFeedbackContext()).Returns(context);
             CheckYourAnswersPage.OnGet();
 
