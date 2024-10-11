@@ -7,7 +7,6 @@ using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback;
 using SFA.DAS.ApprenticeFeedback.Web.UnitTests.Helpers;
-using SFA.DAS.Testing.AutoFixture;
 using System;
 using System.Threading.Tasks;
 
@@ -31,9 +30,13 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         }
 
         [Ignore("Temporarily ignire in order to get Azure Build running")]
-        [Test, MoqAutoData]
-        public async Task And_UkprnAndLarscodeProvidedInSession_FindApprenticeshipTrainingUrlIsGeneratedCorrectly(string url, Guid apprenticeshipId, int ukprn, TrainingProvider trainingProvider)
+        [Test]
+        public async Task And_UkprnAndLarscodeProvidedInSession_FindApprenticeshipTrainingUrlIsGeneratedCorrectly()
         {
+            string url = "http://test/com";
+            var apprenticeshipId = Guid.NewGuid();
+            int ukprn = 1000034;
+            var trainingProvider = TestDataHelper.CreateTrainingProvider(ukprn);
             var user = AuthenticatedUserHelper.CreateAuthenticatedUser(apprenticeshipId);
             _mockApprenticeFeedbackService.Setup(s => s.GetTrainingProvider(apprenticeshipId, ukprn)).ReturnsAsync(trainingProvider);
             //_mockUrlHelper.Setup(u => u.FindApprenticeshipTrainingFeedbackUrl(ukprn, trainingProvider.GetMostRecentlyStartedApprenticeship().LarsCode)).Returns(url);
