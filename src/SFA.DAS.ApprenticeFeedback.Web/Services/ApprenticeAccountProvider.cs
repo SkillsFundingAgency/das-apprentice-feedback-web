@@ -29,7 +29,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Services
 
         public async Task<IApprenticeAccount> PutApprenticeAccount(string email, string govIdentifier)
         {
-            return await _client.PutApprentice(new PutApprenticeRequest(email, govIdentifier));
+            return await _client.PutApprentice(new PutApprenticeAccount { Email = email, GovUkIdentifier = govIdentifier });
         }
     }
 }

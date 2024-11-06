@@ -28,6 +28,9 @@ namespace SFA.DAS.ApprenticeFeedback.Domain.Interfaces
         [Get("/apprentice/{id}")]
         Task<Apprentice> GetApprentice([Path] Guid id);
 
+        [Put("/apprentices")]
+        Task<Apprentice> PutApprentice([Body] PutApprenticeAccount request);
+
         [Post("/exitsurvey")]
         Task SubmitExitSurvey([Body] PostSubmitExitSurvey exitSurvey);
 
