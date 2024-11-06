@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ApprenticeFeedback.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ApprenticeFeedback.Domain.UnitTests", "SFA.DAS.ApprenticeFeedback.Domain.UnitTests\SFA.DAS.ApprenticeFeedback.Domain.UnitTests.csproj", "{5438D577-3870-43A8-A370-9FB8CE2B6F8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ApprenticeFeedback.Web.NServiceBusListener", "SFA.DAS.ApprenticeFeedback.Web.NServiceBusListener\SFA.DAS.ApprenticeFeedback.Web.NServiceBusListener.csproj", "{7171FD1C-D220-493F-84FC-1AA6446AF0D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ApprenticeFeedback.Web.NServiceBusListener", "SFA.DAS.ApprenticeFeedback.Web.NServiceBusListener\SFA.DAS.ApprenticeFeedback.Web.NServiceBusListener.csproj", "{7171FD1C-D220-493F-84FC-1AA6446AF0D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
