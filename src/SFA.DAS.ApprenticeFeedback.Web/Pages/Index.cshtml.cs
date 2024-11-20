@@ -43,6 +43,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
         {
             try
             {
+                _logger.LogWarning("Getting home page example log.");
                 TrainingProviderItems = await _apprenticeFeedbackService.GetTrainingProviders(user.ApprenticeId);
             }
             catch (Exception ex)
