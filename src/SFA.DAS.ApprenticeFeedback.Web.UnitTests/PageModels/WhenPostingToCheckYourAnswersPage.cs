@@ -8,7 +8,6 @@ using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback;
 using SFA.DAS.ApprenticeFeedback.Web.UnitTests.Helpers;
-using SFA.DAS.Testing.AutoFixture;
 using System;
 using System.Threading.Tasks;
 
@@ -30,9 +29,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         }
 
         [Ignore("Temporarily ignire in order to get Azure Build running")]
-        [Test, MoqAutoData]
-        public async Task And_FeedbackRequestIsAvailable_SubmitsFeedbackForSignedInUser(FeedbackContext context, Guid apprenticeId)
+        [Test]
+        public async Task And_FeedbackRequestIsAvailable_SubmitsFeedbackForSignedInUser()
         {
+            var apprenticeId = Guid.NewGuid();
+            var context = TestDataHelper.CreateFeedbackContextWithAttributes(apprenticeId);    
             PostSubmitFeedback postSubmitFeedback = null;
             CheckYourAnswersPage.ContactConsent = true;
             var user = AuthenticatedUserHelper.CreateAuthenticatedUser(apprenticeId);
