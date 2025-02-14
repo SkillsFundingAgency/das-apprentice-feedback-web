@@ -79,7 +79,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
             if (0 == selectedCount)
             {
-                ModelState.AddModelError("MultipleErrorSummary", "Select the factors that contributed to you not finishing your apprenticeship");
+                ModelState.AddModelError("MultipleErrorSummary", "Select what contributed to you leaving your apprenticeship");
             }
 
             if (!ModelState.IsValid)
