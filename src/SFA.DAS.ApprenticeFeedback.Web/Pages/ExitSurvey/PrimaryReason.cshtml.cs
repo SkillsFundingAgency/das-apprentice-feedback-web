@@ -23,7 +23,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         public List<ExitSurveyAttribute> TrainingProviderAttributes { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Select the main reason why you did not finish your apprenticeship")]
+        [Required(ErrorMessage = "Select what was the main reason for leaving your apprenticeship")]
         public int? SelectedAttributeId { get; set; }
 
         public PrimaryReasonModel(IExitSurveySessionService sessionService
