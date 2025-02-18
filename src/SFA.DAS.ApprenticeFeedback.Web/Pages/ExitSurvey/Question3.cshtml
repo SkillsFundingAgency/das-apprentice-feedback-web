@@ -12,23 +12,22 @@
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-heading-l">
-                            Would any of the following have made you more likely to stay on the apprenticeship?
+                            What would have helped you stay?
                         </h1>
                     </legend>
                     <div id="options-hint" class="govuk-hint">
-                        Please select any of the answers that are relevant to you.
+                        Select all that apply
                     </div>
 
                     <span asp-validation-for="ReasonAttributes" class="govuk-error-message"></span>
 
-                    @Html.ValidationMessage("MultipleErrorSummary",new { @class = "govuk-error-message" })
+                    @Html.ValidationMessage("MultipleErrorSummary", new { @class = "govuk-error-message" })
                     @await Component.InvokeAsync("AttributeCheckboxes", new { attributes = Model.ReasonAttributes, attributesModelName = "ReasonAttributes", lastIsExclusive = true })
 
                 </fieldset>
             </div>
             <button class="govuk-button" type="submit"> Continue </button>
         </form>
-
     </div>
 </div>
 
