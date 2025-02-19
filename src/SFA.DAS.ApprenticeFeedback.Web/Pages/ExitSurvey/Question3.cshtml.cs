@@ -100,8 +100,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             }
             SaveContext();
 
-            // TODO: This is a temporary refresh; update once the next page implementation is complete.
-            return RedirectToPage(ExitSurveyContext.CheckingAnswers ? "./checkyouranswers" : "./question3");
+            return RedirectToPage(ExitSurveyContext.CheckingAnswers ? "./checkyouranswers" : "./question4");
         }
     }
 }
