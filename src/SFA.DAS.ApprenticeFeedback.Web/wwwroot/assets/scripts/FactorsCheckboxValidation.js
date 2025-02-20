@@ -4,11 +4,11 @@
 
         if (this.checked) {
 
-            /* For go-live there are 13 reason attributes. 
-             * So the "none" option has array index 12
+            /* For go-live there are 16 reason attributes. 
+             * So the "none" option has array index 15
              * This is quite brittle and one to watch out for if ever the list of attributes changes in the future
              */
-            if (this.id == 'ReasonAttributes_12__Value') {
+            if (this.id == 'ReasonAttributes_15__Value') {
                 $('#ReasonAttributes_0__Value').prop('checked', false);
                 $('#ReasonAttributes_1__Value').prop('checked', false);
                 $('#ReasonAttributes_2__Value').prop('checked', false);
@@ -21,9 +21,12 @@
                 $('#ReasonAttributes_9__Value').prop('checked', false);
                 $('#ReasonAttributes_10__Value').prop('checked', false);
                 $('#ReasonAttributes_11__Value').prop('checked', false);
+                $('#ReasonAttributes_12__Value').prop('checked', false);
+                $('#ReasonAttributes_13__Value').prop('checked', false);
+                $('#ReasonAttributes_14__Value').prop('checked', false);
             }
             else {
-                $('#ReasonAttributes_12__Value').prop('checked', false);
+                $('#ReasonAttributes_15__Value').prop('checked', false);
             }
         }
     });

@@ -39,11 +39,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         }
 
         [BindProperty]
-        [Required(ErrorMessage = "Select which of the following would have made you stay on the apprenticeship")]
+        [Required(ErrorMessage = "Select what would have helped you stay")]
         public List<ExitSurveyAttribute> ReasonAttributes { get; set; }
 
         // This ID is set by the post deployment script in the inner API database project
-        private const int NoneAttributeId = 59;
+        private const int NoneAttributeId = 194;
 
         public Question3Model(IExitSurveySessionService sessionService
             , IApprenticeFeedbackService apprenticeFeedbackService)
@@ -75,14 +75,14 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
 
             if (0 == selectedCount)
             {
-                ModelState.AddModelError("MultipleErrorSummary", "Select the factors that would have made you stay or select 'None of these would have made me stay'");
+                ModelState.AddModelError("MultipleErrorSummary", "Select what would have helped you stay or select 'Something else'");
             }
             if (selectedCount > 1)
             {
                 var exclusiveAttribute = selectedReasonAttributes.FirstOrDefault(a => a.Id == NoneAttributeId);
                 if (null != exclusiveAttribute)
                 {
-                    ModelState.AddModelError("MultipleErrorSummary", "Select the factors that would have made you stay or select 'None of these would have made me stay'");  // Select which of the following would have made you stay on the apprenticeship
+                    ModelState.AddModelError("MultipleErrorSummary", "Select what would have helped you stay or select 'Something else'");  // Select which of the following would have made you stay on the apprenticeship
                 }
             }
 
@@ -100,7 +100,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
             }
             SaveContext();
 
-            return RedirectToPage("./checkyouranswers");
+            // TODO: This is a temporary refresh; update once the next page implementation is complete.
+            return RedirectToPage(ExitSurveyContext.CheckingAnswers ? "./checkyouranswers" : "./question3");
         }
     }
 }
