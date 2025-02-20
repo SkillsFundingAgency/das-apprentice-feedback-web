@@ -32,32 +32,35 @@
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                            Did any of the following factors contribute to you not finishing the apprenticeship?
+                            What contributed to you leaving your apprenticeship?
                         </dt>
                         <dd class="govuk-summary-list__value">
                             @{
-                                if(Model.PersonalCircumstancesAttributes.Any()) 
+                                if (Model.PersonalCircumstancesAttributes.Any())
                                 {
                                     <span class="govuk-heading-s" style="margin-bottom: 0px;">My personal circumstances</span>
-                                    foreach(var a in Model.PersonalCircumstancesAttributes) {
+                                    foreach (var a in Model.PersonalCircumstancesAttributes)
+                                    {
                                         @a.Name
-                                        <br/>
+                                        <br />
                                     }
                                 }
-                                if(Model.EmployerAttributes.Any()) 
+                                if (Model.EmployerAttributes.Any())
                                 {
                                     <span class="govuk-heading-s" style="margin-bottom: 0px;">My employer</span>
-                                    foreach(var a in Model.EmployerAttributes) {
+                                    foreach (var a in Model.EmployerAttributes)
+                                    {
                                         @a.Name
-                                        <br/>
+                                        <br />
                                     }
                                 }
-                                if(Model.TrainingProviderAttributes.Any()) 
+                                if (Model.TrainingProviderAttributes.Any())
                                 {
                                     <span class="govuk-heading-s" style="margin-bottom: 0px;">My training provider</span>
-                                    foreach(var a in Model.TrainingProviderAttributes) {
+                                    foreach (var a in Model.TrainingProviderAttributes)
+                                    {
                                         @a.Name
-                                        <br/>
+                                        <br />
                                     }
                                 }
                             }
@@ -71,7 +74,7 @@
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                            Which of the following factors was the main reason why you did not finish your apprenticeship?
+                            What was the main reason for leaving your apprenticeship?
                         </dt>
                         <dd class="govuk-summary-list__value">
                             @{
@@ -97,7 +100,7 @@
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key govuk-!-width-one-third">
-                            Would any of the following have made you more likely to stay on the apprenticeship?
+                            What would have helped you stay?
                         </dt>
                         <dd class="govuk-summary-list__value">
                             @foreach (var a in Model.RemainFactorAttributes)
@@ -112,20 +115,34 @@
                             </a>
                         </dd>
                     </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            What did you do after leaving your apprenticeship?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.ExitSurveyContext.Attributes.FirstOrDefault(a => a.Category == SFA.DAS.ApprenticeFeedback.Domain.Models.ExitSurvey.ExitSurveyAttributeCategory.PostApprenticeshipStatus)?.Name
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link--no-visited-state" href="/exit/question4">
+                                Change<span class="govuk-visually-hidden"> question 4</span>
+                            </a>
+                        </dd>
+                    </div>
                 }
 
             </dl>
 
             <div class="govuk-form-group">
-                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" asp-for="AllowContact">
-                            <label class="govuk-label govuk-checkboxes__label" for="AllowContact">
-                                I'm happy to be contacted by the Apprenticeship service
-                            </label>
-                        </div>
-
+                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" asp-for="AllowContact">
+                        <label class="govuk-label govuk-checkboxes__label" for="AllowContact">
+                            I'm happy to be contacted by the Apprenticeship service
+                        </label>
                     </div>
+
+                </div>
             </div>
 
             <div class="govuk-button-group">
