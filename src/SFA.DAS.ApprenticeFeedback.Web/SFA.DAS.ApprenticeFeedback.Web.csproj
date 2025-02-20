@@ -6,13 +6,11 @@
 
   <ItemGroup>
     <Compile Remove="Pages\ExitSurvey\IncorrectReason.cshtml.cs" />
-    <Compile Remove="Pages\ExitSurvey\Question4.cshtml.cs" />
     <Compile Remove="Pages\Feedback\SelectTrainingProvider.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Pages\ExitSurvey\IncorrectReason.cshtml" />
-    <Content Remove="Pages\ExitSurvey\Question4.cshtml" />
     <Content Remove="Pages\Feedback\SelectTrainingProvider.cshtml" />
   </ItemGroup>
 

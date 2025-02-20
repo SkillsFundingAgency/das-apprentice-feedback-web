@@ -3,6 +3,7 @@
     public static class ExitSurveyAttributeCategory
     {
         public static readonly string ApprenticeshipStatus = "ApprenticeshipStatus";
+        public static readonly string PostApprenticeshipStatus = "PostApprenticeshipStatus";
         public static readonly string PersonalCircumstances = "PersonalCircumstances";
         public static readonly string Employer = "Employer";
         public static readonly string TrainingProvider = "TrainingProvider";
