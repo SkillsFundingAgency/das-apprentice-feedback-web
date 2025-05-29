@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="RestEase" Version="1.6.4" />
-    <PackageReference Include="SFA.DAS.ApprenticePortal.SharedUi" Version="1.1.84-prerelease-2" />
+    <PackageReference Include="SFA.DAS.ApprenticePortal.SharedUi" Version="1.1.91" />
   </ItemGroup>
 
 </Project>

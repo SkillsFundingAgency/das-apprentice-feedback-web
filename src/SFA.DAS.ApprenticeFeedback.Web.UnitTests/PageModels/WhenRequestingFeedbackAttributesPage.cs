@@ -1,11 +1,9 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.ApprenticeFeedback.Domain.Models.Feedback;
 using SFA.DAS.ApprenticeFeedback.Infrastructure.Session;
 using SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback;
-using SFA.DAS.Testing.AutoFixture;
-using System.Collections.Generic;
+using SFA.DAS.ApprenticeFeedback.Web.UnitTests.Helpers;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
@@ -24,13 +22,15 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         }
 
         [Ignore("Needs to be moved to start page or confirmed here using the FeedbackContext")]
-        [Test, MoqAutoData]
-        public async Task And_FeedbackAttributesIsNull_FeedbackAttributesIsPopulatedCorrectly(List<FeedbackSurveyAttribute> attributes)
+        [Test]
+        public async Task And_FeedbackAttributesIsNull_FeedbackAttributesIsPopulatedCorrectly()
         {
+            var attributes = TestDataHelper.CreateFeedbackAttributes();
+
             //_mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
             //request.FeedbackAttributes = null;
             //_mockFeedbackService.Setup(s => s.GetTrainingProviderAttributes()).ReturnsAsync(attributes);
-            
+
             FeedbackAttributesPage.OnGet(true);
 
             FeedbackAttributesPage.FeedbackAttributes.Should().BeEquivalentTo(attributes);
@@ -38,9 +38,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.UnitTests.PageModels
         }
 
         [Ignore("Needs to be moved to start page or confirmed here using the FeedbackContext")]
-        [Test, MoqAutoData]
-        public async Task And_FeedbackAttributesIsPopulated_FeedbackAttributesIsPopulatedCorrectly(List<FeedbackSurveyAttribute> feedbackAttributes)
+        [Test]
+        public async Task And_FeedbackAttributesIsPopulated_FeedbackAttributesIsPopulatedCorrectly()
         {
+            var feedbackAttributes = TestDataHelper.CreateFeedbackAttributes();
+
             //_mockSessionService.Setup(s => s.GetFeedbackRequest()).Returns(request);
             //feedbackAttributes = request.FeedbackAttributes;
 

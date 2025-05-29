@@ -1,5 +1,5 @@
-﻿@page "/exit/question1"
-@model SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey.Question1Model
+﻿@page "/exit/question4"
+@model SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey.Question4Model
 @{
     ViewData["Title"] = "Exit survey";
 }
@@ -9,10 +9,10 @@
         <partial name="ValidationSummary" />
         <form method="post">
             <div class="govuk-form-group" validation-row-status property-name="SelectedAttributeId">
-                <fieldset class="govuk-fieldset">                    
+                <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-heading-l">
-                            Where are you with your apprenticeship?
+                            What did you do after leaving your apprenticeship?
                         </h1>
                     </legend>
                     <div id="options-hint" class="govuk-hint">
@@ -30,6 +30,11 @@
                             <input type="hidden" asp-for="Attributes[i].Category" />
                             <input type="hidden" asp-for="Attributes[i].Ordering" />
 
+                            @if (i == Model.Attributes.Count() - 1)
+                            {
+                                <div class="govuk-checkboxes__divider">or</div>
+                            }
+
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="@($"attribute-{i}")" asp-for="SelectedAttributeId" type="radio" value="@Model.Attributes[i].Id">
                                 <label class="govuk-label govuk-radios__label" for="@($"attribute-{i}")">
@@ -39,12 +44,9 @@
                         }
 
                     </div>
-
-
                 </fieldset>
             </div>
             <button class="govuk-button" type="submit"> Continue </button>
         </form>
-
     </div>
 </div>

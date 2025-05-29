@@ -24,11 +24,11 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.ExitSurvey
         // List of Ids of attributes in category "ApprenticeshipStatus" which
         // represent options where the apprentice HAS NOT withdrawn
         // These are set up in the AddDefaultExitSurveyAttribues.sql post-deployment script in the API project.
-        private readonly List<int> NotWithdrawnIds = new List<int>() { 13, 14, 15, 16 };
+        private readonly List<int> NotWithdrawnIds = new List<int>() { 142, 143, 144, 145 };
         // List of Ids of attributes in category "ApprenticeshipStatus" which
         // represent options where the apprentice HAS withdrawn
         // These are set up in the AddDefaultExitSurveyAttribues.sql post-deployment script in the API project.
-        private readonly List<int> WithdrawnIds = new List<int>() { 17 };
+        private readonly List<int> WithdrawnIds = new List<int>() { 146 };
 
         [BindProperty]
         [Required(ErrorMessage = "Select where you are with your apprenticeship")]
