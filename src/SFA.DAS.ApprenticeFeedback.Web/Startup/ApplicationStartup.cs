@@ -53,8 +53,9 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
         {
             var appConfig = Configuration.Get<ApplicationConfiguration>();
 
+            services.AddOpenTelemetryRegistration(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]!);
+
             services
-                .AddApplicationInsightsTelemetry()
                 .AddDataProtection(appConfig.ConnectionStrings, Environment)
                 .AddOuterApi(appConfig.ApprenticeFeedbackOuterApi)
                 .AddSessionService(Environment)
