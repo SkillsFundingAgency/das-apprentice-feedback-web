@@ -37,12 +37,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Bindings
                 Config = new Dictionary<string, string>
                 {
                     {"EnvironmentName", "ACCEPTANCE_TESTS"},
-                    {"Authentication:MetadataAddress", _context.IdentityServiceUrl},
                     {"ApprenticeFeedbackOuterApi:ApiBaseUrl", _context.OuterApi?.BaseAddress ?? "https://api/"},
                     {"ApplicationUrls:ApprenticeHomeUrl", "https://home/"},
                     {"ApplicationUrls:ApprenticeAccountsUrl", "https://account/"},
                     {"ApplicationUrls:ApprenticeCommitmentsUrl", "http://commitments/"},
-                    {"ApplicationUrls:ApprenticeLoginUrl", "https://login/"},
                     {"ApplicationUrls:ApprenticeFeedbackUrl", "https://localhost"},
                     {"ApplicationUrls:ApprenticeAanUrl", "https://localhost"},
                     {"AppSettings:NServiceBusConnectionString", "UseLearningEndpoint=true"}
