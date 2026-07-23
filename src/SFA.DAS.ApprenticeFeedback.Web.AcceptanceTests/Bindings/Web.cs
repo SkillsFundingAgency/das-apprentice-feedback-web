@@ -41,7 +41,6 @@ namespace SFA.DAS.ApprenticeFeedback.Web.AcceptanceTests.Bindings
                     {"ApplicationUrls:ApprenticeHomeUrl", "https://home/"},
                     {"ApplicationUrls:ApprenticeAccountsUrl", "https://account/"},
                     {"ApplicationUrls:ApprenticeCommitmentsUrl", "http://commitments/"},
-                    {"ApplicationUrls:ApprenticeLoginUrl", "https://login/"},
                     {"ApplicationUrls:ApprenticeFeedbackUrl", "https://localhost"},
                     {"ApplicationUrls:ApprenticeAanUrl", "https://localhost"},
                     {"AppSettings:NServiceBusConnectionString", "UseLearningEndpoint=true"}
