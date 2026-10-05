@@ -15,7 +15,7 @@ This repository represents the Apprentice Feedback Web code base. Apprentice Fee
 ### Requirements
 
 In order to run this solution locally you will need the following:
-* [.net 6.0](https://www.microsoft.com/net/download/)
+* [.net 10.0](https://www.microsoft.com/net/download/)
 * (VS Code Only) [C# Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 * [SQL Server Express LocalDB](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb)
 * [Azurite](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite) (previously known as Azure Storage Emulator)
@@ -81,7 +81,7 @@ This codebase includes unit tests and acceptance tests. These are all in seperat
 
 #### Unit Tests
 
-There are several unit test projects in the solution built using C#, .net 6.0, FluentAssertions, Moq, NUnit, and AutoFixture.
+There are several unit test projects in the solution built using C#, .net 10.0, FluentAssertions, Moq, NUnit, and AutoFixture.
 * `SFA.DAS.ApprenticeFeedback.Application.UnitTests`
 * `SFA.DAS.ApprenticeFeedback.Domain.UnitTests`
 * `SFA.DAS.ApprenticeFeedback.Infrastructure.UnitTests`

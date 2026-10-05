@@ -40,19 +40,19 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages.Feedback
                 case Domain.Models.Feedback.FeedbackEligibility.Deny_HasGivenFinalFeedback:
                     IsHappyStatus = true;
                     NotificationContentHeading = $"You have already given your final feedback on this training provider.";
-                    NotificationContent = $"You can only give feedback on them if you start a new apprenticeship with them. If you start a new apprenticeship with a different training provider, you will be able to give feedback on them {FeedbackContext.TimeWindow.Value.Humanize(maxUnit: Humanizer.TimeUnit.Month)} after your planned training start date.";
+                    NotificationContent = $"You can only give feedback on them if you start a new apprenticeship with them. If you start a new apprenticeship with a different training provider, you will be able to give feedback on them {FeedbackContext.TimeWindow.Value.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month)} after your planned training start date.";
                     break;
 
                 // Unhappy messages
                 case Domain.Models.Feedback.FeedbackEligibility.Deny_TooSoon:
-                    NotificationContentHeading = $"We are unable to accept feedback on your training provider until {FeedbackContext.TimeWindow.Value.Humanize(maxUnit: Humanizer.TimeUnit.Month)} after your planned training start date.";
+                    NotificationContentHeading = $"We are unable to accept feedback on your training provider until {FeedbackContext.TimeWindow.Value.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month)} after your planned training start date.";
                     NotificationContent = $"You can start giving feedback on or after {FeedbackContext.SignificantDate.Value.ToString("d MMMM yyyy")}.";
                     break;
                 case Domain.Models.Feedback.FeedbackEligibility.Deny_TooLateAfterPassing:
-                    NotificationContentHeading = $"It is over {FeedbackContext.TimeWindow.Value.Humanize(maxUnit: Humanizer.TimeUnit.Month)} since you completed your apprenticeship and we are unable to accept feedback after this time.";
+                    NotificationContentHeading = $"It is over {FeedbackContext.TimeWindow.Value.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month)} since you completed your apprenticeship and we are unable to accept feedback after this time.";
                     break;
                 case Domain.Models.Feedback.FeedbackEligibility.Deny_TooLateAfterWithdrawing:
-                    NotificationContentHeading = $"It is over {FeedbackContext.TimeWindow.Value.Humanize(maxUnit: Humanizer.TimeUnit.Month)} since you withdrew from your apprenticeship and we are unable to accept feedback after this time.";
+                    NotificationContentHeading = $"It is over {FeedbackContext.TimeWindow.Value.Humanize(maxUnit: Humanizer.Localisation.TimeUnit.Month)} since you withdrew from your apprenticeship and we are unable to accept feedback after this time.";
                     break;
             }
 
