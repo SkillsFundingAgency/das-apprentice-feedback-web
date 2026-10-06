@@ -47,7 +47,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Pages
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to read training provider data from outer api.", ex);
+                _logger.LogError(ex, "Failed to read training provider data from outer api.");
                 return Redirect("Error");
             }
 

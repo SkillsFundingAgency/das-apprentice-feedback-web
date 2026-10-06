@@ -41,7 +41,10 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
             }
 
 #if DEBUG
-            config.AddJsonFile($"appsettings.Development.json", optional: true);
+            if (environmentName != "ACCEPTANCE_TESTS")
+            {
+                config.AddJsonFile("appsettings.Development.json", optional: true);
+            }
 #endif
             Configuration = config.Build();
         }
@@ -62,15 +65,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 .RegisterServices(Environment);
             
             services.AddTransient<ICustomClaims, ApprenticeAccountPostAuthenticationClaimsHandler>();
-            if (appConfig.UseGovSignIn)
-            {
-                services.AddGovLoginAuthentication(appConfig.ApplicationUrls,Configuration);
-            }
-            else
-            {
-                services.AddAuthentication(appConfig!.Authentication, Environment);    
-            }
-
+            services.AddGovLoginAuthentication(appConfig.ApplicationUrls, Configuration);
             services.AddSingleton((_) => appConfig.AppSettings);
 
             services.AddSharedUi(appConfig, options =>
@@ -78,7 +73,7 @@ namespace SFA.DAS.ApprenticeFeedback.Web.Startup
                 options.SetCurrentNavigationSection(NavigationSection.ApprenticeFeedback);
                 options.EnableZendesk();
                 options.EnableGoogleAnalytics();
-                options.SetUseGovSignIn(appConfig.UseGovSignIn);
+                options.SetUseGovSignIn(true);
             });
 
             services.AddSession(options =>
