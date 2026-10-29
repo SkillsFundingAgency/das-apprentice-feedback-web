@@ -16,8 +16,8 @@ namespace SFA.DAS.ApprenticeFeedback.Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<ApplicationStartup>()
-                        .UseNServiceBusContainer();
-                });
+                    webBuilder.UseStartup<ApplicationStartup>();
+                })
+                .UseNServiceBusContainer();
     }
 }
